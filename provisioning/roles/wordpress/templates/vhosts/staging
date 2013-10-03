@@ -1,0 +1,22 @@
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+
+    ServerName staging.{{ project_name }}
+
+    DocumentRoot /var/www/{{ project_name }}/master/current/web
+    <Directory />
+        Options FollowSymLinks
+        AllowOverride None
+    </Directory>
+    <Directory /var/www/{{ project_name }}/master/current/web/>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+    LogLevel warn
+
+    ErrorLog ${APACHE_LOG_DIR}/staging.{{ project_name }}-error.log
+    CustomLog ${APACHE_LOG_DIR}/staging.{{ project_name }}-access.log combined
+</VirtualHost>

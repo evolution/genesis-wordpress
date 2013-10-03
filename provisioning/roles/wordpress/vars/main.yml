@@ -1,0 +1,20 @@
+---
+php_packages:
+  - php5-curl
+  - php5-gd
+
+php_settings:
+  memory_limit:   1024M
+  date_timezone:  America/Chicago
+
+apache_modules:
+  - expires
+  - headers
+  - rewrite
+  - vhost_alias
+
+apache_vhosts:
+  - local
+  - staging
+  - branch
+  - production

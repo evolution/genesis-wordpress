@@ -1,0 +1,50 @@
+---
+- name:           Install system packages
+  apt:            pkg=${item} update_cache=yes cache_valid_time=86400
+  with_items:     ${system_packages}
+  sudo:           yes
+
+- name:           Install LAMP stack
+  shell:          DEBIAN_FRONTEND=noninteractive tasksel install lamp-server
+  sudo:           yes
+
+- name:           Install PHP packages
+  apt:            pkg=${item}
+  with_items:     ${php_packages}
+  sudo:           yes
+
+- name:           Enable Apache modules
+  command:        a2enmod ${item}
+  with_items:     ${apache_modules}
+  sudo:           yes
+
+- name:           Check for vagrant user
+  command:        id -u vagrant
+  register:       has_vagrant
+  ignore_errors:  True
+
+- name:           Add vagrant user to www-data
+  user:           name=vagrant append=yes groups=www-data
+  when:           has_vagrant.stdout
+  sudo:           yes
+
+- name:           Update php.ini's memory_limit
+  lineinfile:     dest=/etc/php5/apache2/php.ini backup=yes regexp=^memory_limit line='memory_limit = 1024M'
+  sudo:           yes
+
+- name:           Update php.ini's date.timezone
+  lineinfile:     dest=/etc/php5/apache2/php.ini backup=yes regexp=^;date.timezone line='date.timezone = "America/Chicago'
+  sudo:           yes
+
+- name:           Update my.conf's bind-address
+  lineinfile:     dest=/etc/mysql/my.cnf backup=yes regexp=^bind-address line='bind-address = 0.0.0.0'
+  sudo:           yes
+
+- name:           Create deploy user
+  user:           name=deploy append=yes groups=www-data comment="Created by Genesis WordPress"
+  sudo:           yes
+
+- name:           Grant sudo access to deploy user
+  copy:           content="%deploy ALL=(ALL) NOPASSWD:ALL" dest=/etc/sudoers.d/deploy mode=0440 force=no
+  sudo:           yes
+

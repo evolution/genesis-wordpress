@@ -1,0 +1,23 @@
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+
+    ServerName branch.staging.{{ project_name }}
+    ServerAlias *.staging.{{ project_name }}
+
+    VirtualDocumentRoot /var/www/{{ project_name }}/%1/current/web
+    <Directory />
+        Options FollowSymLinks
+        AllowOverride None
+    </Directory>
+    <Directory /var/www/{{ project_name }}/>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+    LogLevel warn
+
+    ErrorLog ${APACHE_LOG_DIR}/branch.{{ project_name }}-error.log
+    CustomLog ${APACHE_LOG_DIR}/branch.{{ project_name }}-access.log combined
+</VirtualHost>

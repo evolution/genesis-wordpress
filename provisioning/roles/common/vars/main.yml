@@ -1,0 +1,7 @@
+---
+system_packages:
+  - build-essential
+  - autoconf
+  - re2c
+  - git-core
+  - python-mysqldb

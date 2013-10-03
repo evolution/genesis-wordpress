@@ -1,0 +1,4 @@
+---
+- name:     restart apache
+  command:  apache2ctl restart
+  sudo:     true

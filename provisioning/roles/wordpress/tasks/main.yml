@@ -1,0 +1,25 @@
+---
+- name:           Change ownership of /var/www to deploy
+  file:           path=/var/www state=directory owner=deploy group=deploy
+  sudo:           yes
+
+- name:           Create MySQL database
+  mysql_db:       name=${mysql.name}
+
+- name:           Create MySQL user
+  mysql_user:     name=${mysql.user} host=${mysql.host} password=${mysql.password} priv=${mysql.name}.*:GRANT,ALL
+
+- name:           Disable default apache site
+  command:        a2dissite 000-default removes=/etc/apache2/sites-enabled/000-default
+
+- name:           Create apache vhosts
+  template:       src=vhosts/${item} dest=/etc/apache2/sites-available/${item}.${project_name} mode=0644
+  with_items:     ${apache_vhosts}
+  sudo:           true
+
+- name:           Enable apache vhosts
+  command:        a2ensite ${item}.${project_name}
+  with_items:     ${apache_vhosts}
+  sudo:           true
+  notify:
+    - restart apache
