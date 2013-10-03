@@ -1,17 +1,17 @@
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
 
-    ServerName production.{{ project_name }}
+    ServerName production.{{ domain }}
 
-    ServerAlias {{ project_name }}
-    ServerAlias www.{{ project_name }}
+    ServerAlias {{ domain }}
+    ServerAlias www.{{ domain }}
 
-    DocumentRoot /var/www/{{ project_name }}/master/current/web
+    DocumentRoot /var/www/{{ domain }}/master/current/web
     <Directory />
         Options FollowSymLinks
         AllowOverride None
     </Directory>
-    <Directory /var/www/{{ project_name }}/master/current/web/>
+    <Directory /var/www/{{ domain }}/master/current/web/>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
         Order allow,deny
@@ -20,6 +20,6 @@
 
     LogLevel warn
 
-    ErrorLog ${APACHE_LOG_DIR}/www.{{ project_name }}-error.log
-    CustomLog ${APACHE_LOG_DIR}/www.{{ project_name }}-access.log combined
+    ErrorLog ${APACHE_LOG_DIR}/www.{{ domain }}-error.log
+    CustomLog ${APACHE_LOG_DIR}/www.{{ domain }}-access.log combined
 </VirtualHost>

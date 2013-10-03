@@ -1,7 +1,7 @@
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
 
-    ServerName local.{{ project_name }}
+    ServerName local.{{ domain }}
 
     DocumentRoot /vagrant/web
     <Directory />
@@ -17,6 +17,6 @@
 
     LogLevel warn
 
-    ErrorLog ${APACHE_LOG_DIR}/local.{{ project_name }}-error.log
+    ErrorLog ${APACHE_LOG_DIR}/local.{{ domain }}-error.log
     CustomLog ${APACHE_LOG_DIR}/local.onlineschools.org-access.log combined
 </VirtualHost>
