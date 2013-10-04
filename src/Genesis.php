@@ -19,6 +19,10 @@ class Genesis
 
     public static function rewriteUrls()
     {
+        if (!function_exists('is_blog_installed') || !is_blog_installed()) {
+            return false;
+        }
+
         $old_url = site_url();
         $new_url = 'http://' . $_SERVER['HTTP_HOST'];
 
