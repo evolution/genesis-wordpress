@@ -1,0 +1,25 @@
+{
+  "name": "genesis-wordpress",
+  "version": "0.1.3",
+  "homepage": "https://github.com/genesis/wordpress",
+  "authors": [
+    "Eric Clemmons <eric@smarterspam.com>"
+  ],
+  "description": "Libraries for a multi-staged WordPress workflow with Vagrant",
+  "keywords": [
+    "vagrant",
+    "wordpress",
+    "genesis",
+    "cap",
+    "capistrano",
+    "deploy"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
