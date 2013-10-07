@@ -34,7 +34,10 @@ set :rsync_exclude,     [".git", ".test", ".vagrant", "cache"]
 # Setting current_release just in case
 set :current_release,   ""
 
-# Remote web root for rsync'ing,
+# Local web root for rsync'ing
+set :local_web,         "./web"
+
+# Remote web root for rsync'ing
 set(:remote_web)        { "#{current_path}/web" }
 
 # Keep 5 previous releases, used with deploy:cleanup

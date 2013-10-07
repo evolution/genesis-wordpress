@@ -50,15 +50,13 @@ namespace :wp do
 
         desc "Downloads remote files to Vagrant"
         task :files, :roles => :web do
-            set :src,       "#{deploy_to}" unless exists?(:src)
-            set :dest,      "." unless exists?(:dest)
-            set :excludes,  "--exclude '#{rsync_exclude.join('\' --exclude \'')}'"
+            set :excludes, "--exclude '#{rsync_exclude.join('\' --exclude \'')}'"
 
             ssh = "-e \"ssh -i #{ssh_options[:keys][0]}\"" unless ssh_options.keys.empty?
 
             pretty_print "Downloading files"
             find_servers_for_task(current_task).each do |current_server|
-                system "rsync #{ssh} -avru --delete --copy-links #{excludes} --progress #{'--dry-run' if dry_run} #{user}@#{current_server}:#{src}/ #{dest}"
+                system "rsync #{ssh} -avru --delete --copy-links #{excludes} --progress #{'--dry-run' if dry_run} #{user}@#{current_server}:#{remote_web}/ #{local_web}"
             end
             puts_ok
         end
@@ -95,13 +93,11 @@ namespace :wp do
 
         desc "Uploads local project files to remote"
         task :files, :roles => :web do
-            set :src,       "." unless exists?(:src)
-            set :dest,      "#{current_path}" unless exists?(:dest)
-            set :excludes,  "--exclude '#{rsync_exclude.join('\' --exclude \'')}'"
+            set :excludes, "--exclude '#{rsync_exclude.join('\' --exclude \'')}'"
 
             pretty_print "Uploading files"
             find_servers_for_task(current_task).each do |current_server|
-                system "rsync -e \"ssh -i #{ssh_options[:keys][0]}\" -avru --keep-dirlinks #{excludes} --progress #{'--dry-run' if dry_run} #{src} #{user}@#{current_server}:#{dest}/"
+                system "rsync -e \"ssh -i #{ssh_options[:keys][0]}\" -avru --keep-dirlinks #{excludes} --progress #{'--dry-run' if dry_run} #{local_web} #{user}@#{current_server}:#{remote_web}/"
             end
             puts_ok
         end
