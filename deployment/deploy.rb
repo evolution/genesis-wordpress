@@ -29,7 +29,7 @@ set :deploy_via,        :remote_cache
 set :group_writable,    true
 
 # When rsync'ing files, ignore these paths
-set :rsync_exclude,     [".git", ".test", ".vagrant", "wp-content/cache"]
+set :rsync_exclude,     [".git", ".test", ".vagrant", "cache"]
 
 # Setting current_release just in case
 set :current_release,   ""
