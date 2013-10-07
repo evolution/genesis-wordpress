@@ -1,6 +1,8 @@
-namespace :ssh do
-    desc "SSH into machine"
-    task :default do
-        system "ssh #{user}@#{stage}.#{domain} -i ./provisioning/files/ssh/id_rsa"
+namespace :genesis do
+    namespace :ssh do
+        desc "SSH into machine"
+        task :default do
+            system "ssh #{user}@#{stage}.#{domain} -i ./provisioning/files/ssh/id_rsa"
+        end
     end
 end

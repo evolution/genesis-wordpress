@@ -1,24 +1,50 @@
 require 'pathname'
 
-namespace :wp do
-    task :restart, :roles => :web do
-        pretty_print "Gracefully restarting Apache"
-        invoke_command "sudo /etc/init.d/apache2 graceful"
-        puts_ok
+before "genesis:up:db" do
+    set(:confirmed) do
+        logger.important <<-WARN
+
+        ========================================================================
+
+            WARNING: You are about to destroy & override the "#{stage}" database!
+
+        ========================================================================
+
+        WARN
+
+        answer = Capistrano::CLI.ui.ask "  Are you sure you want to continue? (YES) "
+        if answer === 'YES' then true else false end
     end
 
-    task :start, :roles => :web do
-        pretty_print "Starting Apache"
-        invoke_command "sudo /etc/init.d/apache2 start"
-        puts_ok
+    unless fetch(:confirmed)
+        logger.info "\Aborted!"
+        exit
+    end
+end
+
+before "genesis:up:files" do
+    set(:confirmed) do
+        logger.important <<-WARN
+
+        ========================================================
+
+            WARNING: You are about to override "#{stage}" files!
+
+        ========================================================
+
+        WARN
+
+        answer = Capistrano::CLI.ui.ask "  Are you sure you want to continue? (YES) "
+        if answer === 'YES' then true else false end
     end
 
-    task :stop, :roles => :web do
-        pretty_print "Stopping Apache"
-        invoke_command "sudo /etc/init.d/apache2 stop"
-        puts_ok
+    unless fetch(:confirmed)
+        logger.info "\Aborted!"
+        exit
     end
+end
 
+namespace :genesis do
     namespace :down do
         desc "Downloads both remote database & syncs remote files into Vagrant"
         task :default do
@@ -56,7 +82,7 @@ namespace :wp do
 
             pretty_print "Downloading files"
             find_servers_for_task(current_task).each do |current_server|
-                system "rsync #{ssh} -avru --delete --copy-links #{excludes} --progress #{'--dry-run' if dry_run} #{user}@#{current_server}:#{remote_web}/ #{local_web}"
+                system "rsync #{ssh} -avvru --delete --copy-links #{excludes} --progress #{'--dry-run' if dry_run} #{user}@#{current_server}:#{remote_web}/ #{local_web}/"
             end
             puts_ok
         end
@@ -97,35 +123,9 @@ namespace :wp do
 
             pretty_print "Uploading files"
             find_servers_for_task(current_task).each do |current_server|
-                system "rsync -e \"ssh -i #{ssh_options[:keys][0]}\" -avru --keep-dirlinks #{excludes} --progress #{'--dry-run' if dry_run} #{local_web} #{user}@#{current_server}:#{remote_web}/"
+                system "rsync -e \"ssh -i #{ssh_options[:keys][0]}\" -avvru --keep-dirlinks #{excludes} --progress #{'--dry-run' if dry_run} #{local_web}/ #{user}@#{current_server}:#{remote_web}/"
             end
             puts_ok
-        end
-    end
-
-    desc "Fix permissions"
-    task :permissions do
-        pretty_print "Fixing permissions"
-        sudo "mkdir -p #{deploy_to}"
-        sudo "chown -R #{user}:www-data #{deploy_to}"
-        sudo "chmod -R 0775 #{deploy_to}"
-        puts_ok
-    end
-
-    namespace :tail do
-        desc "Tail error log on remote"
-        task :default do
-            error
-        end
-
-        desc "Tail error log on remote"
-        task :error, :roles => :web do
-            trap("INT") { puts 'Interupted'; exit 0; }
-            sudo "tail -f /var/log/apache2/#{stage}.#{domain}-error.log" do |channel, stream, data|
-                puts  # for an extra line break before the host name
-                puts "#{channel[:host]}: #{data}"
-                break if stream == :err
-          end
         end
     end
 end
