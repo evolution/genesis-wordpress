@@ -34,6 +34,10 @@ Follow the prompts (all of which has sane defaults!), then run:
 
 Open up http://local.{mysite.com}/ and start developing!
 
+## Changelog
+
+- v0.1.5 – Add `cache` to `rsync_exclude` folders
+- v0.1.4 – Bower release
 
 ## License
 
