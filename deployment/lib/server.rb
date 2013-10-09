@@ -4,6 +4,9 @@ namespace :genesis do
     task :restart, :roles => :web do
         pretty_print "Gracefully restarting Apache"
         invoke_command "sudo /etc/init.d/apache2 graceful"
+        puts_ok
+
+        pretty_print "Restarting Varnish"
         invoke_command "sudo /etc/init.d/varnish restart"
         puts_ok
     end
@@ -11,6 +14,9 @@ namespace :genesis do
     task :start, :roles => :web do
         pretty_print "Starting Apache"
         invoke_command "sudo /etc/init.d/apache2 start"
+        puts_ok
+
+        pretty_print "Starting Varnish"
         invoke_command "sudo /etc/init.d/varnish start"
         puts_ok
     end
@@ -18,6 +24,9 @@ namespace :genesis do
     task :stop, :roles => :web do
         pretty_print "Stopping Apache"
         invoke_command "sudo /etc/init.d/apache2 stop"
+        puts_ok
+
+        pretty_print "Stopping Varnish"
         invoke_command "sudo /etc/init.d/varnish stop"
         puts_ok
     end
