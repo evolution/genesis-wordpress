@@ -26,8 +26,6 @@ class Genesis
         $old_url = site_url();
         $new_url = 'http://' . $_SERVER['HTTP_HOST'];
 
-        define('WP_SITEURL', $new_url);
-
         update_option('upload_path', null);
 
         ob_start( function( $output ) use ( $old_url, $new_url ) {
