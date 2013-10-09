@@ -36,6 +36,7 @@ Open up http://local.{mysite.com}/ and start developing!
 
 ## Changelog
 
+- v0.1.18 – Initial Varnish
 - v0.1.17 – Add `shared_children`
 - v0.1.16 – `chmod 600 id_rsa`
 - v0.1.15 – Sync with generator-genesis-wordpress#`0.1.6`
