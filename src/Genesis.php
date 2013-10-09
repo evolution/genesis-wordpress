@@ -30,7 +30,7 @@ class Genesis
         $new_url = 'http://' . $_SERVER['HTTP_HOST'];
 
         // Ensure redirects generate local environment URL
-        add_filter('option_siteurl', function() {
+        add_filter('option_siteurl', function() use ($new_url) {
           return $new_url;
         });
 
