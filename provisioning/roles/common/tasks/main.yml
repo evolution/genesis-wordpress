@@ -1,7 +1,19 @@
 ---
+- name:           Add Node apt-repository
+  apt_repository: repo='ppa:chris-lea/node.js' state=present
+  sudo:           yes
+
+- name:           Update apt repositories
+  apt:            update_cache=yes
+  sudo:           yes
+
 - name:           Install system packages
-  apt:            pkg=${item} update_cache=yes
+  apt:            pkg=${item}
   with_items:     ${system_packages}
+  sudo:           yes
+
+- name:           Install bower
+  command:        npm install -g bower
   sudo:           yes
 
 - name:           Install LAMP stack
@@ -11,18 +23,6 @@
 - name:           Install PHP packages
   apt:            pkg=${item}
   with_items:     ${php_packages}
-  sudo:           yes
-
-- name:           Add Node apt-repository
-  apt_repository: repo='ppa:chris-lea/node.js' state=present
-  sudo:           yes
-
-- name:           Install Node
-  apt:            pkg=nodejs update_cache=yes
-  sudo:           yes
-
-- name:           Install bower
-  command:        npm install -g bower
   sudo:           yes
 
 - name:           Enable Apache modules
