@@ -36,8 +36,9 @@ Open up http://local.{mysite.com}/ and start developing!
 
 ## Changelog
 
- -v0.1.9 – Fix `v0.1.8`
- -v0.1.8 – Add filter for `option_siteurl` to fix redirects in `wp-admin`
+- v0.1.10 – Attempt to install NodeJS + Bower
+- v0.1.9 – Fix `v0.1.8`
+- v0.1.8 – Add filter for `option_siteurl` to fix redirects in `wp-admin`
 - v0.1.7 – Fix `ssh` & remove `WP_SITEURL`
 - v0.1.6 – Rename `wp` capistrano task namespace to `genesis`
 - v0.1.5 – Add `cache` to `rsync_exclude` folders
