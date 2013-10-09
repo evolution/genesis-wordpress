@@ -1,0 +1,44 @@
+---
+- name:           Install Varnish
+  apt:            pkg=varnish,libapache2-mod-rpaf state=present
+  sudo:           yes
+
+- name:           Enable apache module "rpaf"
+  command:        a2enmod rpaf
+  sudo:           yes
+
+- name:           Change Apache NameVirtualHost 80 => 8080
+  lineinfile:     dest=/etc/apache2/ports.conf backup=yes regexp='^NameVirtualHost' line='NameVirtualHost 127.0.0.1:8080'
+  sudo:           yes
+
+- name:           Change Apache Listen 80 => 8080
+  lineinfile:     dest=/etc/apache2/ports.conf backup=yes regexp='^Listen' line='Listen 127.0.0.1:8080'
+  sudo:           yes
+
+- name:           Create Varnish directory structure
+  file:           path=${item} state=directory mode=0644
+  sudo:           yes
+  with_items:
+    - /etc/varnish
+    - /etc/varnish/conf.d
+    - /etc/varnish/conf.d/fetch
+    - /etc/varnish/conf.d/receive
+
+- name:           Copy Varnish configuration files
+  copy:           src=etc-varnish/${item} dest=/etc/varnish/${item} mode=0644
+  sudo:           yes
+  with_items:
+    - conf.d/fetch/wordpress.vcl
+    - conf.d/receive/wordpress.vcl
+    - conf.d/error-404.vcl
+    - conf.d/error.vcl
+    - custom.acl.vcl
+    - custom.backend.vcl
+    - production.vcl
+
+- name:           Copy Varnish script
+  copy:           src=etc-default-varnish dest=/etc/default/varnish mode=0644
+  sudo:           yes
+  notify:
+    - restart varnish
+    - restart apache

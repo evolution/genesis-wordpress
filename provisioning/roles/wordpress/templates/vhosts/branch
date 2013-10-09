@@ -1,4 +1,4 @@
-<VirtualHost *:80>
+<VirtualHost 127.0.0.1:8080>
     ServerAdmin webmaster@localhost
 
     ServerName branch.staging.{{ domain }}

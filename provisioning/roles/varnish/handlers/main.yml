@@ -1,0 +1,8 @@
+---
+- name:     restart apache
+  command:  apache2ctl restart
+  sudo:     true
+
+- name:     restart varnish
+  command:  /etc/init.d/varnish restart
+  sudo:     true

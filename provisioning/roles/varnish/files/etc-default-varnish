@@ -1,0 +1,54 @@
+# Should we start varnishd at boot?  Set to "no" to disable.
+START=yes
+
+# Maximum number of open files (for ulimit -n)
+NFILES=131072
+
+# Maximum locked memory size (for ulimit -l)
+MEMLOCK=82000
+
+# Main configuration file. You probably want to change it :)
+VARNISH_VCL_CONF=/etc/varnish/production.vcl
+
+# Default address and port to bind to
+VARNISH_LISTEN_ADDRESS=
+VARNISH_LISTEN_PORT=80
+
+# Telnet admin interface listen address and port
+VARNISH_ADMIN_LISTEN_ADDRESS=127.0.0.1
+VARNISH_ADMIN_LISTEN_PORT=6082
+
+# The minimum number of worker threads to start
+VARNISH_MIN_THREADS=100
+
+# The Maximum number of worker threads to start
+VARNISH_MAX_THREADS=5000
+
+# Idle timeout for worker threads
+VARNISH_THREAD_TIMEOUT=120
+
+# Cache file location
+VARNISH_STORAGE_FILE=/var/lib/varnish/$INSTANCE/varnish_storage.bin
+
+# Cache file size: in bytes, optionally using k / M / G / T suffix,
+# or in percentage of available disk space using the % suffix.
+VARNISH_STORAGE_SIZE=1G
+
+# File containing administration secret
+VARNISH_SECRET_FILE=/etc/varnish/secret
+
+# Backend storage specification
+VARNISH_STORAGE="malloc,${VARNISH_STORAGE_SIZE}"
+
+# Default TTL used when the backend does not specify one
+VARNISH_TTL=120
+
+# DAEMON_OPTS is used by the init script.  If you add or remove options, make
+# sure you update this section, too.
+DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
+             -f ${VARNISH_VCL_CONF} \
+             -T ${VARNISH_ADMIN_LISTEN_ADDRESS}:${VARNISH_ADMIN_LISTEN_PORT} \
+             -t ${VARNISH_TTL} \
+             -w ${VARNISH_MIN_THREADS},${VARNISH_MAX_THREADS},${VARNISH_THREAD_TIMEOUT} \
+             -S ${VARNISH_SECRET_FILE} \
+             -s ${VARNISH_STORAGE}"
