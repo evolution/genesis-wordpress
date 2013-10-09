@@ -36,6 +36,7 @@ Open up http://local.{mysite.com}/ and start developing!
 
 ## Changelog
 
+- v0.1.13 – Update cache before NodeJS
 - v0.1.12 – Bad ansible command (NodeJS)
 - v0.1.11 – Forgot to install NodeJS
 - v0.1.10 – Attempt to install NodeJS + Bower
