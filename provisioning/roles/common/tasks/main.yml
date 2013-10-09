@@ -1,6 +1,6 @@
 ---
 - name:           Install system packages
-  apt:            pkg=${item} update_cache=yes cache_valid_time=86400
+  apt:            pkg=${item} update_cache=yes
   with_items:     ${system_packages}
   sudo:           yes
 
@@ -14,11 +14,11 @@
   sudo:           yes
 
 - name:           Add Node apt-repository
-  apt_repository: repo='ppa:chris-lea/node.js' state=present update_cache=yes
+  apt_repository: repo='ppa:chris-lea/node.js' state=present
   sudo:           yes
 
 - name:           Install Node
-  apt:            pkg=nodejs
+  apt:            pkg=nodejs update_cache=yes
   sudo:           yes
 
 - name:           Install bower
