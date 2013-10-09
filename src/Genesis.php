@@ -2,11 +2,6 @@
 
 class Genesis
 {
-    public static function isDebug()
-    {
-        return WP_ENV === 'local';
-    }
-
     public static function initEnv()
     {
         if (!defined('WP_ENV')) {
