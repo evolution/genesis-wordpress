@@ -25,6 +25,12 @@ before "deploy:update_code" do
 end
 
 after "deploy:update" do
+    pretty_print "Installing Bower dependencies"
+    run "cd #{release_path} && bower install"
+    puts_ok
+end
+
+after "deploy:update" do
     pretty_print "Finishing \"#{stage}\" deployment of \"#{branch}\""
     puts_ok
 end
