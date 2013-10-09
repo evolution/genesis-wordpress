@@ -28,6 +28,9 @@ set :deploy_via,        :remote_cache
 # Files will be owned by deploy:www-data
 set :group_writable,    true
 
+# Files shared between releases
+set :shared_children,   ["web/wp-content/uploads"]
+
 # When rsync'ing files, ignore these paths
 set :rsync_exclude,     [".git", ".test", ".vagrant", "cache"]
 
