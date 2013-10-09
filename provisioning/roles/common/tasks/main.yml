@@ -18,7 +18,7 @@
   sudo:           yes
 
 - name:           Install Node
-  apt:            nodejs
+  apt:            pkg=nodejs
   sudo:           yes
 
 - name:           Install bower
