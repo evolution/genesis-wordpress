@@ -23,11 +23,18 @@ class Genesis
             return false;
         }
 
+        // Remove domain from uploads
+        update_option('upload_path', null);
+
         $old_url = site_url();
         $new_url = 'http://' . $_SERVER['HTTP_HOST'];
 
-        update_option('upload_path', null);
+        // Ensure redirects generate local environment URL
+        add_filter('option_siteurl', function() {
+          return $new_url;
+        });
 
+        // Override URLs in output with local environment URL
         ob_start( function( $output ) use ( $old_url, $new_url ) {
             return str_replace( $old_url, $new_url, $output );
         } );
