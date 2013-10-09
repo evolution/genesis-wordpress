@@ -5,3 +5,4 @@ system_packages:
   - re2c
   - git-core
   - python-mysqldb
+  - nodejs
