@@ -259,6 +259,11 @@ sub vcl_fetch {
         set beresp.http.Location = regsub(beresp.http.Location, ":[0-9]+", "");
     }
 
+    # Don't cache user & server errors
+    if (beresp.status >= 400) {
+        return (hit_for_pass);
+    }
+
     # Non private responses without cookies and with a ttl of 0 should be artificially extended to 5min
     if (beresp.ttl <= 0s && beresp.http.Cache-Control !~ "private" && (!beresp.http.Set-Cookie)) {
         set beresp.ttl = 1h;
