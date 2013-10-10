@@ -1,6 +1,7 @@
 require 'pathname'
 
 namespace :genesis do
+    desc "Restart Apache + Varnish"
     task :restart, :roles => :web do
         pretty_print "Gracefully restarting Apache"
         invoke_command "sudo /etc/init.d/apache2 graceful"
@@ -11,6 +12,8 @@ namespace :genesis do
         puts_ok
     end
 
+
+    desc "Start Apache + Varnish"
     task :start, :roles => :web do
         pretty_print "Starting Apache"
         invoke_command "sudo /etc/init.d/apache2 start"
@@ -21,6 +24,7 @@ namespace :genesis do
         puts_ok
     end
 
+    desc "Stop Apache + Varnish"
     task :stop, :roles => :web do
         pretty_print "Stopping Apache"
         invoke_command "sudo /etc/init.d/apache2 stop"
@@ -40,8 +44,8 @@ namespace :genesis do
         puts_ok
     end
 
-    namespace :tail do
-        desc "Tail error log on remote"
+    namespace :logs do
+        desc "Tail Apache error logs"
         task :default, :roles => :web do
             trap("INT") { puts 'Interupted'; exit 0; }
             sudo "tail -f /var/log/apache2/#{stage}.#{domain}-error.log" do |channel, stream, data|
