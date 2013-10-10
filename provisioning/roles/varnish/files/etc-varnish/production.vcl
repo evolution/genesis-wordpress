@@ -264,7 +264,7 @@ sub vcl_fetch {
         return (hit_for_pass);
     }
 
-    # Non private responses without cookies and with a ttl of 0 should be artificially extended to 5min
+    # Non private responses without cookies and with a ttl of 0 should be artificially extended to 1 hour
     if (beresp.ttl <= 0s && beresp.http.Cache-Control !~ "private" && (!beresp.http.Set-Cookie)) {
         set beresp.ttl = 1h;
         set beresp.http.X-Cache-Extended = "1";
