@@ -208,11 +208,12 @@ Now run any one of those commands against an environemnt:
 
 ## Changelog
 
+- v0.2.1 – Fix bug when `git branch` returns nothing
+- v0.2.1 – Remove Varnish error pages
 - v0.2.0 – Rename `genesis:tail` to `genesis:logs`
 - v0.1.21 – Bypass Varnish for `4xx` & `5xx` error codes
-- v0.1.20
-    - Bypass Varnish for `local.`, `wp-login`, and `wp-admin`
-    - Run `genesis:restart` after `deploy:restart`
+- v0.1.20 – Bypass Varnish for `local.`, `wp-login`, and `wp-admin`
+- v0.1.20 – Run `genesis:restart` after `deploy:restart`
 - v0.1.19 – Add Varnish to `restart`, `start`, `stop`
 - v0.1.18 – Initial Varnish
 - v0.1.17 – Add `shared_children`
