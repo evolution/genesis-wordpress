@@ -17,7 +17,7 @@ Dir[File.expand_path(File.dirname(__FILE__)) + '/lib/*.rb'].each { |recipe| load
 set :repository,        (`git config --get remote.origin.url`).strip!
 
 # Infer branch (unless overridden via -S) from current repo
-set :branch,            (`git branch`.match(/\* (\S+)\s/m)[1] || "master") unless exists?(:branch)
+set :branch,            (`git branch` || '* master').match(/a\* (\S+)\s/m) unless exists?(:branch)
 
 # Sudo shouldn't be required
 set :use_sudo,          false
