@@ -9,7 +9,7 @@ Genesis WordPress
 - Generate a functional WordPress site + server
 - First-class local development
 - Independently stage features for review
-- Use production data when developming
+- Use production data when developing
 - High-performance, zero-configuration caching out of the box
 - Easily monitor remote server errors
 - Instant, secure SSH access
