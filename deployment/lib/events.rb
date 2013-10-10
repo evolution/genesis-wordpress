@@ -34,3 +34,5 @@ after "deploy:update" do
     pretty_print "Finishing \"#{stage}\" deployment of \"#{branch}\""
     puts_ok
 end
+
+after "deploy:restart", "genesis:restart"
