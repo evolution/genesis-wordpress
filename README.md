@@ -182,6 +182,29 @@ migrate the old server to a new server:
 
 Now you can switch DNS for http://www.mysite.com/ to point to http://production.mysite.com/'s IP!
 
+## Genesis Tasks
+
+Most of the functionality regarding remote servers are handled by custom [Capistrano][5] tasks,
+which you can see by running:
+
+    $ cap -T genesis
+    cap genesis:down        # Downloads both remote database & syncs remote files into Vagrant
+    cap genesis:down:db     # Downloads remote database into Vagrant
+    cap genesis:down:files  # Downloads remote files to Vagrant
+    cap genesis:logs        # Tail Apache error logs
+    cap genesis:permissions # Fix permissions
+    cap genesis:provision   # Runs project provisioning script on server
+    cap genesis:restart     # Restart Apache + Varnish
+    cap genesis:ssh         # SSH into machine
+    cap genesis:start       # Start Apache + Varnish
+    cap genesis:stop        # Stop Apache + Varnish
+    cap genesis:up          # Uploads Vagrant database & local files into production
+    cap genesis:up:db       # Uploads Vagrant database into remote
+    cap genesis:up:files    # Uploads local project files to remote
+
+Now run any one of those commands against an environemnt:
+
+    $ cap local genesis:restart
 
 ## Changelog
 
