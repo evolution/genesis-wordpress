@@ -21,8 +21,8 @@ Genesis WordPress
 
 Ensure you have the latest versions of [NodeJS][9], [Vagrant][3], & [VirtualBox][8].
 
-*Instructions assume you're running Mac OS X.
-Otherwise, you may need to consult each project's installation instructions.*
+**Vagrant 1.3.x (especially 1.3.4) has tons of bugs. Use [1.2.7](http://downloads.vagrantup.com/tags/v1.2.7) instead.**
+
 
 ### Scaffolding & Development
 
