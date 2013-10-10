@@ -36,6 +36,9 @@ Open up http://local.{mysite.com}/ and start developing!
 
 ## Changelog
 
+- v0.1.20
+    - Bypass Varnish for `local.`, `wp-login`, and `wp-admin`
+    - Run `genesis:restart` after `deploy:restart`
 - v0.1.19 – Add Varnish to `restart`, `start`, `stop`
 - v0.1.18 – Initial Varnish
 - v0.1.17 – Add `shared_children`
