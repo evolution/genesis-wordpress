@@ -302,16 +302,7 @@ sub vcl_deliver {
 }
 
 sub vcl_error {
-    if (obj.status >= 500 && obj.status <= 599 && req.restarts < 4) {
-        # 4 retry for 5xx error
-        return(restart);
-    } elsif (obj.status >= 400 && obj.status <= 499 ) {
-        # use 404 error page for 4xx error
-        include "conf.d/error-404.vcl";
-    } elsif (obj.status <= 200 && obj.status >= 299 ) {
-        # for other errors (not 5xx, not 4xx and not 2xx)
-        include "conf.d/error.vcl";
-    } elseif (obj.status == 720) {
+    if (obj.status == 720) {
         # We use this special error status 720 to force redirects with 301 (permanent) redirects
         # To use this, call the following from anywhere in vcl_recv: error 720 "http://host/new.html"
         set obj.status = 301;
@@ -323,8 +314,6 @@ sub vcl_error {
         set obj.status = 302;
         set obj.http.Location = obj.response;
         return (deliver);
-    } else {
-        include "conf.d/error.vcl";
     }
 
     return (deliver);

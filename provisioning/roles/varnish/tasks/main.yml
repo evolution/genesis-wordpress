@@ -30,8 +30,6 @@
   with_items:
     - conf.d/fetch/wordpress.vcl
     - conf.d/receive/wordpress.vcl
-    - conf.d/error-404.vcl
-    - conf.d/error.vcl
     - custom.acl.vcl
     - custom.backend.vcl
     - production.vcl
