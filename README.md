@@ -156,11 +156,11 @@ The following environments are expected to exist and resolve via DNS to simplify
 
 If you're deploying to a new machine (e.g. production.mysite.com), you first need to provision it:
 
-    $ cap production provision
+    $ cap production genesis:provision
 
 If there is an error, you may be prompted to re-run the command with an explicit username/password:
 
-    $ cap production provision -S user=myuser -S password=mypassword
+    $ cap production genesis:provision -S user=myuser -S password=mypassword
 
 *From that point on, tasks will use a private key (`provisioning/files/ssh/id_rsa`).*
 
