@@ -2,7 +2,7 @@ Genesis WordPress
 =================
 
 > Rapidly create, develop, & deploy WordPress across multiple environments.
-
+> ![Genesis WordPress Demo](demo.gif)
 
 ## Features
 
