@@ -185,6 +185,7 @@ Now you can switch DNS for http://www.mysite.com/ to point to http://production.
 
 ## Changelog
 
+- v0.2.0 – Rename `genesis:tail` to `genesis:logs`
 - v0.1.21 – Bypass Varnish for `4xx` & `5xx` error codes
 - v0.1.20
     - Bypass Varnish for `local.`, `wp-login`, and `wp-admin`
