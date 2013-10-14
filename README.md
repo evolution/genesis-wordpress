@@ -44,12 +44,12 @@ Install [Capistrano][5] & [Ansible][7]:
 ## Getting Started
 
 
-### Creating or Upgrading a Site
+## Step 1 – Creating or Upgrading a Site
 
 *Use the [Genesis WordPress Generator][1] for scaffolding.*
 
 
-### Working Locally
+## Step 2 – Working Locally
 
 First, ensure you're using the latest version of [Genesis WordPress][0] with [Bower][6]:
 
@@ -76,7 +76,7 @@ to just get Vagrant a new IP address:
     $ vagrant reload
 
 
-### Wrapping Up
+## Step 3 – Wrapping Up
 
 When you're done working on your site, suspend the VM to save on CPU & memory:
 
@@ -87,7 +87,7 @@ You can destroy the VM entirely (while keeping your local files) to save on disk
     $ vagrant destroy
 
 
-### Deployment
+## Deployment
 
 First, ensure your project on Github can be accessed by remote servers.  To do this,
 access the project's *Settings -> Deploy Keys* in Github and add `provisioning/files/ssh/id_rsa.pub`.
@@ -111,9 +111,9 @@ In the rare event the changes weren't supposed to go live, you can rollback to t
 **Note that deployments use the project's *Github repository* as the source, not your local machine!**
 
 
-### Syncing Files/Database
+## Syncing Files/Database
 
-#### From Local to Remote
+### From Local to Remote
 
 Suppose you have just provisioned & deployed to a new server, but the site obviously won't work without
 a database or uploaded images.
@@ -134,7 +134,7 @@ Once a site is live, you *rarely* need to sync anything up to the remote server.
 you usually sync changes *down*.
 
 
-#### From Remote to Local
+### From Remote to Local
 
 Suppose you have a live site that you need to work on locally.  Like the previous section,
 you can sync down the database, the files (e.g. uploaded images), or both:
@@ -144,7 +144,7 @@ you can sync down the database, the files (e.g. uploaded images), or both:
     $ cap production genesis:down
 
 
-### Provisioning
+## Provisioning
 
 The following environments are expected to exist and resolve via DNS to simplify deployment & provisioning:
 
