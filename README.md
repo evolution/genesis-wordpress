@@ -19,20 +19,18 @@ Genesis WordPress
 
 ## Installation
 
-Ensure you have the latest versions of [NodeJS][9], [Vagrant][3], & [VirtualBox][8].
-
-**Vagrant 1.3.x (especially 1.3.4) has tons of bugs. Use [1.2.7](http://downloads.vagrantup.com/tags/v1.2.7) instead.**
-
+Ensure you have the latest versions of [NodeJS][9] **v0.10**, [Vagrant v1.2.7](http://downloads.vagrantup.com/tags/v1.2.7), & [VirtualBox][8].
 
 ### Scaffolding & Development
 
-Install [Yeoman][2], [Bower][6], [Genesis WordPress Generator][1], & [Vagrant Host Manager][4]:
+Install [Yeoman][2] **v1**, [Bower][6] **v1.2**, [Genesis WordPress Generator][1], & [Vagrant Host Manager][4]:
 
     $ npm install -g yo bower generator-genesis-wordpress
     $ vagrant plugin install vagrant-hostmanager
 
-*If you get EMFILE issues, try running: `$ ulimit -n 4096`*
+If you get EMFILE issues, try running: `$ ulimit -n 4096`.
 
+*(You can check your versions by running `node --version`, `npm --version`, etc.)*
 
 ### Deployment
 
