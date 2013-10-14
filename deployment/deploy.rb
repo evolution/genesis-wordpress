@@ -6,7 +6,7 @@ begin
     require "capistrano/ext/multistage"
     require "colored"
 rescue LoadError
-  puts "You need to run: $ gem install capifony capistrano-ext colored"
+  puts "You need to run: $ gem install capistrano-ext colored"
   exit
 end
 
