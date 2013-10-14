@@ -141,6 +141,9 @@ sub vcl_recv {
         }
     }
 
+    # Include custom vcl_recv logic
+    include "conf.d/receive/wordpress.vcl";
+
     # Remove all cookies for static files
     # A valid discussion could be held on this line: do you really need to cache static files that don't cause load? Only if you have memory left.
     # Sure, there's disk I/O, but chances are your OS will already have these files in their buffers (thus memory).
@@ -152,9 +155,6 @@ sub vcl_recv {
 
     # Send Surrogate-Capability headers to announce ESI support to backend
     set req.http.Surrogate-Capability = "key=ESI/1.0";
-
-    # Include custom vcl_recv logic
-    include "conf.d/receive/wordpress.vcl";
 
     if (req.http.Authorization || req.http.Cookie) {
         # Not cacheable by default
