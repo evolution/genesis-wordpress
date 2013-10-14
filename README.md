@@ -208,6 +208,7 @@ Now run any one of those commands against an environemnt:
 
 ## Changelog
 
+- v0.2.3 – Fix bug with static assets being cached by Varnish
 - v0.2.2 – Fix bug when inferring `:branch`
 - v0.2.1 – Fix bug when `git branch` returns nothing
 - v0.2.1 – Remove Varnish error pages
