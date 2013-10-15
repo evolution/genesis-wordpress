@@ -14,7 +14,7 @@ apache_modules:
   - vhost_alias
 
 apache_vhosts:
-  - local
-  - staging
-  - branch
-  - production
+  - 000-local
+  - 001-staging
+  - 002-branch
+  - 003-production

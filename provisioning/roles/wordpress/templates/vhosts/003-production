@@ -5,6 +5,7 @@
 
     ServerAlias {{ domain }}
     ServerAlias www.{{ domain }}
+    ServerAlias *.{{ domain }}
 
     DocumentRoot /var/www/{{ domain }}/master/current/web
     <Directory />
