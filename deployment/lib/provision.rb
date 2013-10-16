@@ -19,7 +19,7 @@ namespace :genesis do
                 puts "\n"
 
                 logger.important "Unable to provision as \"#{user}\"!"
-                logger.important "Try running: $ cap #{stage} provision -S user=... -S password=..."
+                logger.important "Try running: $ cap #{stage} genesis:provision -S user=... -S password=..."
                 exit 1
             end
         end
