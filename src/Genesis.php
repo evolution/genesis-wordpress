@@ -29,6 +29,11 @@ class Genesis
           return $new_url;
         });
 
+        // Ensure get_home_path() can lookup web root coorectly
+        add_filter('option_home', function() use ($new_url) {
+          return $new_url;
+        });
+
         // Override URLs in output with local environment URL
         ob_start( function( $output ) use ( $old_url, $new_url ) {
             return str_replace( $old_url, $new_url, $output );
