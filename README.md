@@ -206,6 +206,7 @@ Now run any one of those commands against an environemnt:
 
 ## Changelog
 
+- v0.2.9 – Remove probe for `/server-status`
 - v0.2.8 – Fix local access log
 - v0.2.7 – Restart after all `genesis:down:*` and `genesis:up:*`
 - v0.2.6 – Add priority to vhosts
