@@ -35,7 +35,10 @@ after "deploy:update" do
     puts_ok
 end
 
-after "deploy:restart",   "genesis:restart"
-after "genesis:up",       "genesis:restart"
-after "genesis:up:db",    "genesis:restart"
-after "genesis:up:files", "genesis:restart"
+after "deploy:restart",     "genesis:restart"
+after "genesis:down",       "genesis:restart"
+after "genesis:down:db",    "genesis:restart"
+after "genesis:down:files", "genesis:restart"
+after "genesis:up",         "genesis:restart"
+after "genesis:up:db",      "genesis:restart"
+after "genesis:up:files",   "genesis:restart"
