@@ -82,6 +82,7 @@ namespace :genesis do
 
             pretty_print "Downloading files"
             find_servers_for_task(current_task).each do |current_server|
+                system "chmod 600 #{ssh_options[:keys][0]}"
                 system "rsync #{ssh} -avvru --delete --copy-links #{excludes} --progress #{'--dry-run' if dry_run} #{user}@#{current_server}:#{remote_web}/ #{local_web}/"
             end
             puts_ok
