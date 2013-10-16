@@ -206,6 +206,7 @@ Now run any one of those commands against an environemnt:
 
 ## Changelog
 
+- v0.2.12 – Remove `genesis:restart` after `genesis:down:*`
 - v0.2.11 – Fix URLs for uploads & permalinks
 - v0.2.10 – Fix get_option( 'home' )
 - v0.2.9 – Remove probe for `/server-status`
