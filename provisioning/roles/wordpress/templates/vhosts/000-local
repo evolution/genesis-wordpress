@@ -18,5 +18,5 @@
     LogLevel warn
 
     ErrorLog ${APACHE_LOG_DIR}/local.{{ domain }}-error.log
-    CustomLog ${APACHE_LOG_DIR}/local.onlineschools.org-access.log combined
+    CustomLog ${APACHE_LOG_DIR}/local.{{ domain }}-access.log combined
 </VirtualHost>
