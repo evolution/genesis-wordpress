@@ -21,6 +21,6 @@
 
     LogLevel warn
 
-    ErrorLog ${APACHE_LOG_DIR}/www.{{ domain }}-error.log
-    CustomLog ${APACHE_LOG_DIR}/www.{{ domain }}-access.log combined
+    ErrorLog ${APACHE_LOG_DIR}/production.{{ domain }}-error.log
+    CustomLog ${APACHE_LOG_DIR}/production.{{ domain }}-access.log combined
 </VirtualHost>
