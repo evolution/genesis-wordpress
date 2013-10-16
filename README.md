@@ -206,6 +206,7 @@ Now run any one of those commands against an environemnt:
 
 ## Changelog
 
+- v0.2.15 – Rename production logs from `www-` to `production-`
 - v0.2.14 – Localize `wp_get_attachment_url`
 - v0.2.13 – `chmod 600` the ssh key when running `genesis:down/up`
 - v0.2.12 – Remove `genesis:restart` after `genesis:down:*`
