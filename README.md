@@ -206,6 +206,7 @@ Now run any one of those commands against an environemnt:
 
 ## Changelog
 
+- v0.2.13 – `chmod 600` the ssh key when running `genesis:down/up`
 - v0.2.12 – Remove `genesis:restart` after `genesis:down:*`
 - v0.2.11 – Fix URLs for uploads & permalinks
 - v0.2.10 – Fix get_option( 'home' )
