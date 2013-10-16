@@ -206,6 +206,7 @@ Now run any one of those commands against an environemnt:
 
 ## Changelog
 
+- v0.2.7 – Restart after all `genesis:down:*` and `genesis:up:*`
 - v0.2.6 – Add priority to vhosts
 - v0.2.5 – Set deploy shell to `/bin/bash`
 - v0.2.4 – `genesis:restart` runs on all `genesis:up` commands
