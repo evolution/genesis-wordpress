@@ -27,7 +27,9 @@ class Genesis
         // Ensure internal WordPress functions map correctly to new url (but don't want to persist in the DB)
         add_filter('option_home',             function($value) use ($old_url, $new_url) { return str_replace($old_url, $new_url, $value); });
         add_filter('option_siteurl',          function($value) use ($old_url, $new_url) { return str_replace($old_url, $new_url, $value); });
+        add_filter('option_upload_path',      function($value) use ($old_url, $new_url) { return str_replace($old_url, $new_url, $value); });
         add_filter('option_upload_url_path',  function($value) use ($old_url, $new_url) { return str_replace($old_url, $new_url, $value); });
+        add_filter('wp_get_attachment_url',   function($value) use ($old_url, $new_url) { return str_replace($old_url, $new_url, $value); });
 
         // Override URLs in output with local environment URL
         ob_start( function( $output ) use ( $old_url, $new_url ) {
