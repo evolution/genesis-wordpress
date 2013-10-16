@@ -24,15 +24,10 @@ class Genesis
         $old_url = site_url();
         $new_url = 'http://' . $_SERVER['HTTP_HOST'];
 
-        // Ensure redirects generate local environment URL
-        add_filter('option_siteurl', function() use ($new_url) {
-          return $new_url;
-        });
-
-        // Ensure get_home_path() can lookup web root coorectly
-        add_filter('option_home', function() use ($new_url) {
-          return $new_url;
-        });
+        // Ensure internal WordPress functions map correctly to new url (but don't want to persist in the DB)
+        add_filter('option_home',             function($value) use ($old_url, $new_url) { return str_replace($old_url, $new_url, $value); });
+        add_filter('option_siteurl',          function($value) use ($old_url, $new_url) { return str_replace($old_url, $new_url, $value); });
+        add_filter('option_upload_url_path',  function($value) use ($old_url, $new_url) { return str_replace($old_url, $new_url, $value); });
 
         // Override URLs in output with local environment URL
         ob_start( function( $output ) use ( $old_url, $new_url ) {
