@@ -68,6 +68,3 @@ end
 # Default bash shell options
 default_run_options[:pty]   = true
 default_run_options[:shell] = "/bin/bash"
-
-# Enable pretty output+errors
-pretty_errors

@@ -221,7 +221,7 @@ sub vcl_miss {
     return (fetch);
 }
 
-# Handle the HTTP request coming from our backend 
+# Handle the HTTP request coming from our backend
 sub vcl_fetch {
     set beresp.grace = 1h;
 
