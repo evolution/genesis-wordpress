@@ -33,7 +33,7 @@ set :group_writable,    true
 set :shared_children,   ["web/wp-content/uploads"]
 
 # When rsync'ing files, ignore these paths
-set :rsync_exclude,     [".git", ".test", ".vagrant", "cache"]
+set :rsync_exclude,     [".git", ".test", ".vagrant", "cache", "*.sql"]
 
 # Setting current_release just in case
 set :current_release,   ""
