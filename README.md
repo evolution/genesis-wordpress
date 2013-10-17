@@ -70,8 +70,7 @@ Or, update your local `/etc/hosts` with [Vagrant Host Manager][4]:
 
     $ vagrant hostmanager
 
-Finally, if things worked worked you were at the office but broke when you got home, you probably need
-to just get Vagrant a new IP address:
+Finally, if things worked while you were at the office but broke when you got home, you probably need to just get Vagrant a new IP address:
 
     $ vagrant reload
 
