@@ -205,6 +205,8 @@ Now run any one of those commands against an environemnt:
 
 ## Changelog
 
+- v0.2.17 – Add `curl` as default module
+- v0.2.17 – Don't sync `.sql` files by default
 - v0.2.16 – `chmod 600` the ssh key only if it exists
 - v0.2.15 – Rename production logs from `www-` to `production-`
 - v0.2.14 – Localize `wp_get_attachment_url`
