@@ -205,6 +205,7 @@ Now run any one of those commands against an environemnt:
 
 ## Changelog
 
+- v0.2.21 – Run genesis:permissions on server, not local!
 - v0.2.20 – Fix `genesis:permissions`
 - v0.2.19 – Fix permissions after `deploy` & `genesis:files:up`
 - v0.2.18 – Remove pretty_print.  **VERBOSE ERRORS FTW!!!**
