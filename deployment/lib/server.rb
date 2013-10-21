@@ -22,9 +22,8 @@ namespace :genesis do
 
     desc "Fix permissions"
     task :permissions do
-        sudo "mkdir -p #{deploy_to}"
-        sudo "chown -R #{user}:www-data #{deploy_to}"
-        sudo "chmod -R 0775 #{deploy_to}"
+        exec "find #{remote_web} -follow -type d -exec chmod 755 {} \;"
+        exec "find #{remote_web} -follow -type f -exec chmod 644 {} \;"
     end
 
     namespace :logs do
