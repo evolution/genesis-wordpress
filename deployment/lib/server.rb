@@ -22,8 +22,8 @@ namespace :genesis do
 
     desc "Fix permissions"
     task :permissions do
-        exec "find #{remote_web} -follow -type d -exec chmod 755 {} \;"
-        exec "find #{remote_web} -follow -type f -exec chmod 644 {} \;"
+        exec "find #{remote_web} -follow -type d -exec chmod 755 {} \\;"
+        exec "find #{remote_web} -follow -type f -exec chmod 644 {} \\;"
     end
 
     namespace :logs do
