@@ -205,6 +205,7 @@ Now run any one of those commands against an environemnt:
 
 ## Changelog
 
+- v0.2.19 – Fix permissions after `deploy` & `genesis:files:up`
 - v0.2.18 – Remove pretty_print.  **VERBOSE ERRORS FTW!!!**
 - v0.2.17 – Add `curl` as default module
 - v0.2.17 – Don't sync `.sql` files by default
