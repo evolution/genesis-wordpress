@@ -203,6 +203,55 @@ Now run any one of those commands against an environemnt:
 
     $ cap local genesis:restart
 
+## Troubleshooting
+
+### SSH - Prompting for a password
+
+If you're seeing this:
+
+    $ cap staging genesis:ssh
+    deploy@staging.example.com's password:
+
+Then the `deploy` user's ssh keys on your remote server *do not match* the keys in your local repository.
+
+You should first ensure that your local repository is up to date, thereby ensuring you are using the latest versioned ssh keys.
+
+    $ git checkout master
+    $ git pull origin master
+    $ cap staging genesis:ssh
+
+If the problem persists, this means that the keys on your remote server are out of date or otherwise incorrect, and you must re-provision by specifying a username and password:
+
+    $ cap staging genesis:provision -S user=userWithRootOrSudoAccess -S password=usersHopefullyStrongPassword
+
+### SSH - Host key mismatch
+
+If you're seeing this:
+
+    $ cap staging genesis:ssh
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+    Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+    It is also possible that a host key has just been changed.
+    The fingerprint for the RSA key sent by the remote host is
+    d3:4d:b4:4f:d3:4d:b4:4f:d3:4d:b4:4f:d3:4d:b4:4f.
+    Please contact your system administrator.
+    Add correct host key in ~/.ssh/known_hosts to get rid of this message.
+    Offending RSA key in ~/.ssh/known_hosts:68
+    RSA host key for staging.example.com has changed and you have requested strict checking.
+    Host key verification failed.
+
+Then you have at least one existing entry in your `~/.ssh/known_hosts` file (indicated, in the example above, to be on line 68), with a *different* key than the server is returning.
+
+You can search for all line(s) matching the server name and/or ip address using `grep`:
+
+    $ cat ~/.ssh/known_hosts | grep -n "staging.example.com"
+    68:staging.example.com,192.168.1.42 ssh-rsa AAAAB3NzaCd34db33f...
+
+Now, remove those lines from said file, using your text editor of choice.
+
 ## Changelog
 
 - v0.2.21 – Run genesis:permissions on server, not local!
