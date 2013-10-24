@@ -254,6 +254,7 @@ Now, remove those lines from said file, using your text editor of choice.
 
 ## Changelog
 
+- v0.2.22 – Bypass cache for logged in users ([#19](https://github.com/genesis/wordpress/pull/19))
 - v0.2.21 – Run genesis:permissions on server, not local!
 - v0.2.20 – Fix `genesis:permissions`
 - v0.2.19 – Fix permissions after `deploy` & `genesis:files:up`
