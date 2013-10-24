@@ -4,7 +4,7 @@ php_packages:
   - php5-gd
 
 php_settings:
-  memory_limit:   1024M
+  memory_limit:   512M
   date_timezone:  America/Chicago
 
 apache_modules:

@@ -32,7 +32,7 @@ VARNISH_STORAGE_FILE=/var/lib/varnish/$INSTANCE/varnish_storage.bin
 
 # Cache file size: in bytes, optionally using k / M / G / T suffix,
 # or in percentage of available disk space using the % suffix.
-VARNISH_STORAGE_SIZE=1G
+VARNISH_STORAGE_SIZE=512M
 
 # File containing administration secret
 VARNISH_SECRET_FILE=/etc/varnish/secret
