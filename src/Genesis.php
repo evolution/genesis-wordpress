@@ -12,6 +12,13 @@ class Genesis
         return WP_ENV;
     }
 
+    public static function pushCustomConfig()
+    {
+        // Define the Filesystem method of managing files so deployed servers can manage plugins and updates (if desired)
+        define( 'FS_METHOD', 'direct');
+    }
+
+
     public static function rewriteUrls()
     {
         if (!function_exists('is_blog_installed') || !is_blog_installed()) {
@@ -43,3 +50,4 @@ class Genesis
 }
 
 Genesis::initEnv();
+Genesis::pushCustomConfig();
