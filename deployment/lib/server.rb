@@ -22,7 +22,7 @@ namespace :genesis do
 
     desc "Fix permissions"
     task :permissions do
-        run "chmod -R #{user}:www-data #{remote_web}"
+        run "sudo chown -R #{user}:www-data #{remote_web}"
         run "find -L #{remote_web} -type d -exec chmod 775 {} \\; -exec chmod g+s {} \\;"
         run "find -L #{remote_web} -type f -exec chmod 664 {} \\;"
     end
