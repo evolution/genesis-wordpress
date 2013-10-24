@@ -3,7 +3,7 @@ if (req.http.Host ~ "^local\." || (req.url ~ "wp-(login|admin)")) {
     return (pass);
 }
 
-if (req.http.Cookie ~ "^wp-" || req.http.Cookie ~ "^wordpress_") {
+if (req.http.Cookie ~ "^wordpress_logged_in_") {
   return (pass);
 }
 
