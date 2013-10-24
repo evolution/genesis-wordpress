@@ -254,6 +254,7 @@ Now, remove those lines from said file, using your text editor of choice.
 
 ## Changelog
 
+- v0.2.24 – Set Varnish & PHP to `512M`
 - v0.2.23 – Only bypass for logged in users, not logged out
 - v0.2.22 – Bypass cache for logged in users ([#19](https://github.com/genesis/wordpress/pull/19))
 - v0.2.21 – Run genesis:permissions on server, not local!
