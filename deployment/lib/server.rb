@@ -22,7 +22,13 @@ namespace :genesis do
 
     desc "Fix permissions"
     task :permissions do
-        run "find #{remote_web} -follow -type d -exec chmod 755 {} \\;"
+        # Avoid uploading problems if Apache owns directories
+        run "find #{remote_web} -follow -type d -exec chown :www-data {} \\;"
+
+        # Both deploy & Apache have 1st control of directories
+        run "find #{remote_web} -follow -type d -exec chmod 775 {} \\;"
+
+        # Files should not be executable, but deploy + Apache still have control
         run "find #{remote_web} -follow -type f -exec chmod 644 {} \\;"
     end
 
