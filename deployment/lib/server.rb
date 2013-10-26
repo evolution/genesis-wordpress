@@ -22,8 +22,16 @@ namespace :genesis do
 
     desc "Fix permissions"
     task :permissions do
+        # Make sure we are using correct owner:group
         run "sudo chown -R #{user}:www-data #{remote_web}"
+
+        # Avoid uploading problems if Apache owns directories
+        run "find -L #{remote_web} -type d -exec chown :www-data {} \\;"
+ 
+        # Both deploy & Apache have 1st control of directories
         run "find -L #{remote_web} -type d -exec chmod 775 {} \\; -exec chmod g+s {} \\;"
+ 
+        # Files should not be executable, but deploy + Apache still have control
         run "find -L #{remote_web} -type f -exec chmod 664 {} \\;"
     end
 
