@@ -254,6 +254,7 @@ Now, remove those lines from said file, using your text editor of choice.
 
 ## Changelog
 
+- v0.2.26 – Use `sudo` instead of `invoke_command` ([#41](https://github.com/genesis/wordpress/issues/41))
 - v0.2.25 – Directories are now `775` and owned by `deploy:www-data` ([#31](https://github.com/genesis/wordpress/issues/31))
 - v0.2.24 – Set Varnish & PHP to `512M`
 - v0.2.23 – Only bypass for logged in users, not logged out
