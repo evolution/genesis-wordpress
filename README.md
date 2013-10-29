@@ -252,6 +252,21 @@ You can search for all line(s) matching the server name and/or ip address using 
 
 Now, remove those lines from said file, using your text editor of choice.
 
+### SSH - Permission denied (publickey)
+
+If you're seeing this:
+
+```
+    servers: ["production.yourwebsite.com"]
+    [production.yourwebsite.com] executing command
+ ** [production.yourwebsite.com :: out] Permission denied (publickey).
+ ** [production.yourwebsite.com :: out] fatal: The remote end hung up unexpectedly
+```
+
+Then you probably need to add the SSH keys to your GitHub repo. Open `provisioning/files/ssh/id_rsa.pub` and copy/paste the entire contents (the ssh-rsa key) to your repo by visiting __Settings > Deploy Keys > Add deploy key__.
+
+For more help on this, refer to the [GitHub Docs](https://help.github.com/articles/error-permission-denied-publickey).
+
 ## Changelog
 
 - v0.2.26 – Use `sudo` instead of `invoke_command` ([#41](https://github.com/genesis/wordpress/issues/41))
