@@ -3,21 +3,21 @@ require 'pathname'
 namespace :genesis do
     desc "Restart Apache + Varnish"
     task :restart, :roles => :web do
-        invoke_command "sudo /etc/init.d/apache2 graceful"
-        invoke_command "sudo /etc/init.d/varnish restart"
+        sudo "/etc/init.d/apache2 graceful"
+        sudo "/etc/init.d/varnish restart"
     end
 
 
     desc "Start Apache + Varnish"
     task :start, :roles => :web do
-        invoke_command "sudo /etc/init.d/apache2 start"
-        invoke_command "sudo /etc/init.d/varnish start"
+        sudo "/etc/init.d/apache2 start"
+        sudo "/etc/init.d/varnish start"
     end
 
     desc "Stop Apache + Varnish"
     task :stop, :roles => :web do
-        invoke_command "sudo /etc/init.d/apache2 stop"
-        invoke_command "sudo /etc/init.d/varnish stop"
+        sudo "/etc/init.d/apache2 stop"
+        sudo "/etc/init.d/varnish stop"
     end
 
     desc "Fix permissions"
