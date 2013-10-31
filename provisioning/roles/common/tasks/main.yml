@@ -1,4 +1,29 @@
 ---
+- name:           Determine optimal hostname
+  command:        echo ${stage}.${domain}
+  register:       new_host
+  ignore_errors:  True
+
+- name:           Determine current hostname
+  command:        hostname
+  register:       old_host
+  ignore_errors:  True
+
+- name:           Update current hostname
+  command:        hostname ${new_host.stdout}
+  sudo:           yes
+  when:           old_host.stdout != new_host.stdout
+
+- name:           Update canonical hostname
+  copy:           content=${new_host.stdout} dest=/etc/hostname
+  sudo:           yes
+  when:           old_host.stdout != new_host.stdout
+
+- name:           Update /etc/hosts for new hostname
+  command:        perl -p -i.bak -e s/${old_host.stdout}/${new_host.stdout}/ig /etc/hosts
+  sudo:           yes
+  when:           old_host.stdout != new_host.stdout
+
 - name:           Add Node apt-repository
   apt_repository: repo='ppa:chris-lea/node.js' state=present
   sudo:           yes
