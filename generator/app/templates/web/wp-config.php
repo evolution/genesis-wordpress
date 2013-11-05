@@ -16,7 +16,7 @@ require_once(dirname(__FILE__) . '/../bower_components/genesis-wordpress/src/Gen
   .replace(/define\('WP_DEBUG'.+\);/, "define('WP_DEBUG', WP_ENV === 'local');")
 
   // Replace salts
-  .replace(/define\('AUTH_KEY'[\s\S]+'put your unique phrase here'\);/, props.salts)
+  .replace(/(\/\*\*#@\+.+?\*\/\n).+?(\n\/\*\*#@-\*\/)/m, "$1" + props.salts + "$2")
 
   // Limit to 5 post revisions
   .replace("/* That's all,", "define('WP_POST_REVISIONS', 5);\n\n/*That's all,")
