@@ -1,0 +1,17 @@
+# BEGIN Genesis WordPress
+<IfModule mod_rewrite.c>
+  # 404 error prevention for non-existing redirected folders
+  Options -MultiViews
+
+  RewriteEngine On
+  RewriteBase /
+  Options +FollowSymlinks
+
+  # Prevent spidering of non-canonical URLs,
+  # such as `[*.]staging.*` and `production.*`.
+  RewriteCond %{HTTP_HOST} (^local|staging|^production)
+  RewriteRule ^robots.txt$ no_robots.txt [L]
+</IfModule>
+# END Genesis WordPress
+
+<%= htaccessFile %>

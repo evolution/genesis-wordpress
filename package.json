@@ -1,0 +1,26 @@
+{
+  "name": "genesis-wordpress",
+  "version": "0.2.27",
+  "description": "Libraries for a multi-staged WordPress workflow with Vagrant",
+  "main": "generator/app/index.js",
+  "dependencies": {
+    "chalk": "~0.3.0",
+    "fs-extra": "~0.8.1",
+    "request": "~2.27.0",
+    "ssh-keygen": "~0.2.1",
+    "yeoman-generator": "~0.14.0-rc.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/genesis/wordpress.git"
+  },
+  "author": "Eric Clemmons <eric@smarterspam.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/genesis/wordpress/issues"
+  }
+}
