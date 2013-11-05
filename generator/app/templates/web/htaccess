@@ -1,7 +1,7 @@
 # BEGIN Genesis WordPress
 <IfModule mod_rewrite.c>
   # 404 error prevention for non-existing redirected folders
-  Options -MultiViews
+  Options -MultiViews -Indexes
 
   RewriteEngine On
   RewriteBase /
