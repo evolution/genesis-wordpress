@@ -269,6 +269,7 @@ For more help on this, refer to the [GitHub Docs](https://help.github.com/articl
 
 ## Changelog
 
+- v0.2.27 – Awwww snap!! Making it so the [Genesis WordPress Generator](https://github.com/genesis/generator-wordpress) is always up-to-date!
 - v0.2.26 – Use `sudo` instead of `invoke_command` ([#41](https://github.com/genesis/wordpress/issues/41))
 - v0.2.25 – Directories are now `775` and owned by `deploy:www-data` ([#31](https://github.com/genesis/wordpress/issues/31))
 - v0.2.24 – Set Varnish & PHP to `512M`
