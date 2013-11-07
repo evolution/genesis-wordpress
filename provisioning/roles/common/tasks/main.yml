@@ -40,6 +40,10 @@
   when:           has_vagrant.stdout
   sudo:           yes
 
+- name:           Add www-data user to deploy
+  user:           name=www-data append=yes groups=deploy
+  sudo:           yes
+
 - name:           Update php.ini's memory_limit
   lineinfile:     dest=/etc/php5/apache2/php.ini backup=yes regexp='memory_limit' line='memory_limit = 1024M'
   sudo:           yes
