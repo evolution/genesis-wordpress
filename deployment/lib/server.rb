@@ -20,6 +20,11 @@ namespace :genesis do
         sudo "/etc/init.d/varnish stop"
     end
 
+    desc "Tear down anything previously deployed"
+    task :teardown, :roles => :web do
+        sudo "rm -rf #{deploy_to}"
+    end
+
     desc "Fix permissions"
     task :permissions do
         # Avoid uploading problems if Apache owns directories
