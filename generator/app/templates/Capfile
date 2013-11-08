@@ -1,0 +1,7 @@
+require 'rubygems'
+
+# Load Capistrano
+load 'deploy'
+
+# Load <%= props.name %> recipes
+load 'deployment/deploy'

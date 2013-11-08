@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+## Must be run as root...
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run root:"
+    echo "  \$ sudo $0"
+    exit 1
+fi
+
+# Ansible dependencies
+apt-get -qq -y update
+apt-get -qq -y install python-software-properties # Ubuntu 12.04
+apt-get -qq -y install software-properties-common # Ubuntu 12.10
+apt-get -qq -y install python-pycurl
+
+add-apt-repository -y ppa:rquillo/ansible &> /dev/null || exit 1
+apt-get -qq -y update
+
+# Ansible
+apt-get -qq -y install ansible
+
+# Run provisioning playbook
+(cd "$( dirname "$0" )/../provisioning" && ansible-playbook -i localhost $@ provision.yml)
