@@ -65,6 +65,7 @@ namespace :genesis do
             run "rm -f #{backup_path}.gz"
             system "gzip -d #{backup_name}.gz"
 
+            system "vagrant up"
             system "vagrant ssh local -c 'cd /vagrant && mysql -uroot < #{backup_name}' && rm -f #{backup_name}"
         end
 
@@ -94,6 +95,7 @@ namespace :genesis do
             set :backup_name, DateTime.now.strftime("#{db_name}.%Y-%m-%d.%H%M%S.sql")
             set :backup_path, "#{backup_dir}/#{backup_name}"
 
+            system "vagrant up"
             system "vagrant ssh local -c 'cd /vagrant && mysqldump -u\"#{db_user}\" -p\"#{db_password}\" --opt --databases \"#{db_name}\" | gzip --rsyncable > #{backup_name}.gz'"
 
             run "mkdir -p #{backup_dir}"
