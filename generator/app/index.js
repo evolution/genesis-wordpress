@@ -120,6 +120,28 @@ WordpressGenerator.prototype.promptForWordPress = function() {
   });
 };
 
+WordpressGenerator.prototype.promptForTablePrefix = function() {
+  var existing = function(web) {
+    try {
+      var config = this.readFileAsString(path.join(web, 'wp-config.php'));
+      var prefix = config.match(/\$table_prefix\s*=\s*['"]([^'"]+)/);
+
+      if (prefix.length) {
+        return prefix[1];
+      }
+    } catch(e) {}
+  }.bind(this);
+
+  this.prompts.push({
+    type:     'text',
+    name:     'prefix',
+    message:  'WordPress table prefix',
+    default:  function(answers) {
+      return existing(answers.web) || 'wp_';
+    }
+  });
+};
+
 WordpressGenerator.prototype.promptForDatabase = function() {
   var done      = this.async();
   var existing  = function(web, constant) {
