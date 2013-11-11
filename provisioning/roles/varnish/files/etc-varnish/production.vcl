@@ -94,28 +94,14 @@ sub vcl_recv {
     #
 
     # Some generic cookie manipulation, useful for all templates that follow
-    # Remove the "has_js" cookie
-    set req.http.Cookie = regsuball(req.http.Cookie, "has_js=[^;]+(; )?", "");
 
-    # Remove any Satallite cookies
-    set req.http.Cookie = regsuball(req.http.Cookie, "__gaid=[^;]+(; )?", "");
-    set req.http.Cookie = regsuball(req.http.Cookie, "_sdsat_[^=]+=[^;]+(; )?", "");
+    # Remove any '_' prefixed cookies
+    set req.http.Cookie = regsuball(req.http.Cookie, "_[^=]+=[^;]+(; )?", "");
 
     # Remove any Google Analytics based cookies
-    set req.http.Cookie = regsuball(req.http.Cookie, "__utm.=[^;]+(; )?", "");
-    set req.http.Cookie = regsuball(req.http.Cookie, "_ga=[^;]+(; )?", "");
     set req.http.Cookie = regsuball(req.http.Cookie, "utmctr=[^;]+(; )?", "");
     set req.http.Cookie = regsuball(req.http.Cookie, "utmcmd.=[^;]+(; )?", "");
     set req.http.Cookie = regsuball(req.http.Cookie, "utmccn.=[^;]+(; )?", "");
-
-    # Remove any Cloudflare cookies
-    set req.http.Cookie = regsuball(req.http.Cookie, "__cfduid=[^;]+(; )?", "");
-
-    # Remove the Quant Capital cookies (added by some plugin, all __qca)
-    set req.http.Cookie = regsuball(req.http.Cookie, "__qc.=[^;]+(; )?", "");
-
-    # Remove the AddThis cookies
-    set req.http.Cookie = regsuball(req.http.Cookie, "__atuvc=[^;]+(; )?", "");
 
     # Remove a ";" prefix in the cookie if present
     set req.http.Cookie = regsuball(req.http.Cookie, "^;\s*", "");
