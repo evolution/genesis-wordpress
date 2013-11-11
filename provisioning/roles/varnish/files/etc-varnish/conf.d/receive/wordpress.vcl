@@ -3,19 +3,14 @@ if (req.http.Host ~ "^local\." || (req.url ~ "wp-(login|admin)")) {
     return (pass);
 }
 
-if (req.http.Cookie ~ "^wp-" || req.http.Cookie ~ "^wordpress_") {
+# Pass all requests containing a wp- or wordpress_ cookie
+# (meaning NO caching for logged in users)
+if (req.http.Cookie ~ "^([^;]+;\s*)*?(wp-|wordpress_)") {
   return (pass);
 }
 
-# Drop any cookies sent to Wordpress.
-if (!(req.url ~ "wp-(login|admin)")) {
-    unset req.http.Cookie;
-}
-
-# Anything else left?
-if (!req.http.Cookie) {
-    unset req.http.Cookie;
-}
+# Drop *all* cookies sent to Wordpress, if we've gotten this far
+unset req.http.Cookie;
 
 # Try a cache-lookup
 return (lookup);
