@@ -98,11 +98,6 @@ sub vcl_recv {
     # Remove any '_' prefixed cookies
     set req.http.Cookie = regsuball(req.http.Cookie, "_[^=]+=[^;]+(; )?", "");
 
-    # Remove any Google Analytics based cookies
-    set req.http.Cookie = regsuball(req.http.Cookie, "utmctr=[^;]+(; )?", "");
-    set req.http.Cookie = regsuball(req.http.Cookie, "utmcmd.=[^;]+(; )?", "");
-    set req.http.Cookie = regsuball(req.http.Cookie, "utmccn.=[^;]+(; )?", "");
-
     # Remove a ";" prefix in the cookie if present
     set req.http.Cookie = regsuball(req.http.Cookie, "^;\s*", "");
 
