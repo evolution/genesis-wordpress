@@ -8,3 +8,4 @@ system_packages:
   - python-mysqldb
   - nodejs
   - htop
+  - iftop
