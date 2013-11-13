@@ -7,3 +7,14 @@ system_packages:
   - git-core
   - python-mysqldb
   - nodejs
+
+## PHP Tuning (see roles/common/tasks/main.yml)
+# php_memory_limit:
+## Apache Tuning (see roles/common/templates/prefork.conf)
+# reserved_memory_mysql:
+# reserved_memory_system:
+# apache_start_servers:
+# apache_min_spare_servers:
+# apache_max_spare_servers:
+# apache_max_clients:
+# apache_max_requests_per_child:

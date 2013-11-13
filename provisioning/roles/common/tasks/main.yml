@@ -40,8 +40,22 @@
   when:           has_vagrant.stdout
   sudo:           yes
 
+- name:           Calculate PHP memory_limit
+  shell:          "[[ {{ ansible_memtotal_mb }} -gt 2048 ]] && echo '256' || echo '128'"
+  register:       calc_php_memory_limit
+  ignore_errors:  True
+  when:           php_memory_limit is undefined
+
 - name:           Update php.ini's memory_limit
-  lineinfile:     dest=/etc/php5/apache2/php.ini backup=yes regexp='memory_limit' line='memory_limit = 1024M'
+  lineinfile:     dest=/etc/php5/apache2/php.ini backup=yes regexp='memory_limit' line='memory_limit = {{ php_memory_limit if php_memory_limit is defined else calc_php_memory_limit.stdout }}M'
+  sudo:           yes
+
+- name:           Create custom apache prefork config
+  template:       src=prefork.conf dest=/etc/apache2/prefork.conf mode=0644 validate='/usr/sbin/apache2ctl -f %s -t'
+  sudo:           yes
+
+- name:           Remove default apache prefork config
+  replace:        dest=/etc/apache2/apache2.conf backup=yes regexp='^(?:#[^\n]+\n)*<IfModule mpm_prefork_module>[^<]+?<\/IfModule>' replace='Include prefork.conf' validate='/usr/sbin/apache2ctl -f %s -t'
   sudo:           yes
 
 - name:           Update php.ini's date.timezone
