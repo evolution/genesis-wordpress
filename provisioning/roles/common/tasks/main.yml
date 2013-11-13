@@ -11,18 +11,13 @@
   ignore_errors:  True
   when:           stage is defined
 
-- name:           Update current hostname
-  command:        hostname ${new_host.stdout}
-  sudo:           yes
-  when:           stage is defined and old_host.stdout != new_host.stdout
-
-- name:           Update canonical hostname
-  copy:           content=${new_host.stdout} dest=/etc/hostname
+- name:           Update hostname
+  hostname:       name=${new_host.stdout}
   sudo:           yes
   when:           stage is defined and old_host.stdout != new_host.stdout
 
 - name:           Update /etc/hosts for new hostname
-  command:        perl -p -i.bak -e s/${old_host.stdout}/${new_host.stdout}/ig /etc/hosts
+  replace:        dest=/etc/hosts backup=yes regexp='{{ old_host.stdout | replace(".","[.]") }}' replace='{{new_host.stdout}}'
   sudo:           yes
   when:           stage is defined and old_host.stdout != new_host.stdout
 
