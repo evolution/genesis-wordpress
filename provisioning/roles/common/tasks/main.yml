@@ -41,7 +41,7 @@
   sudo:           yes
 
 - name:           Calculate PHP memory_limit
-  shell:          "[[ {{ ansible_memtotal_mb }} -gt 2048 ]] && echo '256' || echo '128'"
+  command:        echo "{{ 256 if ansible_memtotal_mb > 2048 else 128 }}"
   register:       calc_php_memory_limit
   ignore_errors:  True
   when:           php_memory_limit is undefined
