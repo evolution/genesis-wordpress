@@ -3,10 +3,6 @@ php_packages:
   - php5-curl
   - php5-gd
 
-php_settings:
-  memory_limit:   512M
-  date_timezone:  America/Chicago
-
 apache_modules:
   - expires
   - headers
