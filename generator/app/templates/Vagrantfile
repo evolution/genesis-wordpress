@@ -12,6 +12,7 @@ Vagrant.configure("2") do |config|
   # Configure 1GB (1024MB) of memory
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--memory", 1024]
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
 
   config.vm.define :local do |box|
