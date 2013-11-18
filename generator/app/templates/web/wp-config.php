@@ -6,6 +6,9 @@ require_once(dirname(__FILE__) . '/../bower_components/genesis-wordpress/src/Gen
   // Already started PHP
   .replace('<?php', '')
 
+  // Replace table prefix
+  .replace(/(\$table_prefix\s*=\s*['"]).+(["'])/, '$1' + props.prefix + '$2')
+
   // Replace DB_*
   .replace('database_name_here',  props.DB_NAME)
   .replace('username_here',       props.DB_USER)
