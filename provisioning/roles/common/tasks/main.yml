@@ -47,7 +47,7 @@
   when:           php_settings.memory_limit is undefined
 
 - name:           Update php.ini's memory_limit
-  lineinfile:     dest=/etc/php5/apache2/php.ini backup=yes regexp='memory_limit' line='memory_limit = {{ php_settings.memory_limit if php_settings.memory_limit is defined else calc_php_memory_limit.stdout }}M'
+  lineinfile:     dest=/etc/php5/apache2/php.ini backup=yes regexp='memory_limit' line='memory_limit = {{ calc_php_memory_limit.stdout if calc_php_memory_limit.stdout is defined else php_settings.memory_limit }}M'
   sudo:           yes
 
 - name:           Create custom apache prefork config
