@@ -254,6 +254,10 @@ WordpressGenerator.prototype.writeProjectFiles = function() {
 
   try {
     this.readmeFile = this.readFileAsString(path.join(this.env.cwd, 'README.md'));
+    this.readmeFile = this.readmeFile
+      .replace(/^(?:\[[^\]]+\]){1,2}(?:\([^\)]+\))?[\r\n]+=+[\r\n]+> Powered by \[Genesis[^\r\n]+[\r\n]+/i, '')
+      .replace(/\[[^\]]+\]:\s*http[^\r\n]+[\r\n]+\[genesis-wordpress\]:\s*http[^\r\n]+[\r\n]*$/i, '')
+    ;
   } catch(e) {
     this.readmeFile = '';
   }
@@ -289,6 +293,7 @@ WordpressGenerator.prototype.writeWeb = function() {
 
   try {
     this.htaccessFile = this.readFileAsString(path.join(this.env.cwd, this.props.web, '.htaccess'));
+    this.htaccessFile = this.htaccessFile.replace(/# BEGIN Genesis WordPress(?:.|[\r\n]+)+?# END Genesis WordPress[\r\n]*/i, '');
   } catch(e) {
     this.htaccessFile = '';
   }
