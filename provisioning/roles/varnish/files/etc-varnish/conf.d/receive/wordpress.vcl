@@ -1,5 +1,5 @@
-# Pass all local or login/admin requests straight through
-if (req.http.Host ~ "^local\." || (req.url ~ "wp-(login|admin)")) {
+# Pass all login/admin requests straight through
+if (req.url ~ "wp-(login|admin)") {
     return (pass);
 }
 
