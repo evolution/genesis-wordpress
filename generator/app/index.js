@@ -120,6 +120,28 @@ WordpressGenerator.prototype.promptForWordPress = function() {
   });
 };
 
+WordpressGenerator.prototype.promptForTablePrefix = function() {
+  var existing = function(web) {
+    try {
+      var config = this.readFileAsString(path.join(web, 'wp-config.php'));
+      var prefix = config.match(/\$table_prefix\s*=\s*['"]([^'"]+)/);
+
+      if (prefix.length) {
+        return prefix[1];
+      }
+    } catch(e) {}
+  }.bind(this);
+
+  this.prompts.push({
+    type:     'text',
+    name:     'prefix',
+    message:  'WordPress table prefix',
+    default:  function(answers) {
+      return existing(answers.web) || 'wp_';
+    }
+  });
+};
+
 WordpressGenerator.prototype.promptForDatabase = function() {
   var done      = this.async();
   var existing  = function(web, constant) {
@@ -232,6 +254,10 @@ WordpressGenerator.prototype.writeProjectFiles = function() {
 
   try {
     this.readmeFile = this.readFileAsString(path.join(this.env.cwd, 'README.md'));
+    this.readmeFile = this.readmeFile
+      .replace(/^(?:\[[^\]]+\]){1,2}(?:\([^\)]+\))?[\r\n]+=+[\r\n]+> Powered by \[Genesis[^\r\n]+[\r\n]+/i, '')
+      .replace(/\[[^\]]+\]:\s*http[^\r\n]+[\r\n]+\[genesis-wordpress\]:\s*http[^\r\n]+[\r\n]*$/i, '')
+    ;
   } catch(e) {
     this.readmeFile = '';
   }
@@ -267,6 +293,7 @@ WordpressGenerator.prototype.writeWeb = function() {
 
   try {
     this.htaccessFile = this.readFileAsString(path.join(this.env.cwd, this.props.web, '.htaccess'));
+    this.htaccessFile = this.htaccessFile.replace(/# BEGIN Genesis WordPress(?:.|[\r\n]+)+?# END Genesis WordPress[\r\n]*/i, '');
   } catch(e) {
     this.htaccessFile = '';
   }
