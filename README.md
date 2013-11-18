@@ -269,6 +269,10 @@ For more help on this, refer to the [GitHub Docs](https://help.github.com/articl
 
 ## Changelog
 
+- v0.2.30
+    - Run `vagrant up` prior to `genesis:up:db` and `genesis:down:db` ([#59](https://github.com/genesis/wordpress/pull/59))
+    - Use VirtualBox's `natdnshostresolver1` to resolve DNS ([#65](https://github.com/genesis/wordpress/pull/65/files))
+    - [Ensure SSH port is not an octet](https://github.com/genesis/wordpress/pull/66)
 - v0.2.29 – [Apache + PHP performance tuning](https://github.com/genesis/wordpress/pull/64)
 - v0.2.28 – Update with last PRs from Genesis WordPress Generator
 - v0.2.27 – Awwww snap!! Making it so the [Genesis WordPress Generator](https://github.com/genesis/generator-wordpress) is always up-to-date!
