@@ -1,6 +1,6 @@
 ---
 - hosts:        webservers
-  gather_facts: no
+  gather_facts: yes
   roles:
     - common
     - wordpress
