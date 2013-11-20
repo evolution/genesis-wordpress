@@ -16,3 +16,9 @@ apache_settings:
   # max_spare_servers:
   # max_clients:
   # max_requests_per_child:
+fail2ban:
+  # whitelist:
+  #   - 127.0.0.0/8
+  # ban_time: 600
+  # notification_email: root@localhost
+  # notify_on_ban: 0

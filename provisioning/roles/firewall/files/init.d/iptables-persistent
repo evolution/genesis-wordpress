@@ -1,0 +1,164 @@
+#!/bin/sh
+# See: https://github.com/zertrin/iptables-persistent
+### BEGIN INIT INFO
+# Provides:          iptables
+# Required-Start:    mountkernfs $local_fs
+# Required-Stop:     $local_fs
+# Default-Start:     S
+# Default-Stop:     
+# Short-Description: Set up iptables rules
+### END INIT INFO
+
+PATH="/sbin:/bin:/usr/sbin:/usr/bin"
+
+# Include config file for iptables-persistent
+. /etc/default/iptables-persistent.conf
+
+case "$1" in
+start)
+    if [ -e /var/run/iptables ]; then
+        echo "iptables is already started!"
+        exit 1
+    else
+        touch /var/run/iptables
+    fi
+
+    # if fail2ban is already running, stop it the time needed to load the new rules
+    if [ -x /etc/init.d/fail2ban ]; then
+        /etc/init.d/fail2ban stop
+    fi
+
+    if [ $ENABLE_ROUTING -ne 0 ]; then
+        # Enable Routing
+        echo 1 > /proc/sys/net/ipv4/ip_forward
+        if [ $IPV6 -ne 0 ]; then
+            echo 1 >/proc/sys/net/ipv6/conf/all/forwarding
+        fi
+    fi
+
+    if [ $MODULES ]; then
+        # Load Modules
+        modprobe -a $MODULES
+    fi
+
+    # Load saved rules
+    if [ -f /etc/iptables/rules ]; then
+        iptables-restore </etc/iptables/rules
+    fi
+    if [ $IPV6 -ne 0 -a -f /etc/iptables/ipv6_rules ]; then
+        ip6tables-restore </etc/iptables/ipv6_rules
+    fi
+ 
+    # restart of fail2ban
+    if [ -x /etc/init.d/fail2ban ]; then
+        /etc/init.d/fail2ban start
+    fi
+    ;;
+
+stop|force-stop)
+    if [ ! -e /var/run/iptables ]; then
+        echo "iptables is already stopped!"
+        exit 1
+    else
+        rm /var/run/iptables
+    fi
+
+    if [ $SAVE_NEW_RULES -ne 0 ]; then
+        # Backup old rules
+        cp /etc/iptables/rules /etc/iptables/rules.bak
+        # Save new rules
+        iptables-save >/etc/iptables/rules
+
+        if [ $IPV6 -ne 0 ]; then
+            # Backup old rules
+            cp /etc/iptables/ipv6_rules /etc/iptables/ipv6_rules.bak
+            # Save new rules
+            ip6tables-save >/etc/iptables/ipv6_rules
+        fi
+    fi
+
+    # stop fail2ban before flushing iptables chains
+    if [ -x /etc/init.d/fail2ban ]; then
+        /etc/init.d/fail2ban stop
+    fi
+
+    # Restore Default Policies
+    iptables -P INPUT ACCEPT
+    iptables -P FORWARD ACCEPT
+    iptables -P OUTPUT ACCEPT
+
+    # Flush rules on default tables
+    iptables -F
+    iptables -t nat -F
+    iptables -t mangle -F
+
+    if [ $IPV6 -ne 0 ]; then
+        # Restore Default Policies
+        ip6tables -P INPUT ACCEPT
+        ip6tables -P FORWARD ACCEPT
+        ip6tables -P OUTPUT ACCEPT
+
+        # Flush rules on default tables
+        ip6tables -F
+        ip6tables -t mangle -F
+    fi
+
+    if [ $MODULES ]; then
+        # Unload previously loaded modules
+        modprobe -r $MODULES
+    fi
+
+    # Disable Routing if enabled
+    if [ $ENABLE_ROUTING -ne 0 ]; then
+        # Disable Routing
+        echo 0 > /proc/sys/net/ipv4/ip_forward
+        if [ $IPV6 -ne 0 ]; then
+            echo 0 >/proc/sys/net/ipv6/conf/all/forwarding
+        fi
+    fi
+
+    # start of fail2ban
+    if [ -x /etc/init.d/fail2ban ]; then
+        /etc/init.d/fail2ban start
+    fi
+    ;;
+
+restart|force-reload)
+    $0 stop
+    $0 start
+    ;;
+
+status)
+    echo "Filter Rules:"
+    echo "--------------"
+    iptables -L -v
+    echo ""
+    echo "NAT Rules:"
+    echo "-------------"
+    iptables -t nat -L -v
+    echo ""
+    echo "Mangle Rules:"
+    echo "----------------"
+    iptables -t mangle -L -v
+
+    if [ $IPV6 -ne 0 ]; then
+        echo "**********"
+        echo "** IPV6 **"
+        echo "**********"
+        echo "Filter Rules:"
+        echo "--------------"
+        ip6tables -L -v
+        echo ""
+        echo "Mangle Rules:"
+        echo "----------------"
+        ip6tables -t mangle -L -v
+    fi
+    ;;
+
+*)
+    echo "Usage: $0 {start|stop|force-stop|restart|force-reload|status}" >&2
+    exit 1
+    ;;
+esac
+
+exit 0

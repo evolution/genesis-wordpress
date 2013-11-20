@@ -3,5 +3,6 @@
   gather_facts: yes
   roles:
     - common
+    - firewall
     - wordpress
     - varnish

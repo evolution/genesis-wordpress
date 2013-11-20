@@ -1,0 +1,32 @@
+# Fail2Ban configuration file
+#
+# Author: Evan Kaufman
+#
+# $Revision$
+#
+
+[INCLUDES]
+
+# Read common prefixes. If any customizations available -- read them from
+# common.local
+before = apache-common.conf
+
+[Definition]
+
+# Option:  failregex
+# Notes.:  regex to match certain Wordpress and PHP vulns, borrowed from:
+#          * http://www.fail2ban.org/wiki/index.php/Apache
+#          * http://blog.somsip.com/2012/02/using-fail2ban-to-protect-wordpress/
+# Values:  TEXT
+#
+failregex = ^%(_apache_error_client)s PHP Notice:.*(Undefined variable: HTTP_.*_VARS in|Use of undefined constant include_path).*$
+            ^%(_apache_error_client)s PHP Deprecated:.*(Function set_magic_quotes_runtime\(\) is deprecated in|Assigning the return value of new by reference is deprecated in).*$
+            ^%(_apache_error_client)s (File does not exist|script ').*(phpMyAdmin|phpmyadmin|dbadmin|mysql|myadmin|w00t|muieblackcat|mysqladmin).*$
+
+ignoreregex =
+
+# Option:  ignoreregex
+# Notes.:  regex to ignore. If this regex matches, the line is ignored.
+# Values:  TEXT
+#
+ignoreregex = 

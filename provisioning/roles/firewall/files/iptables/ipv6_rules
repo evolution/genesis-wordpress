@@ -1,0 +1,51 @@
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+
+# allow all loopback traffic
+-A INPUT -i lo -j ACCEPT
+
+# allow all ICMP traffic
+-A INPUT -p icmpv6 -j ACCEPT
+
+# Drop any tcp packet that does not start a connection with a syn flag.
+-A INPUT -p tcp ! --syn -m state --state NEW -j DROP
+# packets belonging to an established connection or related to one can pass
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+# packets that are out-of-sequence are silently dropped
+-A INPUT -m state --state INVALID -j DROP
+
+# Allow incoming FTP
+#-A INPUT -i eth+ -p tcp --dport 21 -j ACCEPT
+
+# Allow incoming SSH
+-A INPUT -i eth+ -p tcp -m tcp --dport 22 -j ACCEPT
+
+# Allow incoming HTTP
+-A INPUT -i eth+ -p tcp -m tcp --dport 80 -j ACCEPT
+
+# Allow incoming HTTPS
+-A INPUT -i eth+ -p tcp -m tcp --dport 443 -j ACCEPT
+
+# Allow DNS
+#-A OUTPUT -o eth+ -p tcp --dport 53 -j ACCEPT
+#-A OUTPUT -o eth+ -p udp --dport 53 -j ACCEPT
+#-A INPUT -i eth+ -p tcp --sport 53 -j ACCEPT
+#-A INPUT -i eth+ -p udp --sport 53 -j ACCEPT
+
+# Log dropped packets
+-N LOGGING
+-A INPUT -j LOGGING
+-A LOGGING -p tcp -m limit --limit 5/min --limit-burst 10 -j LOG --log-prefix "iptables: [INPUT6 ][denied TCP] " --log-level 7
+-A LOGGING -p udp -m limit --limit 5/min --limit-burst 10 -j LOG --log-prefix "iptables: [INPUT6 ][denied UDP] " --log-level 7
+-A LOGGING -p icmp -m limit --limit 5/min --limit-burst 10 -j LOG --log-prefix "iptables: [INPUT6 ][denied ICMP] " --log-level 7
+-A INPUT -j REJECT
+
+# allow outgoing traffic, explicitly (despite chain policy)
+-A OUTPUT -j ACCEPT
+
+# disallow forwarded traffic, explicitly (despite chain policy)
+-A FORWARD -j REJECT
+
+COMMIT

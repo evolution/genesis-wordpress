@@ -1,0 +1,76 @@
+*nat
+:PREROUTING ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+COMMIT
+
+*filter
+# Set default chain policies
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+
+# Allows all loopback (lo0) traffic and drop all traffic to 127/8 that doesn't use lo0
+-A INPUT -i lo -j ACCEPT
+-A INPUT ! -i lo -d 127.0.0.0/8 -j REJECT
+
+# Drop any tcp packet that does not start a connection with a syn flag.
+-A INPUT -p tcp ! --syn -m state --state NEW -j DROP
+
+# Accepts all established inbound connections
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Drop any invalid packet that could not be identified.
+-A INPUT -m state --state INVALID -j DROP
+
+# Blacklist (examples)
+#-A INPUT -i eth+ -s 198.51.100.1 -p tcp --dport 22 -j DROP # Example IP from RFC 5737
+#-A INPUT -i eth+ -s 203.0.113.34 -j DROP # Example IP from RFC 5737
+
+# Allow incoming FTP
+#-A INPUT -i eth+ -p tcp --dport 21 -j ACCEPT
+
+# Allow incoming SSH
+-A INPUT -i eth+ -p tcp --dport 22 -j ACCEPT
+
+# Allow incoming HTTP
+-A INPUT -i eth+ -p tcp --dport 80 -j ACCEPT
+
+# Allow incoming HTTPS
+-A INPUT -i eth+ -p tcp --dport 443 -j ACCEPT
+
+# Allow ping from inside to outside
+-A OUTPUT -o eth+ -p icmp --icmp-type echo-request -j ACCEPT
+-A INPUT -i eth+ -p icmp --icmp-type echo-reply -m limit --limit 2/s -j ACCEPT
+
+# Allow ping from outside to inside
+-A INPUT -i eth+ -p icmp --icmp-type echo-request -m limit --limit 2/s -j ACCEPT
+-A OUTPUT -o eth+ -p icmp --icmp-type echo-reply -j ACCEPT
+
+# Allow NTP
+#-A INPUT -i eth+ -p udp --dport 123 -j ACCEPT
+#-A OUTPUT -o eth+ -p udp --sport 123 -j ACCEPT
+
+# Allow DNS
+#-A OUTPUT -o eth+ -p tcp --dport 53 -j ACCEPT
+#-A OUTPUT -o eth+ -p udp --dport 53 -j ACCEPT
+#-A INPUT -i eth+ -p tcp --sport 53 -j ACCEPT
+#-A INPUT -i eth+ -p udp --sport 53 -j ACCEPT
+
+# Log dropped packets
+-N LOGGING
+-A INPUT -j LOGGING
+-A LOGGING -p tcp -m limit --limit 5/min --limit-burst 10 -j LOG --log-prefix "iptables: [denied TCP] " --log-level 7
+-A LOGGING -p udp -m limit --limit 5/min --limit-burst 10 -j LOG --log-prefix "iptables: [denied UDP] " --log-level 7
+-A LOGGING -p icmp -m limit --limit 5/min --limit-burst 10 -j LOG --log-prefix "iptables: [denied ICMP] " --log-level 7
+
+# Reject all other inbound - default deny unless explicitly allowed policy:
+-A INPUT -j REJECT
+
+# Allow all other outbound traffic
+-A OUTPUT -j ACCEPT
+
+# Reject forwarded traffic, explicitely (despite chain policy)
+-A FORWARD -j REJECT
+
+COMMIT
