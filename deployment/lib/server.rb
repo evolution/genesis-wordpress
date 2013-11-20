@@ -23,13 +23,13 @@ namespace :genesis do
     desc "Fix permissions"
     task :permissions do
         # Avoid uploading problems if Apache owns directories
-        run "find #{remote_web} -follow -type d -exec chown :www-data {} \\;"
+        sudo "find -L #{remote_web} -type d -exec chown :www-data {} \\;"
 
         # Both deploy & Apache have 1st control of directories
-        run "find #{remote_web} -follow -type d -exec chmod 775 {} \\;"
+        sudo "find -L #{remote_web} -type d -exec chmod 775 {} \\; -exec chmod g+s {} \\;"
 
         # Files should not be executable, but deploy + Apache still have control
-        run "find #{remote_web} -follow -type f -exec chmod 644 {} \\;"
+        sudo "find -L #{remote_web} -type f -exec chmod 664 {} \\;"
     end
 
     namespace :logs do

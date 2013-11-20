@@ -40,6 +40,10 @@
   when:           has_vagrant.stdout
   sudo:           yes
 
+- name:           Add www-data user to deploy
+  user:           name=www-data append=yes groups=deploy
+  sudo:           yes
+
 - name:           Calculate PHP memory_limit
   command:        echo "{{ 256 if ansible_memtotal_mb > 2048 else 128 }}"
   register:       calc_php_memory_limit
