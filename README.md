@@ -269,6 +269,7 @@ For more help on this, refer to the [GitHub Docs](https://help.github.com/articl
 
 ## Changelog
 
+- v0.2.31 – Attempt to fix issues with `genesis:permissions` ([#54](https://github.com/genesis/wordpress/pull/54))
 - v0.2.30
     - Run `vagrant up` prior to `genesis:up:db` and `genesis:down:db` ([#59](https://github.com/genesis/wordpress/pull/59))
     - Use VirtualBox's `natdnshostresolver1` to resolve DNS ([#65](https://github.com/genesis/wordpress/pull/65/files))
