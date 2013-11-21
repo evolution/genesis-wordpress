@@ -1,25 +1,18 @@
 ---
-- name:           Determine optimal hostname
-  command:        echo ${stage}.${domain}
-  register:       new_host
-  ignore_errors:  True
-  when:           stage is defined
-
 - name:           Determine current hostname
   command:        hostname
   register:       old_host
   ignore_errors:  True
-  when:           stage is defined
 
 - name:           Update hostname
-  hostname:       name=${new_host.stdout}
+  hostname:       name={{ansible_fqdn}}
   sudo:           yes
-  when:           stage is defined and old_host.stdout != new_host.stdout
+  when:           old_host.stdout != ansible_fqdn
 
 - name:           Update /etc/hosts for new hostname
-  replace:        dest=/etc/hosts backup=yes regexp='{{ old_host.stdout | replace(".","[.]") }}' replace='{{new_host.stdout}}'
+  replace:        dest=/etc/hosts backup=yes regexp='{{ old_host.stdout | replace(".","[.]") }}' replace='{{ansible_fqdn}}'
   sudo:           yes
-  when:           stage is defined and old_host.stdout != new_host.stdout
+  when:           old_host.stdout != ansible_fqdn
 
 - name:           Add Node apt-repository
   apt_repository: repo='ppa:chris-lea/node.js' state=present

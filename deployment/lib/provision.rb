@@ -10,7 +10,7 @@ namespace :genesis do
                 upload "./provisioning", "#{tmp}/provisioning", :via => :scp, :recursive => true
                 upload "./bower_components/genesis-wordpress/provisioning", "#{tmp}/bower_components/genesis-wordpress/provisioning", :via => :scp, :recursive => true
 
-                sudo "#{tmp}/bin/provision -e stage=#{stage}"
+                sudo "#{tmp}/bin/provision"
             rescue
                 puts "\n"
 
