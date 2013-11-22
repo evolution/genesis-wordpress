@@ -77,3 +77,11 @@
 - name:           Update my.conf's bind-address
   lineinfile:     dest=/etc/mysql/my.cnf backup=yes regexp=^bind-address line='bind-address = 0.0.0.0'
   sudo:           yes
+
+- name:           Generate /etc/aliases
+  template:       src=aliases dest=/etc/aliases mode=0644
+  sudo:           yes
+
+- name:           Update sendmail aliases
+  command:        newaliases
+  sudo:           yes
