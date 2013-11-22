@@ -40,6 +40,14 @@
   when:           has_vagrant.stdout
   sudo:           yes
 
+- name:           Create deploy user
+  user:           name=deploy append=yes groups=www-data shell=/bin/bash comment="Created by Genesis WordPress"
+  sudo:           yes
+
+- name:           Grant sudo access to deploy user
+  copy:           content="%deploy ALL=(ALL) NOPASSWD:ALL" dest=/etc/sudoers.d/deploy mode=0440 force=no
+  sudo:           yes
+
 - name:           Add www-data user to deploy
   user:           name=www-data append=yes groups=deploy
   sudo:           yes
@@ -68,12 +76,4 @@
 
 - name:           Update my.conf's bind-address
   lineinfile:     dest=/etc/mysql/my.cnf backup=yes regexp=^bind-address line='bind-address = 0.0.0.0'
-  sudo:           yes
-
-- name:           Create deploy user
-  user:           name=deploy append=yes groups=www-data shell=/bin/bash comment="Created by Genesis WordPress"
-  sudo:           yes
-
-- name:           Grant sudo access to deploy user
-  copy:           content="%deploy ALL=(ALL) NOPASSWD:ALL" dest=/etc/sudoers.d/deploy mode=0440 force=no
   sudo:           yes
