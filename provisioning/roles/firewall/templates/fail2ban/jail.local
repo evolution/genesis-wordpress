@@ -6,18 +6,18 @@
 {% if fail2ban is defined and fail2ban.whitelist is defined %}
 # Can be space separated IP addresses, CIDR masks or DNS hosts
 ignoreip = 127.0.0.0/8 {{ fail2ban.whitelist | join(' ') }}
-{% endif %}
 
+{% endif %}
 {% if fail2ban is defined and fail2ban.ban_time is defined %}
 # Global default ban time (in seconds)
 bantime  = {{fail2ban.ban_time}}
-{% endif %}
 
+{% endif %}
 {% if fail2ban is defined and fail2ban.notification_email is defined %}
 # Destination email for interpolations in jail.{conf,local}
 destemail = {{fail2ban.notification_email}}
-{% endif %}
 
+{% endif %}
 # Default banning action
 banaction = iptables-multiport
 

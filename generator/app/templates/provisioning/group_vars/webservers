@@ -19,6 +19,6 @@ apache_settings:
 fail2ban:
   # whitelist:
   #   - 127.0.0.0/8
-  # ban_time: 600
+  # ban_time:           600
   # notification_email: root@localhost
-  # notify_on_ban: 0
+  # notify_on_ban:      0

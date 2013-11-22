@@ -11,7 +11,6 @@
   copy:           src=${item} dest=/etc/${item} mode=0644
   with_items:
     - fail2ban/filter.d/apache-wordpress.local
-    - init.d/iptables-persistent
     - default/iptables-persistent.conf
     - iptables/rules
     - iptables/ipv6_rules
