@@ -129,10 +129,10 @@ sub vcl_recv {
     # A valid discussion could be held on this line: do you really need to cache static files that don't cause load? Only if you have memory left.
     # Sure, there's disk I/O, but chances are your OS will already have these files in their buffers (thus memory).
     # Before you blindly enable this, have a read here: http://mattiasgeniar.be/2012/11/28/stop-caching-static-files/
-    if (req.url ~ "^[^?]*\.(bmp|bz2|css|doc|eot|flv|gif|gz|ico|jpeg|jpg|js|less|mp[34]|pdf|png|rar|rtf|swf|tar|tgz|txt|wav|woff|xml|zip)(\?.*)?$") {
-        unset req.http.Cookie;
-        return (lookup);
-    }
+    # if (req.url ~ "^[^?]*\.(bmp|bz2|css|doc|eot|flv|gif|gz|ico|jpeg|jpg|js|less|mp[34]|pdf|png|rar|rtf|swf|tar|tgz|txt|wav|woff|xml|zip)(\?.*)?$") {
+    #     unset req.http.Cookie;
+    #     return (lookup);
+    # }
 
     # Send Surrogate-Capability headers to announce ESI support to backend
     set req.http.Surrogate-Capability = "key=ESI/1.0";
@@ -226,9 +226,9 @@ sub vcl_fetch {
     # Enable cache for all static files
     # The same argument as the static caches from above: monitor your cache size, if you get data nuked out of it, consider giving up the static file cache.
     # Before you blindly enable this, have a read here: http://mattiasgeniar.be/2012/11/28/stop-caching-static-files/
-    if (req.url ~ "^[^?]*\.(bmp|bz2|css|doc|eot|flv|gif|gz|ico|jpeg|jpg|js|less|mp[34]|pdf|png|rar|rtf|swf|tar|tgz|txt|wav|woff|xml|zip)(\?.*)?$") {
-        unset beresp.http.set-cookie;
-    }
+    # if (req.url ~ "^[^?]*\.(bmp|bz2|css|doc|eot|flv|gif|gz|ico|jpeg|jpg|js|less|mp[34]|pdf|png|rar|rtf|swf|tar|tgz|txt|wav|woff|xml|zip)(\?.*)?$") {
+    #     unset beresp.http.set-cookie;
+    # }
 
     # Sometimes, a 301 or 302 redirect formed via Apache's mod_rewrite can mess with the HTTP port that is being passed along.
     # This often happens with simple rewrite rules in a scenario where Varnish runs on :80 and Apache on :8080 on the same box.
