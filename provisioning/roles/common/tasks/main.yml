@@ -1,6 +1,6 @@
 ---
 - name:           Determine optimal hostname
-  command:        echo ${stage}.${domain}
+  command:        echo {{stage}}.{{domain}}
   register:       new_host
   ignore_errors:  True
   when:           stage is defined
@@ -12,12 +12,12 @@
   when:           stage is defined
 
 - name:           Update hostname
-  hostname:       name=${new_host.stdout}
+  hostname:       name={{new_host.stdout}}
   sudo:           yes
   when:           stage is defined and old_host.stdout != new_host.stdout
 
 - name:           Update /etc/hosts for new hostname
-  replace:        dest=/etc/hosts backup=yes regexp='{{ old_host.stdout | replace(".","[.]") }}' replace='{{new_host.stdout}}'
+  replace:        dest=/etc/hosts backup=yes regexp={{ old_host.stdout | replace(".","[.]") }} replace={{new_host.stdout}}
   sudo:           yes
   when:           stage is defined and old_host.stdout != new_host.stdout
 
