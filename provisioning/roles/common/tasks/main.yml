@@ -71,7 +71,7 @@
   sudo:           yes
 
 - name:           Update php.ini's date.timezone
-  lineinfile:     dest=/etc/php5/apache2/php.ini backup=yes regexp='date\.timezone' line='date.timezone = "America/Chicago'
+  lineinfile:     dest=/etc/php5/apache2/php.ini backup=yes regexp='date\.timezone' line='date.timezone = "America/Chicago"'
   sudo:           yes
 
 - name:           Update my.conf's bind-address
