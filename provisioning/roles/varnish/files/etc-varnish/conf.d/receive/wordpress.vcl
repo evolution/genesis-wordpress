@@ -1,5 +1,9 @@
-# Pass all login/admin requests straight through
-if (req.url ~ "wp-(login|admin)") {
+# Pass all login requests straight through
+if (req.url ~ "wp-login") {
+    return (pass);
+}
+# Pipe all admin requests directly
+if (req.url ~ "wp-admin") {
     return (pipe);
 }
 
