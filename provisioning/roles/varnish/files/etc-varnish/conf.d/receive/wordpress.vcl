@@ -1,6 +1,6 @@
 # Pass all login/admin requests straight through
 if (req.url ~ "wp-(login|admin)") {
-    return (pass);
+    return (pipe);
 }
 
 # Pass all requests containing a wp- or wordpress_ cookie
