@@ -355,3 +355,7 @@ Then you're probably missing the [Vagrant Public](https://raw.github.com/mitchel
 [7]: http://www.ansibleworks.com/
 [8]: https://www.virtualbox.org/
 [9]: http://nodejs.org/
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/genesis/wordpress/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
