@@ -19,7 +19,7 @@ Genesis WordPress
 
 ## Installation
 
-Ensure you have the latest versions of [NodeJS][9] **v0.10**, [Vagrant v1.2.7](http://downloads.vagrantup.com/tags/v1.2.7), & [VirtualBox][8].
+Ensure you have the latest versions of [NodeJS][9] **v0.10**, [Vagrant v1.3.*](http://downloads.vagrantup.com), & [VirtualBox v.4.2.*](https://www.virtualbox.org/wiki/Download_Old_Builds_4_2).
 
 ### Scaffolding & Development
 
@@ -34,9 +34,9 @@ If you get EMFILE issues, try running: `$ ulimit -n 4096`.
 
 ### Deployment
 
-Install [Capistrano][5] & [Ansible][7]:
+Install [Capistrano v2.15.*][5] & [Ansible][7]:
 
-    $ sudo gem install capistrano capistrano-ext colored
+    $ sudo gem install capistrano -v 2.15 capistrano-ext colored
     $ sudo easy_install pip
     $ sudo pip install ansible
 
