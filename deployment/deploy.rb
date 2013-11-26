@@ -44,6 +44,12 @@ set :local_web,         "./web"
 # Remote web root for rsync'ing
 set(:remote_web)        { "#{current_path}/web" }
 
+# Local uploads dir for rsync'ing
+set :local_uploads,     "./web/wp-content/uploads"
+
+# Remote uploads dir for rsync'ing
+set(:remote_uploads)    { "#{current_path}/web/wp-content/uploads"}
+
 # Keep 5 previous releases, used with deploy:cleanup
 set :keep_releases,     5
 
