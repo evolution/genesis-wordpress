@@ -81,15 +81,17 @@ namespace :genesis do
             end
         end
 
-        desc "Downloads files from the uploads dir to Vagrant"
-        task :uploads, :roles => :web do
+        desc "Downloads shared children files to Vagrant"
+        task :shared, :roles => :web do
             set :excludes, "--exclude '#{rsync_exclude.join('\' --exclude \'')}'"
 
             ssh = "-e \"ssh -i #{ssh_options[:keys][0]}\"" unless ssh_options.keys.empty?
 
             find_servers_for_task(current_task).each do |current_server|
                 system "chmod 600 #{ssh_options[:keys][0]}" unless ssh_options.keys.empty?
-                system "rsync #{ssh} -avvru --delete --copy-links #{excludes} --progress #{'--dry-run' if dry_run} #{user}@#{current_server}:#{remote_uploads}/ #{local_uploads}/"
+                shared_children.each do |key|
+                    system "rsync #{ssh} -avvru --delete --copy-links #{excludes} --progress #{'--dry-run' if dry_run} #{user}@#{current_server}:#{remote_web}/#{key}/ #{local_web}/#{key}/"
+                end
             end
         end
     end
@@ -128,13 +130,15 @@ namespace :genesis do
             end
         end
 
-        desc "Uploads files from the uploads dir to remote"
+        desc "Uploads shared children files to remote"
         task :uploads, :roles => :web do
             set :excludes, "--exclude '#{rsync_exclude.join('\' --exclude \'')}'"
 
             find_servers_for_task(current_task).each do |current_server|
                 system "chmod 600 #{ssh_options[:keys][0]}" unless ssh_options.keys.empty?
-                system "rsync -e \"ssh -i #{ssh_options[:keys][0]}\" -avvru --keep-dirlinks #{excludes} --progress #{'--dry-run' if dry_run} #{local_uploads}/ #{user}@#{current_server}:#{remote_uploads}/"
+                shared_children.each do |key|
+                    system "rsync -e \"ssh -i #{ssh_options[:keys][0]}\" -avvru --keep-dirlinks #{excludes} --progress #{'--dry-run' if dry_run} #{local_web}/#{key}/ #{user}@#{current_server}:#{remote_web}/#{key}/"
+                end
             end
         end
     end
