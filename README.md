@@ -281,6 +281,22 @@ the private key path for Vagrant is setup properly as well.
 Then you're probably missing the [Vagrant Public](https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub) Key in your `authorized_keys`. To add it run:
 `curl https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub >> ~/.ssh/authorized_keys`
 
+### Vagrant - Error While Executing `VBoxManage`
+
+If you're seeing this:
+
+```
+There was an error while executing `VBoxManage`, a CLI used by Vagrant
+for controlling VirtualBox. The command and stderr is shown below.
+
+Command: ["hostonlyif", "create"]
+```
+
+The you'll need to restart VirtualBox with:
+```
+sudo /Library/StartupItems/VirtualBox/VirtualBox restart
+```
+
 ## Changelog
 
 - v0.2.32 – Fix issue with adding `deploy` user to `www-data` group ([#70](https://github.com/genesis/wordpress/pull/70))
