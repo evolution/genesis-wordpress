@@ -269,6 +269,7 @@ For more help on this, refer to the [GitHub Docs](https://help.github.com/articl
 
 ## Changelog
 
+- v0.2.33 – Allow two-part TLDs ([#77](https://github.com/genesis/wordpress/issues/77https://github.com/genesis/wordpress/issues/77))
 - v0.2.32 – Fix issue with adding `deploy` user to `www-data` group ([#70](https://github.com/genesis/wordpress/pull/70))
 - v0.2.31 – Attempt to fix issues with `genesis:permissions` ([#54](https://github.com/genesis/wordpress/pull/54))
 - v0.2.30
