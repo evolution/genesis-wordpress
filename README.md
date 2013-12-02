@@ -19,7 +19,7 @@ Genesis WordPress
 
 ## Installation
 
-Ensure you have the latest versions of [NodeJS][9] **v0.10**, [Vagrant v1.2.7](http://downloads.vagrantup.com/tags/v1.2.7), & [VirtualBox][8].
+Ensure you have the latest versions of [NodeJS][9] **v0.10**, [Vagrant v1.3.*](http://downloads.vagrantup.com), & [VirtualBox v.4.2.*](https://www.virtualbox.org/wiki/Download_Old_Builds_4_2).
 
 ### Scaffolding & Development
 
@@ -34,9 +34,9 @@ If you get EMFILE issues, try running: `$ ulimit -n 4096`.
 
 ### Deployment
 
-Install [Capistrano][5] & [Ansible][7]:
+Install [Capistrano v2.15.*][5] & [Ansible][7]:
 
-    $ sudo gem install capistrano capistrano-ext colored
+    $ sudo gem install capistrano -v 2.15 capistrano-ext colored
     $ sudo easy_install pip
     $ sudo pip install ansible
 
@@ -267,6 +267,20 @@ Then you probably need to add the SSH keys to your GitHub repo. Open `provisioni
 
 For more help on this, refer to the [GitHub Docs](https://help.github.com/articles/error-permission-denied-publickey).
 
+### SSH - SSH Authentication Failed!
+
+If you're seeing this:
+
+```
+SSH authentication failed! This is typically caused by the public/private
+keypair for the SSH user not being properly set on the guest VM. Please
+verify that the guest VM is setup with the proper public key, and that
+the private key path for Vagrant is setup properly as well.
+```
+
+Then you're probably missing the [Vagrant Public](https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub) Key in your `authorized_keys`. To add it run:
+`curl https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub >> ~/.ssh/authorized_keys`
+
 ## Changelog
 
 - v0.2.33 – Allow two-part TLDs ([#77](https://github.com/genesis/wordpress/issues/77https://github.com/genesis/wordpress/issues/77))
@@ -342,3 +356,7 @@ For more help on this, refer to the [GitHub Docs](https://help.github.com/articl
 [7]: http://www.ansibleworks.com/
 [8]: https://www.virtualbox.org/
 [9]: http://nodejs.org/
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/genesis/wordpress/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
