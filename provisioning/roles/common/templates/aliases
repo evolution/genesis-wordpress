@@ -1,0 +1,5 @@
+# See man 5 aliases for format
+postmaster: deploy
+{% if mail is defined and mail.postmaster is defined and mail.postmaster != 'deploy' %}
+deploy: {{mail.postmaster}}
+{% endif %}
