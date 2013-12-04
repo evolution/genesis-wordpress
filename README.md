@@ -300,6 +300,13 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 
 ## Changelog
 
+- v0.2.37 – Fix isues with Varnish ([#62](https://github.com/genesis/wordpress/pull/62):
+    - Cleaned up cookie logic in `production.vcl` (see #28, and 3fd9d0c)
+    - Fixed wp cookie check in `receive/wordpress.vcl` (see 9c2f358)
+    - Changed varnish to file backend (see #53)
+    - Removed cache bypassing for local env (see fa96873)
+    - Removed caching of static files (see 99eb9ad)
+    - Piping `wp-(login|admin)` instead of passing (see 89cb137)
 - v0.2.36 – Add `postfix` ([#72](https://github.com/genesis/wordpress/pull/72))
 - v0.2.35 – Add `genesis:teardown` ([#55](https://github.com/genesis/wordpress/pull/55)) & fix `date.timezone` ([#73](https://github.com/genesis/wordpress/pull/73))
 - v0.2.34 – Default to WordPress 3.7.1 ([#74](https://github.com/genesis/wordpress/pull/74))
