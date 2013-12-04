@@ -300,6 +300,7 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 
 ## Changelog
 
+- v0.2.36 – Add `postfix` ([#72](https://github.com/genesis/wordpress/pull/72))
 - v0.2.35 – Add `genesis:teardown` ([#55](https://github.com/genesis/wordpress/pull/55)) & fix `date.timezone` ([#73](https://github.com/genesis/wordpress/pull/73))
 - v0.2.34 – Default to WordPress 3.7.1 ([#74](https://github.com/genesis/wordpress/pull/74))
 - v0.2.33 – Allow two-part TLDs ([#77](https://github.com/genesis/wordpress/issues/77https://github.com/genesis/wordpress/issues/77))
