@@ -300,6 +300,7 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 
 ## Changelog
 
+- v0.2.38 – Move events to after `deploy:update_code` ([#82](https://github.com/genesis/wordpress/pull/82))
 - v0.2.37 – Fix isues with Varnish ([#62](https://github.com/genesis/wordpress/pull/62):
     - Cleaned up cookie logic in `production.vcl` (see #28, and 3fd9d0c)
     - Fixed wp cookie check in `receive/wordpress.vcl` (see 9c2f358)
