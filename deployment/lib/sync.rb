@@ -131,7 +131,7 @@ namespace :genesis do
         end
 
         desc "Uploads shared children files to remote"
-        task :uploads, :roles => :web do
+        task :shared, :roles => :web do
             set :excludes, "--exclude '#{rsync_exclude.join('\' --exclude \'')}'"
 
             find_servers_for_task(current_task).each do |current_server|
