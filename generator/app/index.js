@@ -115,7 +115,7 @@ WordpressGenerator.prototype.promptForWordPress = function() {
     name:     'wordpress',
     message:  'WordPress version',
     default:  function(answers) {
-      return existing(answers.web) || '3.6.1';
+      return existing(answers.web) || '3.7.1';
     }
   });
 };
