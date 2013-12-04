@@ -198,6 +198,7 @@ which you can see by running:
     cap genesis:up          # Uploads Vagrant database & local files into production
     cap genesis:up:db       # Uploads Vagrant database into remote
     cap genesis:up:files    # Uploads local project files to remote
+    cap genesis:teardown    # Remove any existing remote deployment files; counterpart to cap's built-in deploy:setup
 
 Now run any one of those commands against an environemnt:
 
