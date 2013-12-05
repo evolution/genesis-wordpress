@@ -1,5 +1,27 @@
 require 'pathname'
 
+before "genesis:teardown" do
+    set(:confirmed) do
+        logger.important <<-WARN
+
+        ========================================================================
+
+            WARNING: You are about to permanently remove everything within #{deploy_to}
+
+        ========================================================================
+
+        WARN
+
+        answer = Capistrano::CLI.ui.ask "  Are you sure you want to continue? (YES) "
+        if answer === 'YES' then true else false end
+    end
+
+    unless fetch(:confirmed)
+        logger.info "\Aborted!"
+        exit
+    end
+end
+
 namespace :genesis do
     desc "Restart Apache + Varnish"
     task :restart, :roles => :web do
@@ -18,6 +40,11 @@ namespace :genesis do
     task :stop, :roles => :web do
         sudo "/etc/init.d/apache2 stop"
         sudo "/etc/init.d/varnish stop"
+    end
+
+    desc "Tear down anything previously deployed"
+    task :teardown, :roles => :web do
+        sudo "rm -rf #{deploy_to}"
     end
 
     desc "Fix permissions"

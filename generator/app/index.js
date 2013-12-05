@@ -69,7 +69,7 @@ WordpressGenerator.prototype.promptForDomain = function() {
     message:  'Domain name (e.g. mysite.com)',
     default:  path.basename(this.env.cwd).toLowerCase(),
     validate: function(input) {
-      if (/^[\w-]+\.\w+$/.test(input)) {
+      if (/^[\w-]+\.\w+(?:\.\w{2,3})?$/.test(input)) {
         return true;
       } else if (!input) {
         return "Domain is required";
@@ -115,7 +115,7 @@ WordpressGenerator.prototype.promptForWordPress = function() {
     name:     'wordpress',
     message:  'WordPress version',
     default:  function(answers) {
-      return existing(answers.web) || '3.6.1';
+      return existing(answers.web) || '3.7.1';
     }
   });
 };

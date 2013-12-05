@@ -7,5 +7,6 @@ system_packages:
   - git-core
   - python-mysqldb
   - nodejs
+  - postfix
   - htop
   - iftop

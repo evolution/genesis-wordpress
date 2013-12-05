@@ -16,6 +16,8 @@ apache_settings:
   # max_spare_servers:
   # max_clients:
   # max_requests_per_child:
+mail:
+  # postmaster: sysadmin@example.com
 fail2ban:
   # whitelist:
   #   - 127.0.0.0/8

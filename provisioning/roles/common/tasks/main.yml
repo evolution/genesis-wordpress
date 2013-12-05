@@ -71,9 +71,17 @@
   sudo:           yes
 
 - name:           Update php.ini's date.timezone
-  lineinfile:     dest=/etc/php5/apache2/php.ini backup=yes regexp='date\.timezone' line='date.timezone = "America/Chicago'
+  lineinfile:     dest=/etc/php5/apache2/php.ini backup=yes regexp='date\.timezone' line='date.timezone = "America/Chicago"'
   sudo:           yes
 
 - name:           Update my.conf's bind-address
   lineinfile:     dest=/etc/mysql/my.cnf backup=yes regexp=^bind-address line='bind-address = 0.0.0.0'
+  sudo:           yes
+
+- name:           Generate /etc/aliases
+  template:       src=aliases dest=/etc/aliases mode=0644
+  sudo:           yes
+
+- name:           Update sendmail aliases
+  command:        newaliases
   sudo:           yes
