@@ -81,15 +81,15 @@ namespace :genesis do
             end
         end
 
-        desc "Downloads shared children files to Vagrant"
-        task :shared, :roles => :web do
+        desc "Downloads limited dirs to Vagrant"
+        task :limited, :roles => :web do
             set :excludes, "--exclude '#{rsync_exclude.join('\' --exclude \'')}'"
 
             ssh = "-e \"ssh -i #{ssh_options[:keys][0]}\"" unless ssh_options.keys.empty?
 
             find_servers_for_task(current_task).each do |current_server|
                 system "chmod 600 #{ssh_options[:keys][0]}" unless ssh_options.keys.empty?
-                shared_children.each do |key|
+                rsync_limited.each do |key|
                     system "rsync #{ssh} -avvru --delete --copy-links #{excludes} --progress #{'--dry-run' if dry_run} #{user}@#{current_server}:#{remote_web}/#{key}/ #{local_web}/#{key}/"
                 end
             end
@@ -130,13 +130,13 @@ namespace :genesis do
             end
         end
 
-        desc "Uploads shared children files to remote"
-        task :shared, :roles => :web do
+        desc "Uploads limited dirs to remote"
+        task :limited, :roles => :web do
             set :excludes, "--exclude '#{rsync_exclude.join('\' --exclude \'')}'"
 
             find_servers_for_task(current_task).each do |current_server|
                 system "chmod 600 #{ssh_options[:keys][0]}" unless ssh_options.keys.empty?
-                shared_children.each do |key|
+                rsync_limited.each do |key|
                     system "rsync -e \"ssh -i #{ssh_options[:keys][0]}\" -avvru --keep-dirlinks #{excludes} --progress #{'--dry-run' if dry_run} #{local_web}/#{key}/ #{user}@#{current_server}:#{remote_web}/#{key}/"
                 end
             end
