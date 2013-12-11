@@ -96,7 +96,7 @@ sub vcl_recv {
     # Some generic cookie manipulation, useful for all templates that follow
 
     # Remove any '_' prefixed cookies
-    set req.http.Cookie = regsuball(req.http.Cookie, "_[^=]+=[^;]+(; )?", "");
+    set req.http.Cookie = regsuball(req.http.Cookie, "(^|;\s*)_[^=]+=[^;]*", "");
 
     # Remove a ";" prefix in the cookie if present
     set req.http.Cookie = regsuball(req.http.Cookie, "^;\s*", "");
