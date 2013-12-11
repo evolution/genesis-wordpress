@@ -38,7 +38,7 @@ VARNISH_STORAGE_SIZE=512M
 VARNISH_SECRET_FILE=/etc/varnish/secret
 
 # Backend storage specification
-VARNISH_STORAGE="malloc,${VARNISH_STORAGE_SIZE}"
+VARNISH_STORAGE="file,${VARNISH_STORAGE_FILE},${VARNISH_STORAGE_SIZE}"
 
 # Default TTL used when the backend does not specify one
 VARNISH_TTL=120
