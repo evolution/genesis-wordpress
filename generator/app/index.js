@@ -2,6 +2,7 @@
 
 var util    = require('util');
 var path    = require('path');
+var latest  = require('github-latest');
 var yeoman  = require('yeoman-generator');
 var chalk   = require('chalk');
 var crypto  = require('crypto');
@@ -111,14 +112,20 @@ WordpressGenerator.prototype.promptForWordPress = function() {
     } catch(e) {}
   }.bind(this);
 
-  this.prompts.push({
-    type:     'text',
-    name:     'wordpress',
-    message:  'WordPress version',
-    default:  function(answers) {
-      return existing(answers.web) || '3.7.1';
-    }
-  });
+  var done = this.async();
+
+  latest('wordpress', 'wordpress', function(err, tag) {
+    this.prompts.push({
+      type:     'text',
+      name:     'wordpress',
+      message:  'WordPress version',
+      default:  function(answers) {
+        return existing(answers.web) || tag || '3.7.1';
+      }
+    });
+
+    done();
+  }.bind(this));
 };
 
 WordpressGenerator.prototype.promptForTablePrefix = function() {
