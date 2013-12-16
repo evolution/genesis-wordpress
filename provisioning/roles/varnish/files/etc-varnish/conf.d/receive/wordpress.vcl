@@ -9,7 +9,7 @@ if (req.url ~ "wp-admin") {
 
 # Pass all requests containing a wp- or wordpress_ cookie
 # (meaning NO caching for logged in users)
-if (req.http.Cookie ~ "^([^;]+;\s*)*?(wp-|wordpress_)") {
+if (req.http.Cookie ~ "(^|;\s*)(wp-|wordpress_)") {
   return (pass);
 }
 
