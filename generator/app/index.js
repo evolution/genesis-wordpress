@@ -13,6 +13,7 @@ var fs      = require('fs-extra');
 var WordpressGenerator = function(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
+  this.pkg      = JSON.parse(this.readFileAsString(path.join(__dirname, '../../package.json')));
   this.prompts  = [];
 
   this.on('end', function() {
@@ -85,7 +86,7 @@ WordpressGenerator.prototype.promptForGenesis = function() {
     type:     'text',
     name:     'genesis',
     message:  'Genesis library version',
-    default:  '~0.2.*'
+    default:  '~' + this.pkg.version
   });
 };
 
