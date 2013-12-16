@@ -300,6 +300,7 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 
 ## Changelog
 
+- v0.2.41 – Fix Varnish cookie bug ([#90](https://github.com/genesis/wordpress/pull/90))
 - v0.2.40 – Set hostname on each machine ([#45](https://github.com/genesis/wordpress/pull/45))
 - v0.2.39 – Revert v0.2.37 (aa9e83f)
 - v0.2.38 – Move events to after `deploy:update_code` ([#82](https://github.com/genesis/wordpress/pull/82))
