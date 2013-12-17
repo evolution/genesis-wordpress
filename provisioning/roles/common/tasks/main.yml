@@ -47,6 +47,19 @@
   with_items:     ${php_packages}
   sudo:           yes
 
+- name:           Install Zend OPcache via PECL
+  command:        pecl install zendopcache-beta
+  sudo:           yes
+
+- name:           Get opcache shared object path
+  command:        find / -name 'opcache.so'
+  register:       opcache_so_path
+  ignore_errors:  True
+
+- name:           Install opcache.ini
+  template:       src=opcache.ini dest=/etc/php5/conf.d/opcache.ini mode=0644
+  sudo:           yes
+
 - name:           Enable Apache modules
   command:        a2enmod ${item}
   with_items:     ${apache_modules}
