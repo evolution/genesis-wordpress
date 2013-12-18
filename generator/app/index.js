@@ -29,6 +29,8 @@ var WordpressGenerator = function(args, options, config) {
       }.bind(this)
     });
   });
+
+  this.sourceRoot(path.join(__dirname, 'templates'));
 };
 
 util.inherits(WordpressGenerator, yeoman.generators.Base);
@@ -306,7 +308,7 @@ WordpressGenerator.prototype.writeWeb = function() {
     this.htaccessFile = '';
   }
 
-  this.template('web/htaccess',      path.join(this.props.web, '.htaccess'));
+  this.template('web/htaccess',       path.join(this.props.web, '.htaccess'));
   this.template('web/no_robots.txt',  path.join(this.props.web, 'no_robots.txt'));
   this.template('web/robots.txt',     path.join(this.props.web, 'robots.txt'));
 };
