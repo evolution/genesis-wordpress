@@ -53,9 +53,7 @@ Generator.prototype.run = function() {
     this.create();
     this.prompts();
 
-    this.app.run({}, function() {
-      console.log('Done!');
-    });
+    this.app.run({}, function() {});
   }.bind(this));
 };
 

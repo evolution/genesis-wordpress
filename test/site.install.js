@@ -8,15 +8,13 @@ var path      = require('path');
 describe('Genesis WordPress', function () {
   describe('site', function() {
     it('may not be installed', function(done) {
-      var browser = new Browser({ debug: true });
+      var browser = new Browser();
 
       this.timeout(0);
 
       browser
         .visit('http://local.generatortest.com/wp-admin/install.php')
         .then(function() {
-          console.log(browser.html());
-
           if (browser.button('Install WordPress')) {
             browser
               .fill('Site Title',       'Genesis WordPress Test')
@@ -35,11 +33,11 @@ describe('Genesis WordPress', function () {
     });
 
     it('should be installed', function(done) {
-      var browser = new Browser({ debug: true });
+      var browser = new Browser();
+
       browser
         .visit('http://local.generatortest.com/wp-admin/install.php')
         .then(function() {
-          console.log(browser.html());
           assert.equal('Log In', browser.text('a.button'));
         })
         .then(done, done)
