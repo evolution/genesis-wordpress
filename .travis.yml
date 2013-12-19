@@ -9,5 +9,6 @@ install:
 before_script:
   - cd ./test/support
   - ./generate
+  - npm install
   - bower install
   - sudo ./bin/provision
