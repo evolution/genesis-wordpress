@@ -7,8 +7,7 @@ hosts:
 install:
   - npm install -g bower
 before_script:
-  - cd ./test/support
-  - ./generate
   - npm install
   - bower install
-  - sudo ./bin/provision
+  - ./test/support/generate
+  - sudo ./test/temp/bin/provision
