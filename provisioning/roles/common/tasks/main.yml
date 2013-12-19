@@ -1,4 +1,26 @@
 ---
+- name:           Determine optimal hostname
+  command:        echo {{stage}}.{{domain}}
+  register:       new_host
+  ignore_errors:  True
+  when:           stage is defined
+
+- name:           Determine current hostname
+  command:        hostname
+  register:       old_host
+  ignore_errors:  True
+  when:           stage is defined
+
+- name:           Update hostname
+  hostname:       name={{new_host.stdout}}
+  sudo:           yes
+  when:           stage is defined and old_host.stdout != new_host.stdout
+
+- name:           Update /etc/hosts for new hostname
+  replace:        dest=/etc/hosts backup=yes regexp={{ old_host.stdout | replace(".","[.]") }} replace={{new_host.stdout}}
+  sudo:           yes
+  when:           stage is defined and old_host.stdout != new_host.stdout
+
 - name:           Add Node apt-repository
   apt_repository: repo='ppa:chris-lea/node.js' state=present
   sudo:           yes
@@ -71,9 +93,17 @@
   sudo:           yes
 
 - name:           Update php.ini's date.timezone
-  lineinfile:     dest=/etc/php5/apache2/php.ini backup=yes regexp='date\.timezone' line='date.timezone = "America/Chicago'
+  lineinfile:     dest=/etc/php5/apache2/php.ini backup=yes regexp='date\.timezone' line='date.timezone = "America/Chicago"'
   sudo:           yes
 
 - name:           Update my.conf's bind-address
   lineinfile:     dest=/etc/mysql/my.cnf backup=yes regexp=^bind-address line='bind-address = 0.0.0.0'
+  sudo:           yes
+
+- name:           Generate /etc/aliases
+  template:       src=aliases dest=/etc/aliases mode=0644
+  sudo:           yes
+
+- name:           Update sendmail aliases
+  command:        newaliases
   sudo:           yes

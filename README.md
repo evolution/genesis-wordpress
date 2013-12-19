@@ -198,6 +198,7 @@ which you can see by running:
     cap genesis:up          # Uploads Vagrant database & local files into production
     cap genesis:up:db       # Uploads Vagrant database into remote
     cap genesis:up:files    # Uploads local project files to remote
+    cap genesis:teardown    # Remove any existing remote deployment files; counterpart to cap's built-in deploy:setup
 
 Now run any one of those commands against an environemnt:
 
@@ -281,8 +282,39 @@ the private key path for Vagrant is setup properly as well.
 Then you're probably missing the [Vagrant Public](https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub) Key in your `authorized_keys`. To add it run:
 `curl https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub >> ~/.ssh/authorized_keys`
 
+### Vagrant - Error While Executing `VBoxManage`
+
+If you're seeing this:
+
+```
+There was an error while executing `VBoxManage`, a CLI used by Vagrant
+for controlling VirtualBox. The command and stderr is shown below.
+
+Command: ["hostonlyif", "create"]
+```
+
+The you'll need to restart VirtualBox with:
+```
+sudo /Library/StartupItems/VirtualBox/VirtualBox restart
+```
+
 ## Changelog
 
+- v0.2.41 – Fix Varnish cookie bug ([#90](https://github.com/genesis/wordpress/pull/90))
+- v0.2.40 – Set hostname on each machine ([#45](https://github.com/genesis/wordpress/pull/45))
+- v0.2.39 – Revert v0.2.37 (aa9e83f)
+- v0.2.38 – Move events to after `deploy:update_code` ([#82](https://github.com/genesis/wordpress/pull/82))
+- v0.2.37 – Fix isues with Varnish ([#62](https://github.com/genesis/wordpress/pull/62):
+    - Cleaned up cookie logic in `production.vcl` (see #28, and 3fd9d0c)
+    - Fixed wp cookie check in `receive/wordpress.vcl` (see 9c2f358)
+    - Changed varnish to file backend (see #53)
+    - Removed cache bypassing for local env (see fa96873)
+    - Removed caching of static files (see 99eb9ad)
+    - Piping `wp-(login|admin)` instead of passing (see 89cb137)
+- v0.2.36 – Add `postfix` ([#72](https://github.com/genesis/wordpress/pull/72))
+- v0.2.35 – Add `genesis:teardown` ([#55](https://github.com/genesis/wordpress/pull/55)) & fix `date.timezone` ([#73](https://github.com/genesis/wordpress/pull/73))
+- v0.2.34 – Default to WordPress 3.7.1 ([#74](https://github.com/genesis/wordpress/pull/74))
+- v0.2.33 – Allow two-part TLDs ([#77](https://github.com/genesis/wordpress/issues/77https://github.com/genesis/wordpress/issues/77))
 - v0.2.32 – Fix issue with adding `deploy` user to `www-data` group ([#70](https://github.com/genesis/wordpress/pull/70))
 - v0.2.31 – Attempt to fix issues with `genesis:permissions` ([#54](https://github.com/genesis/wordpress/pull/54))
 - v0.2.30

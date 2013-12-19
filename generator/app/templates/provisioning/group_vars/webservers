@@ -16,3 +16,5 @@ apache_settings:
   # max_spare_servers:
   # max_clients:
   # max_requests_per_child:
+mail:
+  # postmaster: sysadmin@example.com

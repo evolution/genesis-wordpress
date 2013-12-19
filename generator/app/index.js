@@ -2,6 +2,7 @@
 
 var util    = require('util');
 var path    = require('path');
+var latest  = require('github-latest');
 var yeoman  = require('yeoman-generator');
 var chalk   = require('chalk');
 var crypto  = require('crypto');
@@ -13,6 +14,7 @@ var fs      = require('fs-extra');
 var WordpressGenerator = function(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
+  this.pkg      = JSON.parse(this.readFileAsString(path.join(__dirname, '../../package.json')));
   this.prompts  = [];
 
   this.on('end', function() {
@@ -69,7 +71,7 @@ WordpressGenerator.prototype.promptForDomain = function() {
     message:  'Domain name (e.g. mysite.com)',
     default:  path.basename(this.env.cwd).toLowerCase(),
     validate: function(input) {
-      if (/^[\w-]+\.\w+$/.test(input)) {
+      if (/^[\w-]+\.\w+(?:\.\w{2,3})?$/.test(input)) {
         return true;
       } else if (!input) {
         return "Domain is required";
@@ -85,7 +87,7 @@ WordpressGenerator.prototype.promptForGenesis = function() {
     type:     'text',
     name:     'genesis',
     message:  'Genesis library version',
-    default:  '~0.2.*'
+    default:  '~' + this.pkg.version
   });
 };
 
@@ -110,14 +112,20 @@ WordpressGenerator.prototype.promptForWordPress = function() {
     } catch(e) {}
   }.bind(this);
 
-  this.prompts.push({
-    type:     'text',
-    name:     'wordpress',
-    message:  'WordPress version',
-    default:  function(answers) {
-      return existing(answers.web) || '3.6.1';
-    }
-  });
+  var done = this.async();
+
+  latest('wordpress', 'wordpress', function(err, tag) {
+    this.prompts.push({
+      type:     'text',
+      name:     'wordpress',
+      message:  'WordPress version',
+      default:  function(answers) {
+        return existing(answers.web) || tag || '3.7.1';
+      }
+    });
+
+    done();
+  }.bind(this));
 };
 
 WordpressGenerator.prototype.promptForTablePrefix = function() {
