@@ -4,6 +4,10 @@ node_js:
   - "0.10"
 hosts:
   - local.generatortest.com
+install:
+  - npm install -g bower
 before_script:
-  - ./test/support/generate
-  - sudo ./test/temp/bin/provision
+  - cd ./test/support
+  - ./generate
+  - bower install
+  - sudo ./bin/provision
