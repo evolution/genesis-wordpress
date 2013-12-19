@@ -1,38 +1,23 @@
+#!/usr/bin/env node
+
 var hooker  = require('hooker');
 var path    = require('path');
 var helpers = require('yeoman-generator').test;
 
-var Bootstrap = {};
+var Generator = function() {};
 
-Bootstrap.app = function(test) {
-  test.app = helpers.createGenerator('genesis-wordpress:app', [
+Generator.prototype.create = function() {
+  this.app = helpers.createGenerator('genesis-wordpress:app', [
     [require('../../generator/app'), 'genesis-wordpress:app']
   ]);
-
-  test.app.options['skip-install'] = true;
-
-  return test.app;
 };
 
-Bootstrap.beforeEach = function(test, done) {
-  helpers.testDirectory(path.join(__dirname, '..', 'temp'), function(err) {
-    if (err) {
-      return done(err);
-    }
-
-    Bootstrap.app(test);
-    Bootstrap.prompts(test);
-
-    done();
-  });
-};
-
-Bootstrap.prompts = function(test) {
-  hooker.hook(test.app, 'prompt', function(prompts, done) {
+Generator.prototype.prompts = function() {
+  hooker.hook(this.app, 'prompt', function(prompts, done) {
     var answers = {
       name:         'GeneratorTest.com',
       domain:       'generatortest.com',
-      ip:           '10.10.73.57',
+      ip:           '192.168.137.137',
       DB_NAME:      'generator_test',
       DB_USER:      'generator_test',
       DB_PASSWORD:  'generator_test'
@@ -50,12 +35,28 @@ Bootstrap.prompts = function(test) {
       }
     });
 
-    hooker.unhook(test.app, 'prompt');
+    hooker.unhook(this.app, 'prompt');
 
     done(answers);
 
     return hooker.preempt(answers);
-  });
+  }.bind(this));
 };
 
-module.exports = Bootstrap;
+Generator.prototype.run = function() {
+  helpers.testDirectory(path.join(__dirname, '..', 'temp'), function(err) {
+    if (err) {
+      throw err;
+    }
+
+    this.create();
+    this.prompts();
+
+    this.app.run({}, function() {
+      console.log('Done!');
+    });
+  }.bind(this));
+};
+
+
+module.exports = Generator;

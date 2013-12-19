@@ -14,10 +14,11 @@
   },
   "devDependencies": {
     "hooker": "~0.2.3",
-    "mocha": "~1.15.1"
+    "mocha": "~1.15.1",
+    "zombie": "~2.0.0-alpha24"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --reporter spec"
   },
   "repository": {
     "type": "git",
