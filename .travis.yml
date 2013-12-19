@@ -9,5 +9,4 @@ install:
 before_script:
   - npm install
   - ./test/support/generate
-  - cd ./test/temp && bower install
   - sudo ./test/temp/bin/provision
