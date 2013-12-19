@@ -8,7 +8,7 @@ var path      = require('path');
 describe('Genesis WordPress', function () {
   describe('site', function() {
     it('may not be installed', function(done) {
-      var browser = new Browser();
+      var browser = new Browser({ debug: true });
 
       this.timeout(0);
 
@@ -33,7 +33,7 @@ describe('Genesis WordPress', function () {
     });
 
     it('should be installed', function(done) {
-      var browser = new Browser();
+      var browser = new Browser({ debug: true });
 
       browser
         .visit('http://local.generatortest.com/wp-admin/install.php')
