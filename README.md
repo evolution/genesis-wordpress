@@ -1,5 +1,7 @@
-Genesis WordPress
-=================
+# Genesis WordPress
+
+[![Build Status](https://travis-ci.org/genesis/wordpress.png)](https://travis-ci.org/genesis/wordpress)
+
 
 > Rapidly create, develop, & deploy WordPress across multiple environments.
 > ![Genesis WordPress Demo](demo.gif)

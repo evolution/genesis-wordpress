@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+
+var Generator = require('./generator');
+var generator = new Generator();
+
+generator.run();
