@@ -18,7 +18,6 @@ Generator.prototype.prompts = function() {
       name:         'GeneratorTest.com',
       domain:       'generatortest.com',
       ip:           '192.168.137.137',
-      genesis:      'https://github.com/genesis/wordpress.git#69-tests',
       DB_NAME:      'generator_test',
       DB_USER:      'generator_test',
       DB_PASSWORD:  'generator_test'
