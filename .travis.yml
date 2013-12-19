@@ -2,8 +2,9 @@ language: node_js
 node_js:
   - "0.8"
   - "0.10"
-hosts:
-  - local.generatortest.com
+addons:
+  hosts:
+    - local.generatortest.com
 install:
   - npm install -g bower
 before_script:
