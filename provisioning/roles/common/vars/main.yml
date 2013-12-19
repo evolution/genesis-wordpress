@@ -2,6 +2,7 @@
 system_packages:
   - build-essential
   - autoconf
+  - tasksel
   - re2c
   - curl
   - git-core
