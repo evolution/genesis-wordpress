@@ -6,4 +6,4 @@ hosts:
   - local.generatortest.com
 before_script:
   - ./test/support/generate
-  - ./test/temp/bin/provision
+  - sudo ./test/temp/bin/provision
