@@ -8,6 +8,6 @@ install:
   - npm install -g bower
 before_script:
   - npm install
-  - bower install
   - ./test/support/generate
+  - cd ./test/temp && bower install
   - sudo ./test/temp/bin/provision
