@@ -13,7 +13,6 @@ before_script:
   - echo "Running from ${PWD}"
   - npm install
   - "${PWD}/test/bin/mock"
-  - sudo mkdir -p /vagrant/web
-  - sudo ln -s "${PWD}" /wordpress
+  - sudo mkdir /vagrant
   - sudo ln -s "${PWD}/test/temp/web" /vagrant/web
   - sudo "${PWD}/test/temp/bin/provision"
