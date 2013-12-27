@@ -3,11 +3,11 @@ var hooker  = require('hooker');
 var helpers = require('yeoman-generator').test;
 var path    = require('path');
 
-var Generator = function(outputDir) {
+var MockGenerator = function(outputDir) {
   this.outputDir = __dirname + '/../temp';
 };
 
-Generator.prototype.create = function() {
+MockGenerator.prototype.create = function() {
   this.app = helpers.createGenerator('genesis-wordpress:app', [
     [require('../../generator/app'), 'genesis-wordpress:app']
   ]);
@@ -15,14 +15,14 @@ Generator.prototype.create = function() {
   this.app.options['skip-install'] = true;
 };
 
-Generator.prototype.prepare = function() {
+MockGenerator.prototype.prepare = function() {
   this.privatePath  = this.outputDir + '/provisioning/files/ssh/id_rsa';
   this.privateKey   = fs.existsSync(this.privatePath) ? fs.readFileSync(this.privatePath) : null;
   this.publicPath   = this.outputDir + '/provisioning/files/ssh/id_rsa.pub';
   this.publicKey    = fs.existsSync(this.publicPath) ? fs.readFileSync(this.publicPath) : null;
 };
 
-Generator.prototype.prompts = function() {
+MockGenerator.prototype.prompts = function() {
   hooker.hook(this.app, 'prompt', function(prompts, done) {
     var answers = {
       name:         'GeneratorTest.com',
@@ -53,7 +53,7 @@ Generator.prototype.prompts = function() {
   }.bind(this));
 };
 
-Generator.prototype.run = function() {
+MockGenerator.prototype.run = function() {
   helpers.testDirectory(this.outputDir, function(err) {
     if (err) {
       throw err;
@@ -67,7 +67,7 @@ Generator.prototype.run = function() {
   }.bind(this));
 };
 
-Generator.prototype.finalize = function() {
+MockGenerator.prototype.finalize = function() {
   fs.appendFileSync(this.outputDir + '/deployment/deploy.rb', [
     '',
     '# Use local repository for testing',
@@ -105,4 +105,4 @@ Generator.prototype.finalize = function() {
   fs.symlinkSync('../../../../wordpress', this.outputDir + '/bower_components/genesis-wordpress');
 };
 
-module.exports = Generator;
+module.exports = MockGenerator;

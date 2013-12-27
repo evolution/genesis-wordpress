@@ -1,7 +1,6 @@
 'use strict';
 
 var assert    = require('assert');
-var Browser   = require('zombie');
 var fs        = require('fs');
 var path      = require('path');
 
