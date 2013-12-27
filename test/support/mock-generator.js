@@ -74,8 +74,7 @@ MockGenerator.prototype.finalize = function() {
     'set :deploy_via,        :copy',
     'set :repository,        "."',
     'set :local_repository,  "."',
-    // '# set :check_revision,    false',
-    // '# set :branch,            "master"',
+    'set :copy_remote_dir,   "/var/www/#{domain}/#{branch}"',
     ''
   ].join('\n'));
 
