@@ -7,6 +7,7 @@ addons:
     - local.generatortest.com
 install:
   - npm install -g bower
+  - gem install capistrano -v 2.15 capistrano-ext colored
 before_script:
   - npm install
   - "${PWD}/test/bin/mock"
