@@ -9,9 +9,9 @@ install:
   - npm install -g bower
 before_script:
   - npm install
-  - ./test/bin/mock
+  - "${PWD}/test/bin/mock"
   - sudo ln -s "${PWD}/test/temp" /vagrant
   - sudo ln -s "${PWD}" /wordpress
-  - mkdir -p "${PWD}/bower_components"
-  - sudo ln -s /wordpress "${PWD}/bower_components/genesis-wordpress"
-  - sudo ./test/temp/bin/provision
+  - mkdir -p "${PWD}/test/temp/bower_components"
+  - ln -s /wordpress "${PWD}/test/temp/bower_components/genesis-wordpress"
+  - sudo "${PWD}/test/temp/bin/provision"
