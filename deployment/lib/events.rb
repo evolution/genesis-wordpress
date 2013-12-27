@@ -2,7 +2,7 @@ before "deploy:update" do
     deploy.setup
 end
 
-after "deploy:update" do
+after "deploy:update_code" do
     run "cd #{release_path} && bower install"
 end
 
