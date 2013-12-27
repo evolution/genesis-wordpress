@@ -6,14 +6,14 @@ addons:
   hosts:
     - local.generatortest.com
 install:
-  - npm install -g bower
   - gem install capistrano -v 2.15
   - gem install capistrano-ext colored
+  - npm install -g bower
 before_script:
+  - echo "Running from ${PWD}"
   - npm install
   - "${PWD}/test/bin/mock"
-  - sudo ln -s "${PWD}/test/temp" /vagrant
+  - sudo mkdir -p /vagrant/web
   - sudo ln -s "${PWD}" /wordpress
-  - mkdir -p "${PWD}/test/temp/bower_components"
-  - ln -s /wordpress "${PWD}/test/temp/bower_components/genesis-wordpress"
+  - sudo ln -s "${PWD}/test/temp/web" /vagrant/web
   - sudo "${PWD}/test/temp/bin/provision"
