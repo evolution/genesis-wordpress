@@ -302,6 +302,7 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 
 ## Changelog
 
+- v0.2.43 – Revert `5afaf80`, fixes v0.2.38
 - v0.2.42
     - `auto_correct` Vagrant SSH port
     - Default to latest WordPress
