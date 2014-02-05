@@ -99,9 +99,6 @@ MockGenerator.prototype.finalize = function() {
   ;
 
   fs.writeFileSync(this.outputDir + '/Vagrantfile', vagrantFile);
-
-  fs.mkdirSync(this.outputDir + '/bower_components');
-  fs.symlinkSync('../../../../wordpress', this.outputDir + '/bower_components/genesis-wordpress');
 };
 
 module.exports = MockGenerator;

@@ -1,6 +1,5 @@
 language: node_js
 node_js:
-  - "0.8"
   - "0.10"
 addons:
   hosts:
@@ -11,9 +10,15 @@ install:
   - npm install -g bower
 before_script:
   - echo "Running from ${PWD}"
+  - echo "Install NPM dependencies"
   - npm install
+  - echo "Mock test project"
   - "${PWD}/test/bin/mock"
-  - ln -fs "${PWD}" "${PWD}/test/temp/bower_components/genesis-wordpress"
-  - sudo mkdir -p /vagrant
-  - sudo ln -s "${PWD}/test/temp/web" /vagrant/web
-  - sudo "${PWD}/test/temp/bin/provision"
+  - echo "Move mock project to /vagrant"
+  - sudo mv "${PWD}/test/temp" /vagrant
+  - echo "Remove Bower's Genesis WordPress"
+  - rm -rf "/vagrant/bower_components/genesis-wordpress"
+  - echo "Replace with this Genesis WordPress"
+  - cp -R "${PWD}" /vagrant/bower_components/genesis-wordpress
+  - echo "Provision server"
+  - sudo /vagrant/bin/provision
