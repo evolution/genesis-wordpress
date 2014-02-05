@@ -9,7 +9,6 @@ install:
   - npm install -g bower
 before_script:
   - npm install
-  - ./test/support/generate
-  - sudo mkdir /vagrant
-  - sudo ln -s "${PWD}/test/temp/web" /vagrant/web
-  - sudo ./test/temp/bin/provision
+  - ./test/bin/generate
+  - sudo mv "${PWD}/test/temp" /vagrant
+  - sudo /vagrant/bin/provision
