@@ -1,4 +1,4 @@
-var fs      = require('fs');
+var fs      = require('fs-extra');
 var hooker  = require('hooker');
 var helpers = require('yeoman-generator').test;
 var path    = require('path');
@@ -99,6 +99,19 @@ MockGenerator.prototype.finalize = function() {
   ;
 
   fs.writeFileSync(this.outputDir + '/Vagrantfile', vagrantFile);
+
+  // Copy current library into bower location, except for test
+  fs.copy(
+    path.resolve(this.outputDir, '../../'),
+    this.outputDir + '/bower_components/genesis-wordpress',
+    function(path) {
+      return !path.match('test');
+    }, function(err) {
+      if (err) {
+        return console.error(err);
+      }
+    }
+  );
 };
 
 module.exports = MockGenerator;

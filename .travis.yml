@@ -16,9 +16,5 @@ before_script:
   - "${PWD}/test/bin/mock"
   - echo "Move mock project to /vagrant"
   - sudo mv "${PWD}/test/temp" /vagrant
-  - echo "Remove Bower's Genesis WordPress"
-  - rm -rf "/vagrant/bower_components/genesis-wordpress"
-  - echo "Replace with this Genesis WordPress"
-  - cp -R "${PWD}" /vagrant/bower_components/genesis-wordpress
   - echo "Provision server"
   - sudo /vagrant/bin/provision
