@@ -8,11 +8,15 @@ Install NPM dependencies:
 $ npm install
 ```
 
+### Testing Scaffolding
+
 Generate test project scaffolding:
 
 ```shell
 $ ./test/bin/generate
 ```
+
+### Testing Provisioning
 
 Start test project server:
 
@@ -24,7 +28,7 @@ Tests will be ran against:
 
 > http://local.generatortest.com
 
-### Testing
+### End-User Testing
 
 ```shell
 $ npm test
