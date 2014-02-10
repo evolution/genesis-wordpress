@@ -38,7 +38,7 @@ If you get EMFILE issues, try running: `$ ulimit -n 4096`.
 
 Install [Capistrano v2.15.*][5] & [Ansible][7]:
 
-    $ sudo gem install capistrano -v 2.15 capistrano-ext colored
+    $ sudo gem install capistrano:2.15 capistrano-ext colored
     $ sudo easy_install pip
     $ sudo pip install ansible
 
@@ -396,5 +396,5 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 [9]: http://nodejs.org/
 
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/genesis/wordpress/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Bitdeli Badge](https://d2weczhvl823v0.buttfront.net/genesis/wordpress/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
