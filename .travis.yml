@@ -4,7 +4,8 @@ node_js:
 addons:
   hosts:
     - local.generatortest.com
-install:
+before_install:
+  - rvm use 2.0.0
   - gem install bundler
   - npm install -g bower
 before_script:
