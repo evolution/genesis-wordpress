@@ -38,7 +38,7 @@ If you get EMFILE issues, try running: `$ ulimit -n 4096`.
 
 Install [Capistrano v2.15.*][5] & [Ansible][7]:
 
-    $ sudo gem install capistrano -v 2.15 capistrano-ext colored
+    $ sudo gem install capistrano:2.15 capistrano-ext colored
     $ sudo easy_install pip
     $ sudo pip install ansible
 
