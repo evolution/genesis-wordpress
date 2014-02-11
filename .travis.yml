@@ -5,7 +5,7 @@ addons:
   hosts:
     - local.generatortest.com
 install:
-  - gem install bundle
+  - sudo gem install bundle
   - npm install -g bower
 before_script:
   - echo "Running from ${PWD}"
