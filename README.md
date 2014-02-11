@@ -396,5 +396,5 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 [9]: http://nodejs.org/
 
 
-[![Bitdeli Badge](https://d2weczhvl823v0.buttfront.net/genesis/wordpress/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/genesis/wordpress/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
