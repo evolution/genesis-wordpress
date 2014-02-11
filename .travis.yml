@@ -5,8 +5,7 @@ addons:
   hosts:
     - local.generatortest.com
 install:
-  - gem install  --no-rdoc --no-ri capistrano -v 2.15
-  - gem install  --no-rdoc --no-ri capistrano-ext colored
+  - gem install bundle
   - npm install -g bower
 before_script:
   - echo "Running from ${PWD}"
