@@ -14,7 +14,7 @@ before_script:
   - npm install
   - echo "Mock test project"
   - "${PWD}/test/bin/mock"
-  - echo "Move mock project to /vagrant"
-  - sudo mv "${PWD}/test/temp" /vagrant
   - echo "Provision server"
-  - sudo /vagrant/bin/provision
+  - sudo "${PWD}/test/temp/bin/provision"
+  - echo "Copy mock project to /vagrant for end-user tests"
+  - sudo cp -R "${PWD}/test/temp" /vagrant
