@@ -15,6 +15,7 @@ describe('Generator', function() {
       'web/wp-config.php',
       'bower.json',
       'Capfile',
+      'Gemfile',
       'README.md',
       'Vagrantfile',
     ].forEach(function(file) {

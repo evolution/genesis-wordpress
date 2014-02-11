@@ -36,9 +36,9 @@ If you get EMFILE issues, try running: `$ ulimit -n 4096`.
 
 ### Deployment
 
-Install [Capistrano v2.15.*][5] & [Ansible][7]:
+Install [Capistrano v2.15.*][5] via [Bundler][1] & [Ansible][7]:
 
-    $ sudo gem install capistrano -v 2.15 capistrano-ext colored
+    $ sudo bundle install
     $ sudo easy_install pip
     $ sudo pip install ansible
 
@@ -95,7 +95,7 @@ access the project's *Settings -> Deploy Keys* in Github and add `provisioning/f
 
 Next, assuming the server has been provisioned, deploy your code on Github:
 
-    $ cap production deploy
+    $ bundle exec cap production deploy
 
 The latest code is now live:
 
@@ -107,7 +107,7 @@ If you deploy to `staging`, the name of the current branch (e.g. `my-feature`) i
 
 In the rare event the changes weren't supposed to go live, you can rollback to the previous release:
 
-    $ cap production deploy:rollback
+    $ bundle exec cap production deploy:rollback
 
 **Note that deployments use the project's *Github repository* as the source, not your local machine!**
 
@@ -121,15 +121,15 @@ a database or uploaded images.
 
 You can **overwrite the remote database** with your local VM's:
 
-    $ cap production genesis:up:db
+    $ bundle exec cap production genesis:up:db
 
 You can sync your local files to the remote filesystem:
 
-    $ cap production genesis:up:files
+    $ bundle exec cap production genesis:up:files
 
 Or, you can perform both actions together:
 
-    $ cap production genesis:up
+    $ bundle exec cap production genesis:up
 
 Once a site is live, you *rarely* need to sync anything up to the remote server.  If anything,
 you usually sync changes *down*.
@@ -140,9 +140,9 @@ you usually sync changes *down*.
 Suppose you have a live site that you need to work on locally.  Like the previous section,
 you can sync down the database, the files (e.g. uploaded images), or both:
 
-    $ cap production genesis:down:db
-    $ cap production genesis:down:files
-    $ cap production genesis:down
+    $ bundle exec cap production genesis:down:db
+    $ bundle exec cap production genesis:down:files
+    $ bundle exec cap production genesis:down
 
 
 ## Provisioning
@@ -155,11 +155,11 @@ The following environments are expected to exist and resolve via DNS to simplify
 
 If you're deploying to a new machine (e.g. production.mysite.com), you first need to provision it:
 
-    $ cap production genesis:provision
+    $ bundle exec cap production genesis:provision
 
 If there is an error, you may be prompted to re-run the command with an explicit username/password:
 
-    $ cap production genesis:provision -S user=myuser -S password=mypassword
+    $ bundle exec cap production genesis:provision -S user=myuser -S password=mypassword
 
 *From that point on, tasks will use a private key (`provisioning/files/ssh/id_rsa`).*
 
@@ -170,14 +170,14 @@ migrate the old server to a new server:
     $ vagrant up
 
     # Provision the new server
-    $ cap production provision
-    $ cap production deploy
+    $ bundle exec cap production provision
+    $ bundle exec cap production deploy
 
     # Download the old site to local
-    $ cap old genesis:down
+    $ bundle exec cap old genesis:down
 
     # Upload the old site to production
-    $ cap production genesis:up
+    $ bundle exec cap production genesis:up
 
 Now you can switch DNS for http://www.mysite.com/ to point to http://production.mysite.com/'s IP!
 
@@ -186,7 +186,7 @@ Now you can switch DNS for http://www.mysite.com/ to point to http://production.
 Most of the functionality regarding remote servers are handled by custom [Capistrano][5] tasks,
 which you can see by running:
 
-    $ cap -T genesis
+    $ bundle exec cap -T genesis
     cap genesis:down        # Downloads both remote database & syncs remote files into Vagrant
     cap genesis:down:db     # Downloads remote database into Vagrant
     cap genesis:down:files  # Downloads remote files to Vagrant
@@ -204,7 +204,7 @@ which you can see by running:
 
 Now run any one of those commands against an environemnt:
 
-    $ cap local genesis:restart
+    $ bundle exec cap local genesis:restart
 
 ## Troubleshooting
 
@@ -212,7 +212,7 @@ Now run any one of those commands against an environemnt:
 
 If you're seeing this:
 
-    $ cap staging genesis:ssh
+    $ bundle exec cap staging genesis:ssh
     deploy@staging.example.com's password:
 
 Then the `deploy` user's ssh keys on your remote server *do not match* the keys in your local repository.
@@ -221,17 +221,17 @@ You should first ensure that your local repository is up to date, thereby ensuri
 
     $ git checkout master
     $ git pull origin master
-    $ cap staging genesis:ssh
+    $ bundle exec cap staging genesis:ssh
 
 If the problem persists, this means that the keys on your remote server are out of date or otherwise incorrect, and you must re-provision by specifying a username and password:
 
-    $ cap staging genesis:provision -S user=userWithRootOrSudoAccess -S password=usersHopefullyStrongPassword
+    $ bundle exec cap staging genesis:provision -S user=userWithRootOrSudoAccess -S password=usersHopefullyStrongPassword
 
 ### SSH - Host key mismatch
 
 If you're seeing this:
 
-    $ cap staging genesis:ssh
+    $ bundle exec cap staging genesis:ssh
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -394,7 +394,7 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 [7]: http://www.ansibleworks.com/
 [8]: https://www.virtualbox.org/
 [9]: http://nodejs.org/
-
+[10]: http://bundler.io/
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/genesis/wordpress/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
