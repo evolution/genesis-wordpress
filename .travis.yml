@@ -7,6 +7,7 @@ addons:
 install:
   - gem install bundle
   - npm install -g bower
+  - echo "PATH: $path"
 before_script:
   - echo "Running from ${PWD}"
   - echo "Install NPM dependencies"
