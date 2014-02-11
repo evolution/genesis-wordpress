@@ -393,7 +393,7 @@ WordpressGenerator.prototype.installGems = function() {
   this.emit(installer + 'Install');
 
   this
-    .spawnCommand('sudo', [installer, 'install'], done)
+    .spawnCommand(installer, ['install'], done)
     .on('error', done)
     .on('exit', this.emit.bind(this, installer + 'Install:end'))
     .on('exit', function (err) {
