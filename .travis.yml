@@ -5,7 +5,7 @@ addons:
   hosts:
     - local.generatortest.com
 before_install:
-  - rvm use 2.0.0
+  - rvm use 1.9.3
   - gem install bundler
   - npm install -g bower
 before_script:
