@@ -14,12 +14,12 @@
 
 - name:           Create apache vhosts
   template:       src=vhosts/{{item}} dest=/etc/apache2/sites-available/{{item}}.{{domain}} mode=0644
-  with_items:     {{apache_vhosts}}
+  with_items:     apache_vhosts
   sudo:           true
 
 - name:           Enable apache vhosts
   command:        a2ensite {{item}}.{{domain}}
-  with_items:     {{apache_vhosts}}
+  with_items:     apache_vhosts
   sudo:           true
   notify:
     - restart apache
