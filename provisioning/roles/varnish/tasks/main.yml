@@ -16,7 +16,7 @@
   sudo:           yes
 
 - name:           Create Varnish directory structure
-  file:           path=${item} state=directory mode=0644
+  file:           path={{item}} state=directory mode=0644
   sudo:           yes
   with_items:
     - /etc/varnish
@@ -25,7 +25,7 @@
     - /etc/varnish/conf.d/receive
 
 - name:           Copy Varnish configuration files
-  copy:           src=etc-varnish/${item} dest=/etc/varnish/${item} mode=0644
+  copy:           src=etc-varnish/{{item}} dest=/etc/varnish/{{item}} mode=0644
   sudo:           yes
   with_items:
     - conf.d/fetch/wordpress.vcl

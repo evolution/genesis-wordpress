@@ -30,8 +30,8 @@
   sudo:           yes
 
 - name:           Install system packages
-  apt:            pkg=${item}
-  with_items:     ${system_packages}
+  apt:            pkg={{item}}
+  with_items:     {{system_packages}}
   sudo:           yes
 
 - name:           Install bower
@@ -43,13 +43,13 @@
   sudo:           yes
 
 - name:           Install PHP packages
-  apt:            pkg=${item}
-  with_items:     ${php_packages}
+  apt:            pkg={{item}}
+  with_items:     {{php_packages}}
   sudo:           yes
 
 - name:           Enable Apache modules
-  command:        a2enmod ${item}
-  with_items:     ${apache_modules}
+  command:        a2enmod {{item}}
+  with_items:     {{apache_modules}}
   sudo:           yes
 
 - name:           Check for vagrant user

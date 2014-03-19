@@ -4,22 +4,22 @@
   sudo:           yes
 
 - name:           Create MySQL database
-  mysql_db:       name=${mysql.name}
+  mysql_db:       name={{mysql.name}}
 
 - name:           Create MySQL user
-  mysql_user:     name=${mysql.user} host=${mysql.host} password=${mysql.password} priv=${mysql.name}.*:GRANT,ALL
+  mysql_user:     name={{mysql.user}} host={{mysql.host}} password={{mysql.password}} priv={{mysql.name}}.*:GRANT,ALL
 
 - name:           Disable default apache site
   command:        a2dissite 000-default removes=/etc/apache2/sites-enabled/000-default
 
 - name:           Create apache vhosts
-  template:       src=vhosts/${item} dest=/etc/apache2/sites-available/${item}.${domain} mode=0644
-  with_items:     ${apache_vhosts}
+  template:       src=vhosts/{{item}} dest=/etc/apache2/sites-available/{{item}}.{{domain}} mode=0644
+  with_items:     {{apache_vhosts}}
   sudo:           true
 
 - name:           Enable apache vhosts
-  command:        a2ensite ${item}.${domain}
-  with_items:     ${apache_vhosts}
+  command:        a2ensite {{item}}.{{domain}}
+  with_items:     {{apache_vhosts}}
   sudo:           true
   notify:
     - restart apache
