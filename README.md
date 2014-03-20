@@ -1,5 +1,7 @@
-Genesis WordPress
-=================
+# Genesis WordPress
+
+[![Build Status](https://travis-ci.org/genesis/wordpress.png)](https://travis-ci.org/genesis/wordpress)
+
 
 > Rapidly create, develop, & deploy WordPress across multiple environments.
 > ![Genesis WordPress Demo](demo.gif)
@@ -36,7 +38,7 @@ If you get EMFILE issues, try running: `$ ulimit -n 4096`.
 
 Install [Capistrano v2.15.*][5] & [Ansible][7]:
 
-    $ sudo gem install capistrano -v 2.15 capistrano-ext colored
+    $ sudo gem install capistrano:2.15 capistrano-ext colored
     $ sudo easy_install pip
     $ sudo pip install ansible
 
@@ -300,6 +302,12 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 
 ## Changelog
 
+- v0.2.44 - Explicitly bypassing bower interactive prompts during deployment
+- v0.2.43 – Revert `5afaf80`, fixes v0.2.38
+- v0.2.42
+    - `auto_correct` Vagrant SSH port
+    - Default to latest WordPress
+    - Add tests ([#69](https://github.com/genesis/wordpress/pull/96))
 - v0.2.41 – Fix Varnish cookie bug ([#90](https://github.com/genesis/wordpress/pull/90))
 - v0.2.40 – Set hostname on each machine ([#45](https://github.com/genesis/wordpress/pull/45))
 - v0.2.39 – Revert v0.2.37 (aa9e83f)
