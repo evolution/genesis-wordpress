@@ -73,6 +73,7 @@ namespace :genesis do
                 system "rm -f #{backup_name}"
                 logger.info "Something messed up. Deleting backup file!"
             rescue Exception => error
+                system "rm -f #{backup_name}"
                 logger.important "Exception occured. This may be the issue:"
                 logger.info "#{error}"
             end
