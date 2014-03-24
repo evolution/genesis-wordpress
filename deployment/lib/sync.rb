@@ -72,6 +72,9 @@ namespace :genesis do
             rescue SystemExit, Interrupt
                 system "rm -f #{backup_name}"
                 logger.info "Something messed up. Deleting backup file!"
+            rescue Exception => error
+                logger.important "Exception occured. This may be the issue:"
+                logger.info "#{error}"
             end
         end
 
