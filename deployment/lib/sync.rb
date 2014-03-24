@@ -96,7 +96,7 @@ namespace :genesis do
             set :backup_path, "#{backup_dir}/#{backup_name}"
 
             system "vagrant up"
-            system "vagrant ssh local -c 'cd /vagrant && mysqldump -u\"#{db_user}\" -p\"#{db_password}\" --opt --databases \"#{db_name}\" | gzip --rsyncable > #{backup_name}.gz'"
+            system "vagrant ssh local -c 'cd /vagrant && mysqldump -u\"#{db_user}\" -p\"#{db_password.gsub('$', '\$')}\" --opt --databases \"#{db_name}\" | gzip --rsyncable > #{backup_name}.gz'"
 
             run "mkdir -p #{backup_dir}"
             top.upload "#{backup_name}.gz", "#{backup_path}.gz", :via => :scp
