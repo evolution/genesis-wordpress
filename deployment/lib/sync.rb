@@ -72,6 +72,7 @@ namespace :genesis do
             rescue SystemExit, Interrupt
                 system "rm -f #{backup_name}"
                 logger.info "Something messed up. Deleting backup file!"
+            end
         end
 
         desc "Downloads remote files to Vagrant"
