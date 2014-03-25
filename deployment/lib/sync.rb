@@ -69,13 +69,9 @@ namespace :genesis do
 
             begin
                 system "vagrant ssh local -c 'cd /vagrant && mysql -uroot < #{backup_name}' && rm -f #{backup_name}"
-            rescue SystemExit, Interrupt
+            rescue
                 system "rm -f #{backup_name}"
-                logger.info "Something messed up. Deleting backup file!"
-            rescue Exception => error
-                system "rm -f #{backup_name}"
-                logger.important "Exception occured. This may be the issue:"
-                logger.info "#{error}"
+                logger.important "An error occured. Please try again."
             end
         end
 
