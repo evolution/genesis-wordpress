@@ -53,7 +53,7 @@ namespace :genesis do
         end
 
         desc "Downloads remote database into Vagrant"
-        task :db, :roles => :db, :once => true do
+        task :db, :on_error => :continue, :roles => :db, :once => true do
             set :backup_dir,  "#{deploy_to}/backups"
             set :backup_name, DateTime.now.strftime("#{db_name}.%Y-%m-%d.%H%M%S.sql")
             set :backup_path, "#{backup_dir}/#{backup_name}"
@@ -66,7 +66,13 @@ namespace :genesis do
             system "gzip -d #{backup_name}.gz"
 
             system "vagrant up"
-            system "vagrant ssh local -c 'cd /vagrant && mysql -uroot < #{backup_name}' && rm -f #{backup_name}"
+
+            begin
+                system "vagrant ssh local -c 'cd /vagrant && mysql -uroot < #{backup_name}' && rm -f #{backup_name}"
+            rescue
+                system "rm -f #{backup_name}"
+                logger.important "An error occured. Please try again."
+            end
         end
 
         desc "Downloads remote files to Vagrant"
