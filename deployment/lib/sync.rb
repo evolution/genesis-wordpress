@@ -58,7 +58,7 @@ namespace :genesis do
             # Rake::Task["namespace:task"].invoke
 
             download "#{backup_path}.gz", "#{backup_name}.gz", :via => :scp
-            run "rm -f backups/#{backup_path}.gz"
+            run "rm -f #{local_backup_dir}/#{backup_path}.gz"
             system "gzip -d #{backup_name}.gz"
 
             system "vagrant up"
@@ -121,14 +121,16 @@ namespace :genesis do
 
         desc "Downloads remote database into the backups folder"
         task :db, :roles => :db, :once => true do
-            set :backup_dir,  "#{deploy_to}/backups"
+            set :backup_dir,  "#{deploy_to}"
+            set :local_backup_dir, "backups"
             set :backup_name, DateTime.now.strftime("#{db_name}.%Y-%m-%d.%H%M%S.sql")
             set :backup_path, "#{backup_dir}/#{backup_name}"
 
-            run "mkdir -p #{backup_dir}"
+            run "mkdir -p #{local_backup_dir}"
             run "mysqldump -u'#{db_user}' -p'#{db_password}' -h'#{db_host}' --opt --databases '#{db_name}' | gzip --rsyncable > #{backup_path}.gz"
 
-            download "#{backup_path}.gz", "backups/#{backup_name}.gz", :via => :scp
+            system "mkdir -p #{local_backup_dir}"
+            download "#{backup_path}.gz", "#{local_backup_dir}/#{backup_name}.gz", :via => :scp
         end
     end
 end
