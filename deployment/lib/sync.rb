@@ -116,4 +116,23 @@ namespace :genesis do
             end
         end
     end
+
+    namespace :backup do
+        desc "Downloads remote database into the backups folder"
+        task :default do
+            db
+        end
+
+        desc "Downloads remote database into the backups folder"
+        task :db, :roles => :db, :once => true do
+            set :backup_dir,  "#{deploy_to}/backups"
+            set :backup_name, DateTime.now.strftime("#{db_name}.%Y-%m-%d.%H%M%S.sql")
+            set :backup_path, "#{backup_dir}/#{backup_name}"
+
+            run "mkdir -p #{backup_dir}"
+            run "mysqldump -u'#{db_user}' -p'#{db_password}' -h'#{db_host}' --opt --databases '#{db_name}' | gzip --rsyncable > #{backup_path}.gz"
+
+            download "#{backup_path}.gz", "backups/#{backup_name}.gz", :via => :scp
+        end
+    end
 end
