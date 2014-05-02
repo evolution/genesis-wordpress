@@ -302,6 +302,7 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 
 ## Changelog
 
+- v0.2.45 - Add `genesis:backup:db` command ([120](https://github.com/genesis/wordpress/pull/120))
 - v0.2.44 - Explicitly bypassing bower interactive prompts during deployment
 - v0.2.43 – Revert `5afaf80`, fixes v0.2.38
 - v0.2.42
