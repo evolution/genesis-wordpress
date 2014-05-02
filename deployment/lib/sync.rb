@@ -54,15 +54,11 @@ namespace :genesis do
 
         desc "Downloads remote database into Vagrant"
         task :db, :roles => :db, :once => true do
-            set :backup_dir,  "#{deploy_to}/backups"
-            set :backup_name, DateTime.now.strftime("#{db_name}.%Y-%m-%d.%H%M%S.sql")
-            set :backup_path, "#{backup_dir}/#{backup_name}"
-
-            run "mkdir -p #{backup_dir}"
-            run "mysqldump -u'#{db_user}' -p'#{db_password}' -h'#{db_host}' --opt --databases '#{db_name}' | gzip --rsyncable > #{backup_path}.gz"
+            find_and_execute_task "genesis:backup:db"
+            # Rake::Task["namespace:task"].invoke
 
             download "#{backup_path}.gz", "#{backup_name}.gz", :via => :scp
-            run "rm -f #{backup_path}.gz"
+            run "rm -f #{local_backup_dir}/#{backup_path}.gz"
             system "gzip -d #{backup_name}.gz"
 
             system "vagrant up"
@@ -114,6 +110,27 @@ namespace :genesis do
                 system "chmod 600 #{ssh_options[:keys][0]}" unless ssh_options.keys.empty?
                 system "rsync -e \"ssh -i #{ssh_options[:keys][0]}\" -avvru --keep-dirlinks #{excludes} --progress #{'--dry-run' if dry_run} #{local_web}/ #{user}@#{current_server}:#{remote_web}/"
             end
+        end
+    end
+
+    namespace :backup do
+        desc "Downloads remote database into the backups folder"
+        task :default do
+            db
+        end
+
+        desc "Downloads remote database into the backups folder"
+        task :db, :roles => :db, :once => true do
+            set :backup_dir,  "#{deploy_to}"
+            set :local_backup_dir, "backups"
+            set :backup_name, DateTime.now.strftime("#{db_name}.%Y-%m-%d.%H%M%S.sql")
+            set :backup_path, "#{backup_dir}/#{backup_name}"
+
+            run "mkdir -p #{local_backup_dir}"
+            run "mysqldump -u'#{db_user}' -p'#{db_password}' -h'#{db_host}' --opt --databases '#{db_name}' | gzip --rsyncable > #{backup_path}.gz"
+
+            system "mkdir -p #{local_backup_dir}"
+            download "#{backup_path}.gz", "#{local_backup_dir}/#{backup_name}.gz", :via => :scp
         end
     end
 end
