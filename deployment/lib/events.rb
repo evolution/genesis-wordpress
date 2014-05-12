@@ -7,6 +7,8 @@ after "deploy:update" do
 end
 
 after "deploy:update",      "genesis:permissions"
+after "deploy",             "deploy:cleanup"
+
 after "genesis:up:files",   "genesis:permissions"
 
 after "deploy:restart",     "genesis:restart"
