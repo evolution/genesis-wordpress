@@ -299,6 +299,7 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 
 ## Changelog
 
+- v0.2.50 - Fix duplication of `genesis:backup` and `genesis:down` ([122](https://github.com/genesis/wordpress/pull/122))
 - v0.2.49 - Fix variable sustitution in `provision.yml` [f334764](https://github.com/genesis/wordpress/commit/f334764ad5e36ef847fe6752fb43cc553b74fde4)
 - v0.2.48 - Fix for `$` in passwords ([113](https://github.com/genesis/wordpress/pull/113))
 - v0.2.47 - Automatically `cleanup` after `deploy` ([112](https://github.com/genesis/wordpress/pull/112))
