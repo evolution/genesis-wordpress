@@ -299,6 +299,7 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 
 ## Changelog
 
+- v0.2.47 - Automatically `cleanup` after `deploy` ([112](https://github.com/genesis/wordpress/pull/112))
 - v0.2.46 - Legacy variable substitution([109](https://github.com/genesis/wordpress/pull/109))
 - v0.2.45 - Add `genesis:backup:db` command ([120](https://github.com/genesis/wordpress/pull/120))
 - v0.2.44 - Explicitly bypassing bower interactive prompts during deployment
