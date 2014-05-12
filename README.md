@@ -299,6 +299,7 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 
 ## Changelog
 
+- v0.2.48 - Fix for `$` in passwords ([113](https://github.com/genesis/wordpress/pull/113))
 - v0.2.47 - Automatically `cleanup` after `deploy` ([112](https://github.com/genesis/wordpress/pull/112))
 - v0.2.46 - Legacy variable substitution([109](https://github.com/genesis/wordpress/pull/109))
 - v0.2.45 - Add `genesis:backup:db` command ([120](https://github.com/genesis/wordpress/pull/120))
