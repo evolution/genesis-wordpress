@@ -61,7 +61,7 @@ namespace :genesis do
 
             system "vagrant up"
             system "vagrant ssh local -c 'cd /vagrant && mysql -uroot < #{local_backup_dir}/#{backup_name}'"
-            system "rm -f #{local_backup_dir}/#{backup_name} && rm -f #{local_backup_dir}/#{backup_name}.gz"
+            system "rm -f #{local_backup_dir}/#{backup_name}"
         end
 
         desc "Downloads remote files to Vagrant"
