@@ -57,12 +57,11 @@ namespace :genesis do
             find_and_execute_task "genesis:backup:db"
             # Rake::Task["namespace:task"].invoke
 
-            download "#{backup_path}.gz", "#{backup_name}.gz", :via => :scp
-            run "rm -f #{local_backup_dir}/#{backup_path}.gz"
-            system "gzip -d #{backup_name}.gz"
+            system "gzip -d #{local_backup_dir}/#{backup_name}.gz"
 
             system "vagrant up"
-            system "vagrant ssh local -c 'cd /vagrant && mysql -uroot < #{backup_name}' && rm -f #{backup_name}"
+            system "vagrant ssh local -c 'cd /vagrant && mysql -uroot < #{local_backup_dir}/#{backup_name}'"
+            system "rm -f #{local_backup_dir}/#{backup_name} && rm -f #{local_backup_dir}/#{backup_name}.gz"
         end
 
         desc "Downloads remote files to Vagrant"
@@ -131,6 +130,7 @@ namespace :genesis do
 
             system "mkdir -p #{local_backup_dir}"
             download "#{backup_path}.gz", "#{local_backup_dir}/#{backup_name}.gz", :via => :scp
+            run "rm -f #{backup_path}.gz"
         end
     end
 end
