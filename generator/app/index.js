@@ -385,4 +385,26 @@ WordpressGenerator.prototype.setupDeployment = function() {
   this.template('deployment/stages/production.rb', 'deployment/stages/production.rb');
 };
 
+WordpressGenerator.prototype.installGems = function() {
+  var done      = this.async();
+  var installer = 'bundle';
+
+  this.log.info(chalk.green('Installing Gems...'));
+
+  this.emit(installer + 'Install');
+
+  this
+    .spawnCommand(installer, ['install'], done)
+    .on('error', done)
+    .on('exit', this.emit.bind(this, installer + 'Install:end'))
+    .on('exit', function (err) {
+      if (err === 127) {
+        this.log.error('Could not run bundler. Please install with `sudo ' + installer + ' install`.');
+      }
+
+      done(err);
+    }.bind(this))
+  ;
+};
+
 module.exports = WordpressGenerator;

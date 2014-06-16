@@ -13,7 +13,7 @@ $ npm install
 Generate test project scaffolding:
 
 ```shell
-$ ./test/bin/generate
+$ ./test/bin/mock
 ```
 
 ### Testing Provisioning
@@ -24,12 +24,20 @@ Start test project server:
 $ (cd test/temp && vagrant up)
 ```
 
-Tests will be ran against:
-
-> http://local.generatortest.com
-
 ### End-User Testing
+
+Install Gems:
+
+```shell
+$ (cd test/temp && sudo bundle install)
+```
+
+Run tests:
 
 ```shell
 $ npm test
 ```
+
+Tests will be ran against:
+
+> http://local.generatortest.com
