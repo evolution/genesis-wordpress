@@ -1,8 +1,5 @@
 # Genesis WordPress
 
-[![Build Status](https://travis-ci.org/genesis/wordpress.png)](https://travis-ci.org/genesis/wordpress)
-
-
 > Rapidly create, develop, & deploy WordPress across multiple environments.
 > ![Genesis WordPress Demo](demo.gif)
 
@@ -21,7 +18,7 @@
 
 ## Installation
 
-Ensure you have the latest versions of [NodeJS][9] **v0.10**, [Vagrant v1.3.*](http://downloads.vagrantup.com), & [VirtualBox v.4.2.*](https://www.virtualbox.org/wiki/Download_Old_Builds_4_2).
+Ensure you have the latest versions of [NodeJS][9] **v0.10**, [Vagrant v1.6.*](http://www.vagrantup.com/downloads.html), & [VirtualBox v.4.2.*](https://www.virtualbox.org/wiki/Download_Old_Builds_4_2).
 
 ### Scaffolding & Development
 
@@ -302,6 +299,17 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 
 ## Changelog
 
+- v0.2.54 - Rewrite supports HTTPS ([#101](https://github.com/genesis/wordpress/issues/101))
+- v0.2.53 - Introduce `genesis:up:limited` for rsync'ing only the shared folders ([#80](https://github.com/genesis/wordpress/pull/80))
+- v0.2.52 - Sensible Apache2 defaults ([#116](https://github.com/genesis/wordpress/pull/116))
+- v0.2.51 - Add `Gemfile` to generator ([#126](https://github.com/genesis/wordpress/pull/126))
+- v0.2.50 - Fix duplication of `genesis:backup` and `genesis:down` ([122](https://github.com/genesis/wordpress/pull/122))
+- v0.2.49 - Fix variable sustitution in `provision.yml` [f334764](https://github.com/genesis/wordpress/commit/f334764ad5e36ef847fe6752fb43cc553b74fde4)
+- v0.2.48 - Fix for `$` in passwords ([113](https://github.com/genesis/wordpress/pull/113))
+- v0.2.47 - Automatically `cleanup` after `deploy` ([112](https://github.com/genesis/wordpress/pull/112))
+- v0.2.46 - Legacy variable substitution([109](https://github.com/genesis/wordpress/pull/109))
+- v0.2.45 - Add `genesis:backup:db` command ([120](https://github.com/genesis/wordpress/pull/120))
+- v0.2.44 - Explicitly bypassing bower interactive prompts during deployment
 - v0.2.43 – Revert `5afaf80`, fixes v0.2.38
 - v0.2.42
     - `auto_correct` Vagrant SSH port

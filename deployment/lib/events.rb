@@ -3,10 +3,12 @@ before "deploy:update" do
 end
 
 after "deploy:update" do
-    run "cd #{release_path} && bower install"
+    run "cd #{release_path} && bower install --config.interactive=false"
 end
 
 after "deploy:update",      "genesis:permissions"
+after "deploy",             "deploy:cleanup"
+
 after "genesis:up:files",   "genesis:permissions"
 
 after "deploy:restart",     "genesis:restart"

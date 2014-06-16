@@ -272,11 +272,13 @@ WordpressGenerator.prototype.writeProjectFiles = function() {
     this.readmeFile = '';
   }
 
-  this.template('gitignore',   '.gitignore');
+  this.template('gitignore',    '.gitignore');
   this.template('bower.json',   'bower.json');
   this.template('Capfile',      'Capfile');
   this.template('Gemfile',      'Gemfile');
   this.template('editorconfig', '.editorconfig');
+  this.template('Gemfile',      'Gemfile');
+  this.template('Gemfile.lock', 'Gemfile.lock');
   this.template('README.md',    'README.md');
   this.template('Vagrantfile',  'Vagrantfile');
 };

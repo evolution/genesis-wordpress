@@ -35,6 +35,9 @@ set :shared_children,   ["web/wp-content/uploads"]
 # When rsync'ing files, ignore these paths
 set :rsync_exclude,     [".git", ".test", ".vagrant", "cache", "*.sql"]
 
+# Set dirs to limit rsync to
+set :rsync_limited,     ["wp-content/uploads"]
+
 # Setting current_release just in case
 set :current_release,   ""
 
