@@ -299,6 +299,7 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 
 ## Changelog
 
+- v0.2.52 - Sensible Apache2 defaults ([#116](https://github.com/genesis/wordpress/pull/116))
 - v0.2.51 - Add `Gemfile` to generator ([#126](https://github.com/genesis/wordpress/pull/126))
 - v0.2.50 - Fix duplication of `genesis:backup` and `genesis:down` ([122](https://github.com/genesis/wordpress/pull/122))
 - v0.2.49 - Fix variable sustitution in `provision.yml` [f334764](https://github.com/genesis/wordpress/commit/f334764ad5e36ef847fe6752fb43cc553b74fde4)
