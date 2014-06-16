@@ -18,7 +18,7 @@
 
 ## Installation
 
-Ensure you have the latest versions of [NodeJS][9] **v0.10**, [Vagrant v1.3.*](http://downloads.vagrantup.com), & [VirtualBox v.4.2.*](https://www.virtualbox.org/wiki/Download_Old_Builds_4_2).
+Ensure you have the latest versions of [NodeJS][9] **v0.10**, [Vagrant v1.6.*](http://www.vagrantup.com/downloads.html), & [VirtualBox v.4.2.*](https://www.virtualbox.org/wiki/Download_Old_Builds_4_2).
 
 ### Scaffolding & Development
 
