@@ -15,7 +15,7 @@
   "devDependencies": {
     "hooker": "^0.2.3",
     "mocha": "^1.20.1",
-    "zombie": "^2.0.0-alpha31"
+    "zombie": "2.0.0-alpha27"
   },
   "scripts": {
     "test": "./test/bin/test"
