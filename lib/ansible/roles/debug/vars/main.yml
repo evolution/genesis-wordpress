@@ -1,0 +1,4 @@
+---
+debug_packages:
+  - htop
+  - iftop

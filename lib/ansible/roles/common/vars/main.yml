@@ -1,0 +1,9 @@
+---
+old_hostname: "{{ lookup('pipe', 'hostname') }}"
+new_hostname: "{{ stage }}.{{ domain }}"
+
+common_packages:
+  - autoconf
+  - build-essential
+  - curl
+  - git-core

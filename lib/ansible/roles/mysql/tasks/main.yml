@@ -1,0 +1,17 @@
+---
+- name:           Install MySQL packages
+  apt:            pkg={{ item }} state=present
+  with_items:     mysql_packages
+  sudo:           yes
+
+- name:           Update my.conf's bind-address
+  lineinfile:     dest=/etc/mysql/my.cnf backup=yes regexp=^bind-address line='bind-address = 0.0.0.0'
+  sudo:           yes
+
+- name:           Create MySQL database
+  mysql_db:       name={{ mysql.name }}
+  sudo:           yes
+
+- name:           Create MySQL user
+  mysql_user:     name={{ mysql.user }} host={{ mysql.host }} password={{ mysql.password }} priv={{ mysql.name }}.*:GRANT,ALL
+  sudo:           yes

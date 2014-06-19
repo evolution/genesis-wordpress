@@ -1,7 +1,0 @@
----
-- hosts:        webservers
-  gather_facts: yes
-  roles:
-    - common
-    - wordpress
-    - varnish

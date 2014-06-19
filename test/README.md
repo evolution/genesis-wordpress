@@ -26,12 +26,6 @@ $ (cd test/temp && vagrant up)
 
 ### End-User Testing
 
-Install Gems:
-
-```shell
-$ (cd test/temp && sudo bundle install)
-```
-
 Run tests:
 
 ```shell

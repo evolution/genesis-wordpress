@@ -1,0 +1,8 @@
+---
+- name:           Create custom apache prefork config
+  template:       src=prefork.conf dest=/etc/apache2/prefork.conf mode=0644 validate='/usr/sbin/apache2ctl -f %s -t'
+  sudo:           yes
+
+- name:           Remove default apache prefork config
+  replace:        dest=/etc/apache2/apache2.conf backup=yes regexp='^(?:#[^\n]+\n)*<IfModule mpm_prefork_module>[^<]+?<\/IfModule>' replace='Include prefork.conf' validate='/usr/sbin/apache2ctl -f %s -t'
+  sudo:           yes

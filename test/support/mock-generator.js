@@ -72,9 +72,9 @@ MockGenerator.prototype.finalize = function() {
     '',
     '# Use local repository for testing',
     'set :deploy_via,        :copy',
-    'set :repository,        "."',
+    'set :repo_url,          "."',
     'set :local_repository,  "."',
-    'set :copy_remote_dir,   "/var/www/#{domain}/#{branch}"',
+    'set :copy_remote_dir,   "/var/www/#{fetch(:domain)}/#{fetch(:branch)}"',
     ''
   ].join('\n'));
 

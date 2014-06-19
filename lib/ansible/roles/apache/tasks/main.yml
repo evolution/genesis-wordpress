@@ -1,0 +1,42 @@
+---
+- name:           Install Apache packages
+  apt:            pkg={{ item }} state=present
+  with_items:     apache_packages
+  sudo:           yes
+
+- name:           Enable Apache modules
+  apache2_module: name={{ item }} state=present
+  with_items:     apache_modules
+  sudo:           yes
+  notify:         restart apache
+
+- name:           Ensure Apache `NameVirtualHost` is 80
+  lineinfile:     regexp='^NameVirtualHost' line='NameVirtualHost *:80' dest=/etc/apache2/ports.conf backup=yes
+  notify:         restart apache
+  sudo:           yes
+
+- name:           Esnure Apache `Listen` is 80
+  lineinfile:     regexp='^Listen' line='Listen 80' dest=/etc/apache2/ports.conf backup=yes
+  notify:         restart apache
+  sudo:           yes
+
+- name:           Change ownership of /var/www to deploy
+  file:           path=/var/www state=directory owner=deploy group=deploy
+  sudo:           yes
+
+- name:           Disable default apache site
+  command:        a2dissite 000-default removes=/etc/apache2/sites-enabled/000-default
+  notify:         restart apache
+  sudo:           yes
+
+- name:           Create apache vhosts
+  template:       src=vhosts/{{ item }} dest=/etc/apache2/sites-available/{{ item }}.{{ domain }} mode=0644
+  with_items:     apache_vhosts
+  notify:         restart apache
+  sudo:           true
+
+- name:           Enable apache vhosts
+  command:        a2ensite {{ item }}.{{ domain }}
+  with_items:     apache_vhosts
+  notify:         restart apache
+  sudo:           true

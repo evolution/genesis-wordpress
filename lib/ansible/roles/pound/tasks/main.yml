@@ -1,0 +1,19 @@
+---
+- name:       Install pound package
+  apt:        pkg=pound state=present
+  sudo:       true
+
+- name:       Copy pound configuration file
+  template:   src=pound.cfg dest=/etc/pound/pound.cfg mode=0644
+  notify:     restart pound
+  sudo:       true
+
+- name:       Copy SSL certificates
+  copy:       src=./files/ssl/{{ domain }}.pem dest=/etc/pound/{{ domain }}.pem mode=0644
+  notify:     restart pound
+  sudo:       true
+
+- name:       Enable pound
+  lineinfile: regexp='^startup=0' line='startup=1' dest=/etc/default/pound backup=yes
+  notify:     restart pound
+  sudo:       yes

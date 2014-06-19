@@ -1,0 +1,9 @@
+---
+php_packages:
+  - libapache2-mod-php5
+  - php5
+  - php5-cli
+  - php5-common
+  - php5-curl
+  - php5-gd
+  - php5-mcrypt

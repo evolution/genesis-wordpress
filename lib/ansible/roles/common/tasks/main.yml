@@ -1,0 +1,28 @@
+---
+- name:           Domain
+  debug:          var=domain
+
+- name:           Stage
+  debug:          var=stage
+
+- name:           New Hostname
+  debug:          var=new_hostname
+
+- name:           Update apt cache
+  apt:            update_cache=yes cache_valid_time="{{ 60 * 60 * 24 * 30 }}"
+  sudo:           yes
+
+- name:           Install common packages
+  apt:            pkg={{ item }} state=present
+  with_items:     common_packages
+  sudo:           yes
+
+- name:           Update `hostname`
+  hostname:       name="{{ new_hostname }}"
+  sudo:           yes
+  when:           old_hostname != new_hostname
+
+- name:           Update /etc/hosts
+  replace:        dest=/etc/hosts backup=yes regexp={{ old_hostname | replace(".", "[.]") }} replace={{ new_hostname }}
+  sudo:           yes
+  when:           old_hostname != new_hostname

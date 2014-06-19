@@ -3,7 +3,7 @@
   "name": "genesis-wordpress",
   "version": "0.2.54",
   "description": "Libraries for a multi-staged WordPress workflow with Vagrant",
-  "main": "generator/app/index.js",
+  "main": "lib/yeoman/index.js",
   "dependencies": {
     "chalk": "^0.3.0",
     "fs-extra": "^0.8.1",
