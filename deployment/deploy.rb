@@ -5,6 +5,8 @@ begin
     require "capistrano"
     require "capistrano/ext/multistage"
     require "colored"
+    require "pty"
+    require "expect"
 rescue LoadError
   puts "You need to run: $ gem install capistrano-ext colored"
   exit
@@ -53,15 +55,19 @@ set :keep_releases,     5
 # Prevent creation of public/images,javascripts,assets
 set :normalize_asset_timestamps, false
 
-# If user is not specified (i.e. `cap -S user=foo`), assume deploy + private key
-if not exists?(:user)
+# If user is not specified (i.e. `cap -S user=foo`), assume deploy
+if exists?(:user)
+    set :override_user, true
+else
     set :user,          "deploy"
-    set :ssh_options,   {
-        :forward_agent  =>  true,
-        :auth_methods   =>  ["publickey"],
-        :keys           =>  ["./provisioning/files/ssh/id_rsa"]
-    }
 end
+
+# default to private key auth
+set :ssh_options,   {
+    :forward_agent  =>  true,
+    :auth_methods   =>  ["publickey"],
+    :keys           =>  ["./provisioning/files/ssh/id_rsa"]
+}
 
 # Auto-detect DB_* constants from wp-config.php
 File.read('./web/wp-config.php').scan(/DB_(\w+)(?:'|"),\s+(?:'|")([^\'\"]*)/).each do | match |
