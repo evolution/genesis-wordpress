@@ -4,13 +4,18 @@ namespace :genesis do
         task :default do
             if exists?(:override_user)
                 logger.info "SSH workaround for https://github.com/genesis/wordpress/issues/131"
+                orig_ev=$expect_verbose
+                $expect_verbose=true
                 find_servers_for_task(current_task).each do |current_server|
                   logger.info "Transferring keys to #{current_server}"
+                  puts "\n"
                   PTY.spawn("scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./provisioning/files/ssh/id_rsa* #{user}@#{current_server}:~/") do |rd, wt|
                       rd.expect(/password/i, 1) { |r| wt.puts("#{password}") }
                       rd.expect("100%", 1) { |r| sleep(2) }
                   end
+                  puts "\n\n"
                   logger.info "Setting up passwordless sudoable deploy on #{current_server}"
+                  puts "\n"
                   PTY.spawn("ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null #{user}@#{current_server}") do |rd, wt|
                       # sudo make me a sandwich
                       rd.expect(/password/i, 1) { |r| wt.puts("#{password}") }
@@ -34,6 +39,8 @@ namespace :genesis do
                       rd.expect(/[#$] /, 1) { |r| wt.puts("exit") }
                   end
                 end
+                $expect_verbose=orig_ev
+                puts "\n\n"
                 logger.info "Switching to passwordless deploy user"
                 set :user, "deploy"
                 unset :password
