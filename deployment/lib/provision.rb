@@ -14,23 +14,24 @@ namespace :genesis do
                   PTY.spawn("ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null #{user}@#{current_server}") do |rd, wt|
                       # sudo make me a sandwich
                       rd.expect(/password/i, 1) { |r| wt.puts("#{password}") }
-                      rd.expect("$ ", 1) { |r| wt.puts("sudo -s") }
+                      rd.expect(/[#$] /, 1) { |r| wt.puts("sudo -s") }
                       rd.expect(/password/i, 1) { |r| wt.puts("#{password}") }
                       # create deploy user & .ssh dir
-                      rd.expect("$ ", 1) { |r| wt.puts("id -u deploy || useradd -s /bin/bash -m deploy") }
-                      rd.expect("$ ", 1) { |r| wt.puts("mkdir -p /home/deploy/.ssh") }
-                      rd.expect("$ ", 1) { |r| wt.puts("chmod 755 /home/deploy/.ssh") }
+                      rd.expect(/[#$] /, 1) { |r| wt.puts("id -u deploy || useradd -s /bin/bash -m deploy") }
+                      rd.expect(/[#$] /, 1) { |r| wt.puts("mkdir -p /home/deploy/.ssh") }
+                      rd.expect(/[#$] /, 1) { |r| wt.puts("chmod 755 /home/deploy/.ssh") }
                       # move scp'd keys into place
-                      rd.expect("$ ", 1) { |r| wt.puts("mv -f ~/id_rsa* /home/deploy/.ssh/") }
-                      rd.expect("$ ", 1) { |r| wt.puts("cp -f /home/deploy/.ssh/id_rsa.pub /home/deploy/.ssh/authorized_keys") }
+                      rd.expect(/[#$] /, 1) { |r| wt.puts("mv -f ~/id_rsa* /home/deploy/.ssh/") }
+                      rd.expect(/[#$] /, 1) { |r| wt.puts("cp -f /home/deploy/.ssh/id_rsa.pub /home/deploy/.ssh/authorized_keys") }
                       # fix .ssh permissions
-                      rd.expect("$ ", 1) { |r| wt.puts("chown -R deploy:deploy /home/deploy/.ssh") }
-                      rd.expect("$ ", 1) { |r| wt.puts("chmod -R 600 /home/deploy/.ssh/*") }
+                      rd.expect(/[#$] /, 1) { |r| wt.puts("chown -R deploy:deploy /home/deploy/.ssh") }
+                      rd.expect(/[#$] /, 1) { |r| wt.puts("chmod -R 600 /home/deploy/.ssh/*") }
                       # setup passwordless sudo
-                      rd.expect("$ ", 1) { |r| wt.puts("echo '%deploy ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/deploy") }
-                      rd.expect("$ ", 1) { |r| wt.puts("chmod 440 /etc/sudoers.d/deploy") }
+                      rd.expect(/[#$] /, 1) { |r| wt.puts("echo '%deploy ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/deploy") }
+                      rd.expect(/[#$] /, 1) { |r| wt.puts("chmod 440 /etc/sudoers.d/deploy") }
                       # UP AND AWAAAAAAY
-                      rd.expect("$ ", 1) { |r| wt.puts("exit") }
+                      rd.expect(/[#$] /, 1) { |r| sleep(2) }
+                      rd.expect(/[#$] /, 1) { |r| wt.puts("exit") }
                   end
                 end
                 logger.info "Switching to passwordless deploy user"
