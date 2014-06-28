@@ -299,6 +299,7 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 
 ## Changelog
 
+- v0.2.55 - `genesis:provision` works despite `Net:SSH` failures ([#131](https://github.com/genesis/wordpress/pull/131))
 - v0.2.54 - Rewrite supports HTTPS ([#101](https://github.com/genesis/wordpress/issues/101))
 - v0.2.53 - Introduce `genesis:up:limited` for rsync'ing only the shared folders ([#80](https://github.com/genesis/wordpress/pull/80))
 - v0.2.52 - Sensible Apache2 defaults ([#116](https://github.com/genesis/wordpress/pull/116))
