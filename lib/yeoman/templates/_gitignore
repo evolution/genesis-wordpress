@@ -9,6 +9,8 @@
 *.vi
 *~
 *.sass-cache
+*.sql
+*.sql.gz
 
 # OS or Editor folders
 .DS_Store
@@ -36,6 +38,7 @@ nbproject
 _notes
 bower_components
 backups
+web/wp
 
 # Application files to ignore
 error_log

@@ -4,9 +4,9 @@ var fs    = require('fs');
 var path  = require('path');
 var util  = require('util');
 
-var pwd   = process.env.PWD;
-var from  = path.join(pwd, 'bower_components', 'wordpress');
-var to    = path.join(pwd, 'web', 'wp');
+var cwd   = process.cwd();
+var from  = path.join(cwd, 'bower_components', 'wordpress');
+var to    = path.join(cwd, 'web', 'wp');
 
 console.log('Genesis WordPress - Bower `postinstall` Script\n');
 
@@ -15,10 +15,18 @@ if (!fs.existsSync(from)) {
   throw new Error(util.format('WordPress has not been installed to `%s`', from));
 }
 
-var toThemeDir = path.join(pwd, 'web', 'wp-content', 'themes');
+var toThemeDir = path.join(cwd, 'web', 'wp-content', 'themes');
 
 if (!fs.existsSync(toThemeDir)) {
-  throw new Error(util.format('Project is missing `%s` directory', toThemeDir))
+  var parts           = path.relative(cwd, toThemeDir).split(path.sep);
+  var toThemePartDir  = cwd;
+
+  while (parts.length) {
+    toThemePartDir = path.join(toThemePartDir, parts.shift());
+
+    console.info('Creating `%s`...', toThemePartDir);
+    fs.mkdirSync(toThemePartDir);
+  }
 }
 
 var existingThemes = fs.readdirSync(toThemeDir).filter(function(node) {
@@ -31,7 +39,7 @@ if (!existingThemes.length) {
   var fromTheme     = path.join(fromThemeDir, 'twentyfourteen');
   var toTheme       = path.join(toThemeDir, 'twentyfourteen');
 
-  console.log('Moving theme `%s` to `%s`...', path.relative(pwd, fromTheme), path.relative(pwd, toTheme));
+  console.log('Moving theme `%s` to `%s`...', path.relative(cwd, fromTheme), path.relative(cwd, toTheme));
   fs.renameSync(fromTheme, toTheme);
 }
 
@@ -60,7 +68,7 @@ if (fs.existsSync(to)) {
   removeDir(to);
 }
 
-console.info('Renaming `%s` to `%s`...', path.relative(pwd, from), path.relative(pwd, to));
+console.info('Renaming `%s` to `%s`...', path.relative(cwd, from), path.relative(cwd, to));
 fs.renameSync(from, to);
 
 console.log('Done!');

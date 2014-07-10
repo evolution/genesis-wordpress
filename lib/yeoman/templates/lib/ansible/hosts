@@ -1,0 +1,11 @@
+[localhost]
+127.0.0.1 ansible_connection=local
+
+[local]
+local.<%= props.domain %> stage=local
+
+[production]
+production.<%= props.domain %> stage=production
+
+[staging]
+staging.<%= props.domain %> stage=staging

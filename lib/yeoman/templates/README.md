@@ -4,5 +4,5 @@
 > Powered by [Genesis WordPress <%= props.genesis %>][genesis-wordpress]
 
 <%= readmeFile %>
-[<%= props.domain %>]: http://www.<%= props.domain %>/
+[<%= props.domain %>]: http://<%= props.domain %>/
 [genesis-wordpress]: https://github.com/genesis/wordpress/

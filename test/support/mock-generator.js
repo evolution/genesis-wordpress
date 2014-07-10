@@ -4,12 +4,12 @@ var helpers = require('yeoman-generator').test;
 var path    = require('path');
 
 var MockGenerator = function(outputDir) {
-  this.outputDir = __dirname + '/../temp';
+  this.outputDir = __dirname + '/../temp2';
 };
 
 MockGenerator.prototype.create = function() {
   this.app = helpers.createGenerator('genesis-wordpress:app', [
-    [require('../../generator/app'), 'genesis-wordpress:app']
+    [require('../../lib/yeoman'), 'genesis-wordpress:app']
   ]);
 
   this.app.options['skip-install'] = true;
@@ -68,16 +68,6 @@ MockGenerator.prototype.run = function() {
 };
 
 MockGenerator.prototype.finalize = function() {
-  fs.appendFileSync(this.outputDir + '/deployment/deploy.rb', [
-    '',
-    '# Use local repository for testing',
-    'set :deploy_via,        :copy',
-    'set :repo_url,          "."',
-    'set :local_repository,  "."',
-    'set :copy_remote_dir,   "/var/www/#{fetch(:domain)}/#{fetch(:branch)}"',
-    ''
-  ].join('\n'));
-
   if (this.privateKey) {
     fs.writeFileSync(this.privatePath, this.privateKey);
   }

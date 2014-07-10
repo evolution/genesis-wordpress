@@ -1,0 +1,24 @@
+---
+domain:         <%= props.domain %>
+
+mysql:
+  name:         <%= props.DB_NAME %>
+  user:         <%= props.DB_USER %>
+  password:     <%= props.DB_PASSWORD %>
+  host:         <%= props.DB_HOST %>
+
+php_settings:
+  # memory_limit:
+
+reserved_memory:
+  # mysql:
+  # system:
+apache_settings:
+  # start_servers:
+  # min_spare_servers:
+  # max_spare_servers:
+  # max_clients:
+  # max_requests_per_child:
+
+mail:
+  postmaster: no-reply@<%= props.domain %>

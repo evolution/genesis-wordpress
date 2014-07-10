@@ -20,4 +20,4 @@ apt-get -qq -y update
 apt-get -qq -y install ansible
 
 # Run provisioning playbook
-(cd "$( dirname "$0" )/../provisioning" && ansible-playbook -i localhost $@ provision.yml)
+(cd "$( dirname "$0" )/../lib/ansible" && ansible-playbook provision.yml $@)
