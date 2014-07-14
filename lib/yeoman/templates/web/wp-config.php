@@ -39,7 +39,7 @@ require_once(dirname(__FILE__) . '/../bower_components/genesis-wordpress/lib/wor
       "define('WP_HOME', '/');",
       "define('WP_POST_REVISIONS', 5);",
       "define('WP_SITEURL', '/wp');",
-      "/*That's all,",
+      "/* That's all,",
     ].join('\n')
   )
 

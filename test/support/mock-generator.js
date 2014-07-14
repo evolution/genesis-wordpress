@@ -4,7 +4,7 @@ var helpers = require('yeoman-generator').test;
 var path    = require('path');
 
 var MockGenerator = function(outputDir) {
-  this.outputDir = __dirname + '/../temp2';
+  this.outputDir = __dirname + '/../temp';
 };
 
 MockGenerator.prototype.create = function() {
@@ -13,6 +13,7 @@ MockGenerator.prototype.create = function() {
   ]);
 
   this.app.options['skip-install'] = true;
+  this.app.options['debug'] = true;
 };
 
 MockGenerator.prototype.prepare = function() {
@@ -86,22 +87,13 @@ MockGenerator.prototype.finalize = function() {
         '    $1'
       ].join('\n')
     )
+    .replace(
+      '/vagrant/bin/provision',
+      'echo Bypassing provisioning script for testing: /vagrant/bin/provision'
+    )
   ;
 
   fs.writeFileSync(this.outputDir + '/Vagrantfile', vagrantFile);
-
-  // Copy current library into bower location, except for test
-  fs.copy(
-    path.resolve(this.outputDir, '../../'),
-    this.outputDir + '/bower_components/genesis-wordpress',
-    function(path) {
-      return !path.match('test');
-    }, function(err) {
-      if (err) {
-        return console.error(err);
-      }
-    }
-  );
 };
 
 module.exports = MockGenerator;
