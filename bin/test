@@ -2,17 +2,19 @@
 
 var fs      = require('fs');
 var Mocha   = require('mocha');
+var path    = require('path');
+
 var mocha   = new Mocha();
-var testDir = __dirname + '/../';
+var testDir = path.join(__dirname, '..', 'test');
 
 // Setup environment first
-mocha.addFile(testDir + '/support/bootstrap.js');
+mocha.addFile(path.join(testDir, 'support', 'bootstrap.js'));
 
 // Add all other tests
 fs.readdirSync(testDir).filter(function(file) {
   return '.js' === file.substr(-3);
 }).forEach(function(file) {
-  mocha.addFile(testDir + file);
+  mocha.addFile(path.join(testDir, file));
 });
 
 mocha

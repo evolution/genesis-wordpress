@@ -12,7 +12,7 @@ describe('Mock site', function() {
     this.timeout(0);
 
     browser
-      .visit('http://local.generatortest.com/wp-admin/install.php')
+      .visit('http://local.generatortest.com/wp/wp-admin/install.php')
       .then(function() {
         if (browser.button('Install WordPress')) {
           browser
@@ -35,7 +35,7 @@ describe('Mock site', function() {
     var browser = new Browser();
 
     browser
-      .visit('http://local.generatortest.com/wp-admin/install.php')
+      .visit('http://local.generatortest.com/wp/wp-admin/install.php')
       .then(function() {
         assert.equal('Log In', browser.text('a.button'));
       })

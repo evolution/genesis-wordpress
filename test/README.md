@@ -13,7 +13,7 @@ $ npm install
 Generate test project scaffolding:
 
 ```shell
-$ ./test/bin/mock
+$ ./bin/mock
 ```
 
 ### Testing Provisioning

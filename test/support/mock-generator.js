@@ -17,10 +17,12 @@ MockGenerator.prototype.create = function() {
 };
 
 MockGenerator.prototype.prepare = function() {
-  this.privatePath  = this.outputDir + '/provisioning/files/ssh/id_rsa';
+  this.privatePath  = this.outputDir + '/lib/ansible/files/ssh/id_rsa';
   this.privateKey   = fs.existsSync(this.privatePath) ? fs.readFileSync(this.privatePath) : null;
-  this.publicPath   = this.outputDir + '/provisioning/files/ssh/id_rsa.pub';
+  this.publicPath   = this.outputDir + '/lib/ansible/files/ssh/id_rsa.pub';
   this.publicKey    = fs.existsSync(this.publicPath) ? fs.readFileSync(this.publicPath) : null;
+  this.certPath     = this.outputDir + '/lib/ansible/files/ssl/generatortest.com.pem';
+  this.cert         = fs.existsSync(this.certPath) ? fs.readFileSync(this.certPath) : null;
 };
 
 MockGenerator.prototype.prompts = function() {
@@ -77,6 +79,10 @@ MockGenerator.prototype.finalize = function() {
     fs.writeFileSync(this.publicPath, this.publicKey);
   }
 
+  if (this.cert) {
+    fs.writeFileSync(this.certPath, this.cert);
+  }
+
   var vagrantFile = fs.readFileSync(this.outputDir + '/Vagrantfile', 'utf8')
     .replace(
       new RegExp('(# Remount)'),
@@ -86,10 +92,6 @@ MockGenerator.prototype.finalize = function() {
         '',
         '    $1'
       ].join('\n')
-    )
-    .replace(
-      '/vagrant/bin/provision',
-      'echo Bypassing provisioning script for testing: /vagrant/bin/provision'
     )
   ;
 

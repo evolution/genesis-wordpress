@@ -18,7 +18,7 @@
     "zombie": "2.0.0-alpha27"
   },
   "scripts": {
-    "test": "./test/bin/test"
+    "test": "./bin/test"
   },
   "repository": {
     "type": "git",
