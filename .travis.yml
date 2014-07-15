@@ -13,7 +13,7 @@ before_install:
   - echo "Mock test project"
   - "${PWD}/bin/mock"
   - echo "Provision server"
-  - sudo "${PWD}/temp/bin/provision"
+  - sudo "${PWD}/temp/bin/provision -e stage=localhost"
   - curl -sS https://getcomposer.org/installer | php -- --install-dir="${PWD}/temp"
 install:
   - cd "${PWD}/temp"
