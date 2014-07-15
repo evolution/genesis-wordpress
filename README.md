@@ -1,6 +1,7 @@
 # Genesis WordPress
 
 [![Build Status](https://travis-ci.org/genesis/wordpress.svg)](https://travis-ci.org/genesis/wordpress)
+[![Codeship Status for genesis/wordpress](https://codeship.io/projects/a5ed6c10-ee94-0131-69bd-0efb347953c6/status)](https://codeship.io/projects/26886)
 [![Dependencies](https://david-dm.org/genesis/wordpress.svg)](https://david-dm.org/genesis/wordpress)
 [![devDependencies](https://david-dm.org/genesis/wordpress/dev-status.svg)](https://david-dm.org/genesis/wordpress#info=devDependencies&view=table)
 
