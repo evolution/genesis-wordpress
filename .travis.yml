@@ -6,9 +6,6 @@ addons:
     - local.generatortest.com
 before_install:
   - rvm use 1.9.3
-  - curl -sS https://getcomposer.org/installer | php
-install:
-  - echo "Install Gems"
   - gem install bundler
   - echo "Install NPM dependencies"
   - npm install -g bower
@@ -16,9 +13,11 @@ install:
   - echo "Mock test project"
   - $PWD/bin/mock
   - echo "Install Composer dependencies"
-  - php composer.phar install --dev
   - echo "Provision server"
   - sudo $PWD/temp/bin/provision -e stage=localhost
+  - curl -sS https://getcomposer.org/installer | php
+install:
+  - php composer.phar install --dev
 script:
   - ./vendor/bin/phpunit
   - npm test
