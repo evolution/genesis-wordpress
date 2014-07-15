@@ -11,15 +11,15 @@ before_install:
   - echo "Install NPM dependencies"
   - npm install
   - echo "Mock test project"
-  - "${PWD}/bin/mock"
+  - $PWD/bin/mock
   - echo "Provision server"
-  - sudo "${PWD}/temp/bin/provision -e stage=localhost"
-  - curl -sS https://getcomposer.org/installer | php -- --install-dir="${PWD}/temp"
+  - sudo $PWD/temp/bin/provision -e stage=localhost
+  - curl -sS https://getcomposer.org/installer | php -- --install-dir=$PWD/temp
 install:
-  - cd "${PWD}/temp"
+  - cd $PWD/temp
   - bundle install
   - npm install
   - php composer.phar install --dev
 script:
-  - php composer.phar phpunit
+  - ./vendor/bin/phpunit
   - npm test
