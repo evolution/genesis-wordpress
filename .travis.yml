@@ -13,7 +13,7 @@ before_install:
   - echo "Mock test project"
   - $PWD/bin/mock
   - echo "Copy mock project to /vagrant for end-user tests"
-  - sudo mkdir /vagrant
+  - sudo mkdir /vagrant/bower_components
   - sudo cp -R $PWD/temp /vagrant
   - echo "Symlinking local Genesis WordPress as dependency"
   - sudo rm -rf /vagrant/bower_components/genesis-skeleton
