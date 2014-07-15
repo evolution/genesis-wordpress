@@ -8,7 +8,7 @@ describe('bundle exec cap local wp:rewrite:structure:/%postname%/', function(don
 
   it('should not fail', function(done) {
     exec('bundle exec cap local wp:rewrite:structure:/%postname%/', {
-      cwd: __dirname + '/temp'
+      cwd: process.cwd() + '/temp'
     }, function(err, stdout, stderr) {
       assert.ifError(err);
       done();

@@ -36,6 +36,7 @@ require_once(dirname(__FILE__) . '/../bower_components/genesis-wordpress/lib/wor
       "define('WP_AUTO_UPDATE_CORE', false);",
       "define('WP_CONTENT_DIR', dirname(__FILE__) . CONTENT_DIR);",
       "define('WP_CONTENT_URL', CONTENT_DIR);",
+      "define('WP_ENV', Genesis::getEnv());",
       "define('WP_HOME', '/');",
       "define('WP_POST_REVISIONS', 5);",
       "define('WP_SITEURL', '/wp');",

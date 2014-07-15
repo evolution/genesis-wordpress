@@ -1,6 +1,18 @@
 # Testing Genesis WordPress
 
+### Dependencies
+
+- Composer (`$ curl -sS https://getcomposer.org/installer | php`)
+- Node + NPM
+- Vagrant
+
 ### Setup
+
+Install Composer dependencies:
+
+```shell
+$ php composer.phar install --dev
+```
 
 Install NPM dependencies:
 
@@ -21,7 +33,13 @@ $ ./bin/mock
 Start test project server:
 
 ```shell
-$ (cd test/temp && vagrant up)
+$ (cd temp && vagrant up)
+```
+
+### Unit Tests
+
+```shell
+$ ./vendor/bin/phpunit
 ```
 
 ### End-User Testing

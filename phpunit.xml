@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.2/phpunit.xsd"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="true"
+         stopOnFailure="true"
+         syntaxCheck="false"
+         bootstrap="./vendor/autoload.php">
+  <testsuites>
+    <testsuite>
+      <directory>./test</directory>
+    </testsuite>
+  </testsuites>
+
+  <php>
+    <const name="PHPUNIT_TESTSUITE" value="true"/>
+    <ini name="date.timezone" value="UTC" />
+    <ini name="memory_limit" value="-1" />
+  </php>
+</phpunit>

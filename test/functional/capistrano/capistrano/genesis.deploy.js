@@ -8,7 +8,7 @@ describe('bundle exec cap local deploy', function(done) {
 
   it('should not fail', function(done) {
     exec('bundle exec cap local deploy', {
-      cwd: __dirname + '/temp'
+      cwd: process.cwd() + '/temp'
     }, function(err, stdout, stderr) {
       assert.ifError(err);
       done();
