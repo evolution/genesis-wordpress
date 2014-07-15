@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 
-var fs      = require('fs');
-var Mocha   = require('mocha');
-var path    = require('path');
+var glob  = require('glob');
+var Mocha = require('mocha');
+var path  = require('path');
 
 var mocha   = new Mocha();
 var testDir = path.join(__dirname, '..', 'test');
 
-// Setup environment first
-mocha.addFile(path.join(testDir, 'support', 'bootstrap.js'));
+// Install WordPress first
+mocha.addFile(path.join(testDir, 'functional', 'install.js'));
 
-// Add all other tests
-fs.readdirSync(testDir).filter(function(file) {
-  return '.js' === file.substr(-3);
+glob.sync('**/*.js', {
+  cwd: testDir,
+  nosort: true,
 }).forEach(function(file) {
   mocha.addFile(path.join(testDir, file));
 });
