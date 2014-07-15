@@ -14,10 +14,10 @@ before_install:
   - $PWD/bin/mock
   - echo "Copy mock project to /vagrant for end-user tests"
   - sudo mkdir /vagrant
-  - cp -R $PWD/temp /vagrant
+  - sudo cp -R $PWD/temp /vagrant
   - echo "Symlinking local Genesis WordPress as dependency"
-  - mkdir -p /vagrant/bower_components
-  - ln -s $PWD /vagrant/bower_components/genesis-skeleton
+  - sudo rm -rf /vagrant/bower_components/genesis-skeleton
+  - sudo ln -s $PWD /vagrant/bower_components/genesis-skeleton
   - echo "Install Composer dependencies"
   - echo "Provision server"
   - sudo $PWD/temp/bin/provision -e stage=localhost
