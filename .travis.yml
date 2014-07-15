@@ -17,7 +17,7 @@ before_install:
   - sudo $PWD/temp/bin/provision -e stage=localhost
   - curl -sS https://getcomposer.org/installer | php
   - echo "Copy mock project to /vagrant for end-user tests"
-  - sudo cp -R $PWD/test/temp /vagrant
+  - sudo cp -R $PWD/temp /vagrant
 install:
   - php composer.phar install --dev
 script:
