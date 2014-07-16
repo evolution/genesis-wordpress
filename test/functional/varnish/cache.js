@@ -3,7 +3,7 @@
 var assert    = require('assert');
 var Browser   = require('zombie');
 
-describe.only('Varnish', function() {
+describe('Varnish', function() {
   it('should see public page', function(done) {
     var browser = new Browser();
 
