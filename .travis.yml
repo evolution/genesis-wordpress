@@ -25,6 +25,8 @@ install:
   - echo "Install Composer dependencies"
   - php composer.phar install --dev
 script:
-  - tree /vagrant
+  - ls -al /vagrant
+  - ls -al /vagrant/bower_components
+  - ls -al /vagrant/web
   - ./vendor/bin/phpunit
   - npm test
