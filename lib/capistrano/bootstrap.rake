@@ -10,9 +10,6 @@ unless defined? :branch
   set :branch, (matches ? matches[1] : "master")
 end
 
-# Late-evaluate deployment folder
-set :deploy_to, -> { "/var/www/#{domain}/#{branch}" }
-
 # This is the fastest way to deploy, once the branch is live
 set :deploy_via, :remote_cache
 
