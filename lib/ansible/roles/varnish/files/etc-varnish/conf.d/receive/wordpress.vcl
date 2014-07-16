@@ -13,8 +13,5 @@ if (req.http.Cookie ~ "(^|;\s*)(wp-|wordpress_)") {
   return (pass);
 }
 
-# Drop *all* cookies sent to Wordpress, if we've gotten this far
-unset req.http.Cookie;
-
 # Try a cache-lookup
 return (lookup);
