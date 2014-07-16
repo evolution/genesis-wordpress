@@ -36,14 +36,14 @@
   notify:         restart apache
 
 - name:           Change Apache NameVirtualHost 80 => 8080
-  lineinfile:     regexp='^NameVirtualHost' line='NameVirtualHost 127.0.0.1:8080' dest=/etc/apache2/ports.conf backup=yes
+  lineinfile:     regexp='^NameVirtualHost' line='NameVirtualHost *:8080' dest=/etc/apache2/ports.conf backup=yes
   notify:
     - restart apache
     - restart varnish
   sudo:           yes
 
 - name:           Change Apache Listen 80 => 8080
-  lineinfile:     regexp='^Listen' line='Listen 127.0.0.1:8080' dest=/etc/apache2/ports.conf backup=yes
+  lineinfile:     regexp='^Listen' line='Listen 8080' dest=/etc/apache2/ports.conf backup=yes
   notify:
     - restart apache
     - restart varnish
