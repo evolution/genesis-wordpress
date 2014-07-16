@@ -8,7 +8,7 @@ var mocha   = new Mocha();
 var testDir = path.join(__dirname, '..', 'test');
 
 // Install WordPress first
-mocha.addFile(path.join(testDir, 'functional', 'install.js'));
+mocha.addFile(path.join(testDir, 'functional', 'bootstrap.js'));
 
 glob.sync('**/*.js', {
   cwd: testDir,
