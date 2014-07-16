@@ -16,12 +16,12 @@ before_install:
   - sudo cp -R $PWD/temp /vagrant
   - echo "Symlinking local Genesis WordPress as dependency"
   - sudo rm -rf /vagrant/bower_components/genesis-skeleton
-  - sudo cp -R $PWD /vagrant/bower_components/genesis-skeleton
-  - echo "Install Composer dependencies"
+  - sudo cp -R $PWD /vagrant/bower_components/genesis-skeleton/
   - echo "Provision server"
   - sudo $PWD/temp/bin/provision -e stage=localhost
   - curl -sS https://getcomposer.org/installer | php
 install:
+  - echo "Install Composer dependencies"
   - php composer.phar install --dev
 script:
   - ./vendor/bin/phpunit
