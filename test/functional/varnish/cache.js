@@ -3,17 +3,26 @@
 var assert    = require('assert');
 var Browser   = require('zombie');
 
-describe('Varnish', function() {
+describe.only('Varnish', function() {
+  it('should see public page', function(done) {
+    var browser = new Browser();
+
+    browser
+      .visit('http://local.generatortest.com/')
+      .then(function() {
+        assert.equal('Hello world!', browser.text('#content h1'));
+      })
+      .then(done, done)
+    ;
+  });
+
   it('should cache public page', function(done) {
     var browser = new Browser();
 
     browser
       .visit('http://local.generatortest.com/')
       .then(function() {
-        return browser.reload();
-      }).then(function() {
-        assert.equal('Hello world!', browser.text('#content h1'));
-        assert.equal('cached', browser.resources.shift().response.headers['x-cache']);
+        assert.equal('cached', browser.resources[0].response.headers['x-cache']);
       })
       .then(done, done)
     ;
