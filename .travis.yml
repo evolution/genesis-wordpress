@@ -15,8 +15,8 @@ before_install:
   - echo "Copy mock project to /vagrant for end-user tests"
   - sudo cp -R $PWD/temp /vagrant
   - echo "Symlinking local Genesis WordPress as dependency"
-  - sudo rm -rf /vagrant/bower_components/genesis-skeleton
-  - sudo cp -R $PWD /vagrant/bower_components/genesis-skeleton/
+  - sudo rm -rf /vagrant/bower_components/genesis-wordpress
+  - sudo cp -R $PWD /vagrant/bower_components/genesis-wordpress/
   - echo "Provision server"
   - sudo $PWD/temp/bin/provision -e stage=localhost
   - curl -sS https://getcomposer.org/installer | php
