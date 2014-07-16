@@ -21,12 +21,8 @@ before_install:
   - sudo $PWD/temp/bin/provision -e stage=localhost
   - curl -sS https://getcomposer.org/installer | php
 install:
-  - sudo apt-get install tree
   - echo "Install Composer dependencies"
   - php composer.phar install --dev
 script:
-  - ls -al /vagrant
-  - ls -al /vagrant/bower_components
-  - ls -al /vagrant/web
   - ./vendor/bin/phpunit
   - npm test
