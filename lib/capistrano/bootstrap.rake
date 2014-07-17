@@ -30,6 +30,9 @@ set :ssh_options, {
 # Auto-detect DB_* constants from wp-config.php
 set :wp_config, Hash[File
   .read('./web/wp-config.php')
-  .scan(/DB_(\w+)(?:'|"),\s+(?:'|")([^\'\"]*)/)
+  .scan(/DB_(\w+)(?:'|"),[^\'\"]+(?:'|")([^\'\"]*)/)
   .map { |match| [match[0].downcase, match[1]] }
 ]
+
+# Append stage name to database name
+fetch(:wp_config)['name'] += "_" + ARGV[0]

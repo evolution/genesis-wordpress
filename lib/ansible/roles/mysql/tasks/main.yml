@@ -9,9 +9,9 @@
   sudo:           yes
 
 - name:           Create MySQL database
-  mysql_db:       name={{ mysql.name }}
+  mysql_db:       name="{{ mysql.name }}_{{ stage }}"
   sudo:           yes
 
 - name:           Create MySQL user
-  mysql_user:     name={{ mysql.user }} host={{ mysql.host }} password={{ mysql.password }} priv={{ mysql.name }}.*:GRANT,ALL
+  mysql_user:     name={{ mysql.user }} host={{ mysql.host }} password={{ mysql.password }} priv="{{ mysql.name }}_{{ stage }}".*:GRANT,ALL
   sudo:           yes
