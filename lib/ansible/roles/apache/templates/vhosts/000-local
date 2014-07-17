@@ -19,4 +19,10 @@
 
     ErrorLog ${APACHE_LOG_DIR}/local.{{ domain }}-error.log
     CustomLog ${APACHE_LOG_DIR}/local.{{ domain }}-access.log combined
+
+    php_flag display_startup_errors on
+    php_flag display_errors on
+
+    php_value error_reporting -1
+    php_value scream.enabled 1
 </VirtualHost>
