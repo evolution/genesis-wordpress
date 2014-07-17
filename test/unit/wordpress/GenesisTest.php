@@ -2,6 +2,13 @@
 
 class GenesisTest extends PHPUnit_Framework_TestCase
 {
+    public function testGetDbName()
+    {
+        $_SERVER['HTTP_HOST'] = 'local.generatortest.com';
+
+        $this->assertEquals('test_local', Genesis::getDbName('test'));
+    }
+
     /**
      * @dataProvider httpHostProvider
      */

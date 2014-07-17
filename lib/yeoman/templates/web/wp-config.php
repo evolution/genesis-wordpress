@@ -10,7 +10,7 @@ require_once(dirname(__FILE__) . '/../bower_components/genesis-wordpress/lib/wor
   .replace(/(\$table_prefix\s*=\s*['"]).+(["'])/, '$1' + props.prefix + '$2')
 
   // Replace DB_*
-  .replace('database_name_here',  props.DB_NAME)
+  .replace("'database_name_here'","Genesis::getDbName('" + props.DB_NAME + "')")
   .replace('username_here',       props.DB_USER)
   .replace('password_here',       props.DB_PASSWORD)
   .replace('localhost',           props.DB_HOST)
@@ -45,5 +45,5 @@ require_once(dirname(__FILE__) . '/../bower_components/genesis-wordpress/lib/wor
   )
 
   // Replace ABSPATH
-  .replace(/define\('ABSPATH'.+\);/, "define('ABSPATH', dirname(__FILE__) . '/wp');")
+  .replace(/define\('ABSPATH'.+\);/, "define('ABSPATH', dirname(__FILE__) . '/wp/');")
 %>
