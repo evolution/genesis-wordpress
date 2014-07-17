@@ -13,5 +13,5 @@
   sudo:           yes
 
 - name:           Create MySQL user
-  mysql_user:     name={{ mysql.user }} host={{ mysql.host }} password={{ mysql.password }} priv="{{ mysql.name }}_{{ stage }}".*:GRANT,ALL
+  mysql_user:     name={{ mysql.user }} host={{ mysql.host }} password={{ mysql.password }} priv="{{ mysql.name }}_{{ stage }}".*:GRANT,ALL append_privs=yes
   sudo:           yes
