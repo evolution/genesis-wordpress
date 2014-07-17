@@ -215,12 +215,9 @@ sub vcl_fetch {
         set beresp.do_esi = true;
     }
 
-    # If the request to the backend returns a code is 5xx, restart the loop
-    # If the number of restarts reaches the value of the parameter max_restarts,
-    # the request will be error'ed.  max_restarts defaults to 4.  This prevents
-    # an eternal loop in the event that, e.g., the object does not exist at all.
+    # If the request to the backend returns a code is 5xx, return the error page
     if (beresp.status >= 500 && beresp.status <= 599){
-        return(restart);
+        return(hit_for_pass);
     }
 
     # Enable cache for all static files
