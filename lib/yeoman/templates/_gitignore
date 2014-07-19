@@ -1,4 +1,18 @@
-# Numerous always-ignore extensions
+# Sensitive files
+# (Remove these if you want keep credentials with the repo)
+id_rsa
+*.pem
+
+# Application files
+error_log
+
+# WordPress files
+**/wp-content/cache/**
+!**/wp-content/cache/.htaccess
+**/wp-content/upgrade
+**/wp-content/uploads
+
+# Misc
 *.diff
 *.err
 *.orig
@@ -24,8 +38,6 @@ Thumbs.db
 nbproject
 *.sublime-project
 *.sublime-workspace
-
-# Komodo
 *.komodoproject
 .komodotools
 
@@ -39,10 +51,3 @@ _notes
 bower_components
 backups
 web/wp
-
-# Application files to ignore
-error_log
-**/wp-content/cache/**
-!**/wp-content/cache/.htaccess
-**/wp-content/upgrade
-**/wp-content/uploads
