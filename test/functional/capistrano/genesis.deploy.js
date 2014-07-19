@@ -3,7 +3,7 @@
 var assert  = require('assert');
 var exec    = require('child_process').exec;
 
-describe('bundle exec cap local deploy', function(done) {
+describe('bundle exec cap staging deploy', function(done) {
   this.timeout(0);
 
   it('should not fail', function(done) {

@@ -8,7 +8,7 @@ describe('Varnish', function() {
     var browser = new Browser();
 
     browser
-      .visit('http://local.generatortest.com/')
+      .visit('http://staging.generatortest.com/')
       .then(function() {
         assert.equal('Hello world!', browser.text('#content h1'));
       })
@@ -21,7 +21,7 @@ describe('Varnish', function() {
       var browser = new Browser();
 
       browser
-        .visit('http://local.generatortest.com/')
+        .visit('http://staging.generatortest.com/')
         .then(function() {
           assert.equal('cached', browser.resources[0].response.headers['x-cache']);
         })
@@ -35,12 +35,12 @@ describe('Varnish', function() {
       var browser = new Browser();
 
       browser
-        .visit('http://local.generatortest.com/wp-admin')
+        .visit('http://staging.generatortest.com/wp-admin')
         .then(function() {
           assert(browser.resources.browser.getCookie('wordpress_test_cookie'));
         })
         .then(function() {
-          return browser.visit('http://local.generatortest.com/');
+          return browser.visit('http://staging.generatortest.com/');
         })
         .then(function() {
           assert.equal('Hello world!', browser.text('#content h1'));
@@ -59,12 +59,12 @@ describe('Varnish', function() {
       browser.setCookie({
         name: '_test',
         value: +new Date(),
-        domain: 'local.generatortest.com',
+        domain: 'staging.generatortest.com',
         path: '/',
       });
 
       browser
-        .visit('http://local.generatortest.com/')
+        .visit('http://staging.generatortest.com/')
         .then(function() {
           assert(browser.getCookie('_test'));
           assert(browser.resources[0].response.headers.age);
@@ -79,7 +79,7 @@ describe('Varnish', function() {
     var cookie  = {
       name: 'test',
       value: +new Date(),
-      domain: 'local.generatortest.com',
+      domain: 'staging.generatortest.com',
       path: '/',
     };
 
@@ -89,7 +89,7 @@ describe('Varnish', function() {
       browser.setCookie(cookie);
 
       browser
-        .visit('http://local.generatortest.com/')
+        .visit('http://staging.generatortest.com/')
         .then(function() {
           assert(browser.getCookie('test'));
           assert.equal(0, browser.resources[0].response.headers.age);
@@ -105,7 +105,7 @@ describe('Varnish', function() {
       browser.setCookie(cookie);
 
       browser
-        .visit('http://local.generatortest.com/')
+        .visit('http://staging.generatortest.com/')
         .then(function() {
           assert(browser.getCookie('test'));
           assert(browser.resources[0].response.headers.age);

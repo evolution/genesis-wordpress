@@ -8,13 +8,13 @@ describe('WordPress', function() {
     var browser = new Browser();
 
     browser
-      .visit('http://local.generatortest.com/wp-admin')
+      .visit('http://staging.generatortest.com/wp-admin')
       .then(function() {
         var location = browser.location.toString();
 
         assert(browser.redirected);
         assert.equal(200, browser.statusCode);
-        assert.equal(0, location.indexOf('http://local.generatortest.com/wp/wp-login'));
+        assert.equal(0, location.indexOf('http://staging.generatortest.com/wp/wp-login'));
       })
       .then(done, done)
     ;

@@ -4,6 +4,8 @@ node_js:
 addons:
   hosts:
     - local.generatortest.com
+    - staging.generatortest.com
+    - production.generatortest.com
 before_install:
   - rvm use 1.9.3
   - gem install bundler

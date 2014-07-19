@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var fs      = require('fs-extra');
+var exec    = require('child_process').exec;
 var helpers = require('yeoman-generator').test;
 var path    = require('path');
 
@@ -17,58 +18,68 @@ helpers.testDirectory(outputDir, function(err) {
     throw err;
   }
 
-  var app = helpers.createGenerator('genesis-wordpress:app', [
-    [require('../lib/yeoman'), 'genesis-wordpress:app']
-  ]);
+  exec([
+    'git clone git@github.com:evolution/wordpress-example.git ' + outputDir,
+    'cd ' + outputDir,
+    'git rm -rf .',
+  ].join(' && '), function(err, stdout, stderr) {
+    var app = helpers.createGenerator('genesis-wordpress:app', [
+      [require('../lib/yeoman'), 'genesis-wordpress:app']
+    ]);
 
-  app.options['skip-install'] = true;
-  app.options['debug'] = true;
+    app.options['skip-install'] = true;
+    app.options['debug'] = true;
 
-  helpers.mockPrompt(app, {
-    name:         'GeneratorTest.com',
-    domain:       'generatortest.com',
-    ip:           '192.168.137.137',
-    DB_NAME:      'generator_test',
-    DB_USER:      'generator_test',
-    DB_PASSWORD:  'generator_test',
-    DB_HOST:      '127.0.0.1',
-    prefix:       'wp_',
-  });
+    helpers.mockPrompt(app, {
+      name:         'GeneratorTest.com',
+      domain:       'generatortest.com',
+      ip:           '192.168.137.137',
+      DB_NAME:      'generator_test',
+      DB_USER:      'generator_test',
+      DB_PASSWORD:  'generator_test',
+      DB_HOST:      '127.0.0.1',
+      prefix:       'wp_',
+    });
 
-  app.run(function() {
-    if (privateKey) {
-      fs.writeFileSync(privatePath, privateKey);
-    }
+    app.run(function() {
+      if (privateKey) {
+        fs.writeFileSync(privatePath, privateKey);
+      }
 
-    if (publicKey) {
-      fs.writeFileSync(publicPath, publicKey);
-    }
+      if (publicKey) {
+        fs.writeFileSync(publicPath, publicKey);
+      }
 
-    if (cert) {
-      fs.writeFileSync(certPath, cert);
-    }
+      if (cert) {
+        fs.writeFileSync(certPath, cert);
+      }
 
-    var vagrantFile = fs.readFileSync(outputDir + '/Vagrantfile', 'utf8')
-      .replace(
-        new RegExp('(# Static IP)'),
-        [
-          '# Additional host names for testing',
-          '    box.hostmanager.aliases = ["staging.generatortest.com", "production.generatortest.com"]',
-          '',
-          '    $1',
-        ].join('\n')
-      )
-      .replace(
-        new RegExp('(# Remount)'),
-        [
-          '# Mount library for testing',
-          '    box.vm.synced_folder "../", "/wordpress", :nfs => true',
-          '',
-          '    $1'
-        ].join('\n')
-      )
-    ;
+      fs.appendFileSync(outputDir + '/lib/capistrano/deploy.rb', 'set :repo_url,      "https://github.com/evolution/wordpress-example.git"\n');
 
-    fs.writeFileSync(outputDir + '/Vagrantfile', vagrantFile);
+      var vagrantFile = fs.readFileSync(outputDir + '/Vagrantfile', 'utf8')
+        .replace(
+          new RegExp('(# Static IP)'),
+          [
+            '# Additional host names for testing',
+            '    box.hostmanager.aliases = ["staging.generatortest.com", "production.generatortest.com"]',
+            '',
+            '    $1',
+          ].join('\n')
+        )
+        .replace(
+          new RegExp('(# Remount)'),
+          [
+            '# Mount library for testing',
+            '    box.vm.synced_folder "../", "/wordpress", :nfs => true',
+            '',
+            '    $1'
+          ].join('\n')
+        )
+      ;
+
+      fs.writeFileSync(outputDir + '/Vagrantfile', vagrantFile);
+
+      exec('git add .', { cwd: outputDir });
+    });
   });
 });
