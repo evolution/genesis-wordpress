@@ -28,7 +28,7 @@ helpers.testDirectory(outputDir, function(err) {
     ]);
 
     app.options['skip-install'] = true;
-    app.options['debug'] = true;
+    app.options['dev'] = true;
 
     helpers.mockPrompt(app, {
       name:         'Example.com',
