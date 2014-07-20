@@ -10,7 +10,7 @@ var privatePath   = path.join(outputDir, '/lib/ansible/files/ssh/id_rsa');
 var privateKey    = fs.existsSync(privatePath) ? fs.readFileSync(privatePath) : null;
 var publicPath    = path.join(outputDir, '/lib/ansible/files/ssh/id_rsa.pub');
 var publicKey     = fs.existsSync(publicPath) ? fs.readFileSync(publicPath) : null;
-var certPath      = path.join(outputDir, '/lib/ansible/files/ssl/generatortest.com.pem');
+var certPath      = path.join(outputDir, '/lib/ansible/files/ssl/example.com.pem');
 var cert          = fs.existsSync(certPath) ? fs.readFileSync(certPath) : null;
 
 helpers.testDirectory(outputDir, function(err) {
@@ -31,12 +31,12 @@ helpers.testDirectory(outputDir, function(err) {
     app.options['debug'] = true;
 
     helpers.mockPrompt(app, {
-      name:         'GeneratorTest.com',
-      domain:       'generatortest.com',
+      name:         'Example.com',
+      domain:       'example.com',
       ip:           '192.168.137.137',
-      DB_NAME:      'generator_test',
-      DB_USER:      'generator_test',
-      DB_PASSWORD:  'generator_test',
+      DB_NAME:      'example_db',
+      DB_USER:      'example_user',
+      DB_PASSWORD:  'example',
       DB_HOST:      '127.0.0.1',
       prefix:       'wp_',
     });
@@ -54,14 +54,19 @@ helpers.testDirectory(outputDir, function(err) {
         fs.writeFileSync(certPath, cert);
       }
 
-      fs.appendFileSync(outputDir + '/lib/capistrano/deploy.rb', 'set :repo_url,      "https://github.com/evolution/wordpress-example.git"\n');
+      fs.appendFileSync(outputDir + '/lib/capistrano/deploy.rb', [
+        '',
+        '# Added for testing purposes',
+        'set :repo_url,      "https://github.com/evolution/wordpress-example.git"',
+        '',
+      ].join('\n'));
 
       var vagrantFile = fs.readFileSync(outputDir + '/Vagrantfile', 'utf8')
         .replace(
           new RegExp('(# Static IP)'),
           [
             '# Additional host names for testing',
-            '    box.hostmanager.aliases = ["staging.generatortest.com", "production.generatortest.com"]',
+            '    box.hostmanager.aliases = ["staging.example.com", "production.example.com"]',
             '',
             '    $1',
           ].join('\n')
