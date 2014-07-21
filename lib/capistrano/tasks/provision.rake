@@ -5,17 +5,16 @@ namespace :genesis do
       ansible_path = Dir.pwd + "/lib/ansible"
       provision = "ansible-playbook provision.yml -e stage=#{fetch(:stage)}"
 
-      set :user, ask('user to provision as', fetch(:user))
+      success = system("cd #{ansible_path} && #{provision}")
 
-      if fetch(:user)
-        success = system("cd #{ansible_path} && #{provision}")
+      unless success
+        error "Unable to provision with SSH publickey for \"#{fetch(:user)}\" user"
 
-        unless success
-          error "Unable to provision with SSH publickey for \"#{fetch(:user)}\" user"
-          puts "Try again with a password:"
+        set :user, ask('user to provision as', fetch(:user))
 
-          system("cd #{ansible_path} && #{provision} --user=#{fetch(:user)} --ask-pass")
-        end
+        puts "password:"
+
+        system("cd #{ansible_path} && #{provision} --user=#{fetch(:user)} --ask-pass")
       end
     end
   end

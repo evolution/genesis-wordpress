@@ -9,10 +9,8 @@ describe('Mock site', function() {
   it('may not be installed', function(done) {
     var browser = new Browser();
 
-    this.timeout(0);
-
     browser
-      .visit('http://staging.generatortest.com/wp/wp-admin/install.php')
+      .visit('http://local.example.com/wp/wp-admin/install.php')
       .then(function() {
         if (browser.button('Install WordPress')) {
           browser
@@ -35,7 +33,7 @@ describe('Mock site', function() {
     var browser = new Browser();
 
     browser
-      .visit('http://staging.generatortest.com/wp/wp-admin/install.php')
+      .visit('http://local.example.com/wp/wp-admin/install.php')
       .then(function() {
         assert.equal('Log In', browser.text('a.button'));
       })

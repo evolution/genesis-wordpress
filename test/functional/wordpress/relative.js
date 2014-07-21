@@ -8,7 +8,7 @@ describe('WordPress', function() {
     var browser = new Browser();
 
     browser
-      .visit('http://staging.generatortest.com/')
+      .visit('http://example.com/')
       .then(function() {
         assert.equal('/hello-world/', browser.query('#content h1 a').getAttribute('href'));
       })

@@ -11,7 +11,7 @@ namespace :genesis do
 
       on release_roles(:db) do
         within "/tmp" do
-          wp_path = "/vagrant/web/wp" # TODO: Use "#{release_path}/web/wp"
+          wp_path = "#{release_path}/web/wp"
 
           execute :wp, :db, :export, fetch(:db_backup_file), "--opt", "--path=\"#{wp_path}\"", "--url=\"http://#{fetch(:stage)}.#{fetch(:domain)}/\""
           execute :gzip, fetch(:db_backup_file)
@@ -42,12 +42,12 @@ namespace :genesis do
 
       run_locally do
         execute :vagrant, :up
-        execute :vagrant, :ssh, :local, "-c 'cd /vagrant && mysqldump -uroot --opt --databases \"#{fetch(:wp_config)['name']}\" > #{fetch(:db_backup_file)}'"
+        execute :vagrant, :ssh, :local, "-c 'cd /vagrant && mysqldump -uroot --opt --databases \"#{fetch(:wp_config)['name']}_local\" > #{fetch(:db_backup_file)}'"
         execute :gzip, fetch(:db_backup_file)
       end
 
       on release_roles(:db) do
-        wp_path = "/vagrant/web/wp" # TODO: Use "#{release_path}/web/wp"
+        wp_path = "#{release_path}/web/wp"
 
         upload! fetch(:db_gzip_file), "/tmp/#{fetch(:db_gzip_file)}"
         execute :gzip, "-d", "/tmp/#{fetch(:db_gzip_file)}"

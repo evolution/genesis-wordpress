@@ -33,6 +33,3 @@ set :wp_config, Hash[File
   .scan(/DB_(\w+)(?:'|"),[^\'\"]+(?:'|")([^\'\"]*)/)
   .map { |match| [match[0].downcase, match[1]] }
 ]
-
-# Append stage name to database name
-fetch(:wp_config)['name'] += "_" + ARGV[0]

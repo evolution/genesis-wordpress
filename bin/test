@@ -7,9 +7,6 @@ var path  = require('path');
 var mocha   = new Mocha();
 var testDir = path.join(__dirname, '..', 'test');
 
-// Install WordPress first
-mocha.addFile(path.join(testDir, 'functional', 'bootstrap.js'));
-
 glob.sync('**/*.js', {
   cwd: testDir,
   nosort: true,
@@ -18,7 +15,9 @@ glob.sync('**/*.js', {
 });
 
 mocha
+  .bail(true)
   .reporter('spec')
+  .timeout(5000)
   .ui('bdd')
   .run(process.exit)
 ;

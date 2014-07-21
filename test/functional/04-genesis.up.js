@@ -3,11 +3,9 @@
 var assert  = require('assert');
 var exec    = require('child_process').exec;
 
-describe('bundle exec cap staging wp:rewrite:structure:/%postname%/', function(done) {
-  this.timeout(0);
-
+describe.only('cap production genesis:up', function(done) {
   it('should not fail', function(done) {
-    exec('bundle exec cap staging wp:rewrite:structure:/%postname%/', {
+    exec('bundle exec cap production genesis:up', {
       cwd: process.cwd() + '/temp'
     }, function(err, stdout, stderr) {
       assert.ifError(err);

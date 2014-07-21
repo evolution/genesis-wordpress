@@ -4,7 +4,7 @@ class GenesisTest extends PHPUnit_Framework_TestCase
 {
     public function testGetDbName()
     {
-        $_SERVER['HTTP_HOST'] = 'local.generatortest.com';
+        $_SERVER['HTTP_HOST'] = 'local.example.com';
 
         $this->assertEquals('test_local', Genesis::getDbName('test'));
     }
@@ -35,16 +35,16 @@ class GenesisTest extends PHPUnit_Framework_TestCase
     public function httpHostProvider()
     {
         return array(
-            array('generatortest.com',              'production'),
-            array('generatortest.co.uk',            'production'),
-            array('www.generatortest.com',          'production'),
-            array('www.generatortest.co.uk',        'production'),
-            array('local.generatortest.com',        'local'),
-            array('local.generatortest.co.uk',      'local'),
-            array('staging.generatortest.com',      'staging'),
-            array('staging.generatortest.co.uk',    'staging'),
-            array('production.generatortest.com',   'production'),
-            array('production.generatortest.co.uk', 'production'),
+            array('example.com',              'production'),
+            array('example.co.uk',            'production'),
+            array('www.example.com',          'production'),
+            array('www.example.co.uk',        'production'),
+            array('local.example.com',        'local'),
+            array('local.example.co.uk',      'local'),
+            array('staging.example.com',      'staging'),
+            array('staging.example.co.uk',    'staging'),
+            array('production.example.com',   'production'),
+            array('production.example.co.uk', 'production'),
         );
     }
 }

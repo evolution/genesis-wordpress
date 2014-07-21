@@ -50,6 +50,6 @@ Run tests:
 $ npm test
 ```
 
-Tests will be ran against:
+Tests will be ran against the new entries in `/etc/hosts`:
 
-> http://local.generatortest.com
+> http://local.example.com and http://example.com/
