@@ -16,7 +16,7 @@ require_once(dirname(__FILE__) . '/../bower_components/genesis-wordpress/lib/wor
   .replace('localhost',           props.DB_HOST)
 
   // Replace WP_DEBUG
-  .replace(/define\('WP_DEBUG'.+\);/, "define('WP_DEBUG', WP_ENV === 'local');")
+  .replace(/define\('WP_DEBUG'.+\);/, "define('WP_DEBUG', Genesis::getEnv() === 'local');")
 
   // Replace salts
   .replace(/(\/\*\*#@\+(?:.|[\r\n])+?\*\/[\r\n]+)(?:.|[\r\n])+?([\r\n]+\/\*\*#@-\*\/)/m, '$1__GENERATED_SALTS_PLACEHOLDER__$2')
