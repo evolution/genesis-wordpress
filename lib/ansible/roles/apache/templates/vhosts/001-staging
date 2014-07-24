@@ -3,12 +3,12 @@
 
     ServerName staging.{{ domain }}
 
-    DocumentRoot /var/www/{{ domain }}/master/current/web
+    DocumentRoot /var/www/{{ domain }}/staging/master/current/web
     <Directory />
         Options FollowSymLinks
         AllowOverride None
     </Directory>
-    <Directory /var/www/{{ domain }}/master/current/web/>
+    <Directory /var/www/{{ domain }}/staging/master/current/web/>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
         Order allow,deny

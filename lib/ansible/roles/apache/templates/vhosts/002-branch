@@ -3,7 +3,7 @@
 
     ServerAlias *.staging.{{ domain }}
 
-    VirtualDocumentRoot /var/www/{{ domain }}/%1/current/web
+    VirtualDocumentRoot /var/www/{{ domain }}/staging/%1/current/web
     <Directory />
         Options FollowSymLinks
         AllowOverride None
