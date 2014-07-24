@@ -29,7 +29,7 @@ namespace :genesis do
 
       run_locally do
         execute :vagrant, :up
-        execute :vagrant, :ssh, :local,  "-c 'cd /vagrant && mysql -uroot < #{fetch(:db_backup_file)}'"
+        execute :vagrant, :ssh, :local,  "-c 'cd /vagrant && mysql -uroot -D \"#{fetch(:wp_config)['name']}_local\" < #{fetch(:db_backup_file)}'"
         execute :rm, fetch(:db_backup_file)
       end
     end
