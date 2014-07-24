@@ -39,6 +39,7 @@ helpers.testDirectory(outputDir, function(err) {
       DB_PASSWORD:  'example',
       DB_HOST:      '127.0.0.1',
       prefix:       'wp_',
+      genesis:      'v1',
     });
 
     app.run(function() {
