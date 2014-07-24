@@ -41,6 +41,7 @@ namespace :genesis do
       run_locally do
         execute :vagrant, :up
         execute :vagrant, :ssh, :local, "-c 'cd /vagrant && mysqldump -uroot --opt --databases \"#{fetch(:wp_config)['name']}_local\" > #{fetch(:db_backup_file)}'"
+        execute :ruby, "-pi -e \"gsub('#{fetch(:wp_config)['name']}_local', '#{fetch(:wp_config)['name']}_#{fetch(:stage)}')\" #{fetch(:db_backup_file)}"
         execute :gzip, fetch(:db_backup_file)
       end
 
