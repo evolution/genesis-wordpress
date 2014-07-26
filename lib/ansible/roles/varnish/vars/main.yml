@@ -1,4 +1,6 @@
 ---
+role_varnish: true
+
 varnish_packages:
   - libapache2-mod-rpaf
   - varnish

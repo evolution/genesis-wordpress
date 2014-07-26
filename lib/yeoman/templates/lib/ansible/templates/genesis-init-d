@@ -1,0 +1,73 @@
+#!/bin/sh
+
+# Source function library
+. /lib/lsb/init-functions
+
+start_services() {
+{% if role_apache is defined %}
+    /etc/init.d/apache2 start
+{% endif %}
+{% if role_varnish is defined %}
+    /etc/init.d/varnish start
+{% endif %}
+{% if role_pound is defined %}
+    /etc/init.d/pound start
+{% endif %}
+}
+
+stop_services() {
+{% if role_apache is defined %}
+    /etc/init.d/apache2 stop
+{% endif %}
+{% if role_varnish is defined %}
+    /etc/init.d/varnish stop
+{% endif %}
+{% if role_pound is defined %}
+    /etc/init.d/pound stop
+{% endif %}
+}
+
+restart_services() {
+{% if role_apache is defined %}
+    /etc/init.d/apache2 graceful
+{% endif %}
+{% if role_varnish is defined %}
+    /etc/init.d/varnish restart
+{% endif %}
+{% if role_pound is defined %}
+    /etc/init.d/pound restart
+{% endif %}
+}
+
+status_services() {
+{% if role_apache is defined %}
+    /etc/init.d/apache2 status
+{% endif %}
+{% if role_varnish is defined %}
+    /etc/init.d/varnish status
+{% endif %}
+{% if role_pound is defined %}
+    /etc/init.d/pound status
+{% endif %}
+}
+
+case "$1" in
+    start)
+        start_services
+        ;;
+    stop)
+        stop_services
+        ;;
+    restart)
+        restart_services
+        ;;
+    status)
+        status_services
+        ;;
+    *)
+        log_success_msg "Usage $0 {start|stop|restart|status}"
+        exit 1
+        ;;
+esac
+
+exit 0

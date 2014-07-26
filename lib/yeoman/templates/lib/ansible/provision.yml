@@ -2,6 +2,11 @@
 - hosts:                "{{ stage }}" # Easy execution via: `ansible-playbook provision.yml -e stage=local`
   gather_facts:         yes           # Host specs required for templates
 
+  pre_tasks:
+    - name:             Stop any existing genesis services
+      command:          /etc/init.d/genesis-wordpress stop removes=/etc/init.d/genesis-wordpress
+      sudo:             yes
+
   roles:
     - common            # (Required) Base configuration
     - user              # (Required) User for SSH/Ansible/Capistrano auth
@@ -15,3 +20,8 @@
     - wp-cli            # (Optional) CLI for managing WordPress
     - mail              # (Optional) Ability to send e-mails from the server (i.e. PHP)
     - debug             # (Optional) Tools to monitor processes & debug when SSH'd in
+
+  post_tasks:
+    - name:             Generate init.d for installed genesis services
+      template:         src=templates/genesis-init-d dest=/etc/init.d/genesis-wordpress mode=0755
+      sudo:             yes
