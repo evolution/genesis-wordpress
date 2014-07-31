@@ -6,8 +6,8 @@ Vagrant.configure("2") do |config|
   config.hostmanager.manage_host        = true
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box       = "precise64"
-  config.vm.box_url   = "http://files.vagrantup.com/precise64.box"
+  config.vm.box       = "trusty64"
+  config.vm.box_url   = "https://vagrantcloud.com/ubuntu/trusty64/version/1/provider/virtualbox.box"
 
   # Configure 1GB (1024MB) of memory
   config.vm.provider :virtualbox do |vb|
