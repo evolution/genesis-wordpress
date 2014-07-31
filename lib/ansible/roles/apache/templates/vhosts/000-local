@@ -11,8 +11,7 @@
     <Directory /vagrant/web/>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
-        Order allow,deny
-        Allow from all
+        Require all granted
     </Directory>
 
     LogLevel warn

@@ -10,11 +10,6 @@
   sudo:           yes
   notify:         restart apache
 
-- name:           Ensure Apache `NameVirtualHost` is 80
-  lineinfile:     regexp='^NameVirtualHost' line='NameVirtualHost *:80' dest=/etc/apache2/ports.conf backup=yes
-  notify:         restart apache
-  sudo:           yes
-
 - name:           Esnure Apache `Listen` is 80
   lineinfile:     regexp='^Listen' line='Listen 80' dest=/etc/apache2/ports.conf backup=yes
   notify:         restart apache
@@ -25,7 +20,7 @@
   sudo:           yes
 
 - name:           Disable default apache site
-  command:        a2dissite 000-default removes=/etc/apache2/sites-enabled/000-default
+  command:        a2dissite 000-default removes=/etc/apache2/sites-enabled/000-default.conf
   notify:         restart apache
   sudo:           yes
 
