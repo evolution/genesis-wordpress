@@ -9,7 +9,11 @@
   sudo:       true
 
 - name:       Copy SSL certificates
-  copy:       src=./files/ssl/{{ domain }}.pem dest=/etc/pound/{{ domain }}.pem mode=0644
+  copy:       src=./files/ssl/{{ item }}.{{ domain }}.pem dest=/etc/pound/{{ item }}.{{ domain }}.pem mode=0644
+  with_items:
+    - local
+    - staging
+    - production
   notify:     restart pound
   sudo:       true
 
