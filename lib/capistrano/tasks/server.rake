@@ -53,4 +53,21 @@ namespace :genesis do
       end
     end
   end
+
+  desc "Fix remote filesystem permissions"
+  task :permissions do
+    on release_roles(:web) do
+      # Ensure directories are group-owned by apache & group executable; SGID
+      execute :sudo, "find -L #{release_path}/web -type d -exec chown :www-data {} \\; -exec chmod 775 {} \\; -exec chmod g+s {} \\;"
+      # Ensure files are group readable
+      execute :sudo, "find -L #{release_path}/web -type f -exec chmod 664 {} \\;"
+    end
+  end
+
+  desc "Remove remote deployments"
+  task :teardown do
+    on release_roles(:web) do
+      execute :sudo, "rm -rf #{deploy_to}"
+    end
+  end
 end
