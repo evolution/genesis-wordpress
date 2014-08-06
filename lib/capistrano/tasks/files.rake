@@ -5,7 +5,7 @@ namespace :genesis do
         execute "chmod 600 #{args[:key_file]}"
       end
 
-      set :rsync_cmd, "vagrant ssh local -c 'cd /vagrant && rsync -e \"ssh -i #{args[:key_file]}\" -avvru --delete --copy-links --progress #{args[:path_from]}/ #{args[:path_to]}/'"
+      set :rsync_cmd, "-c 'cd /vagrant && rsync -e \"ssh -i #{args[:key_file]}\" -avvru --delete --copy-links --progress #{args[:path_from]}/ #{args[:path_to]}/'"
     end
 
     desc "Download remote uploads to Vagrant"
@@ -27,8 +27,9 @@ namespace :genesis do
 
         on roles(:web) do |host|
           invoke "genesis:files:prepare", key, "#{fetch(:user)}@#{host}:#{remote_uploads}", local_uploads
-          info ":: Running via system call: #{fetch(:rsync_cmd)}"
-          system fetch(:rsync_cmd)
+          run_locally do
+            execute :vagrant, :ssh, :local, fetch(:rsync_cmd)
+          end
         end
       else
         warn "!! No remote uploads to sync...skipping"
@@ -51,8 +52,9 @@ namespace :genesis do
 
         on roles(:web) do |host|
           invoke "genesis:files:prepare", key, local_uploads, "#{fetch(:user)}@#{host}:#{remote_uploads}"
-          info ":: Running via system call: #{fetch(:rsync_cmd)}"
-          system fetch(:rsync_cmd)
+          run_locally do
+            execute :vagrant, :ssh, :local, fetch(:rsync_cmd)
+          end
         end
       else
         warn "!! No local uploads to sync...skipping"
