@@ -4,8 +4,10 @@ Dir.glob(File.expand_path(File.dirname(__FILE__)) + '/tasks/*.rake').each { |r| 
 # Infer Git repository from current repo
 set :repo_url, proc { `git config --get remote.origin.url`.strip! }
 
-# Infer branch (unless overridden via -S) from current repo
-unless defined? :branch
+# Infer branch (unless specified via env var) from current repo
+if ENV.has_key?('branch')
+  set :branch, ENV['branch']
+else
   matches = proc { `git branch`.match(/\* (\S+)\s/m) }
   set :branch, (matches ? matches[1] : "master")
 end
