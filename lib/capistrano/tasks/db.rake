@@ -36,6 +36,7 @@ namespace :genesis do
 
     desc "Export local DB to remote"
     task :up do
+      invoke "genesis:confirm", "You are about to destroy & override the \"#{fetch(:stage)}\" database!"
       invoke "genesis:db:prepare"
 
       run_locally do

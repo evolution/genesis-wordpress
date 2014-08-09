@@ -38,6 +38,8 @@ namespace :genesis do
 
     desc "Uploads local uploads to remote"
     task :up do
+      invoke "genesis:confirm", "You are about to overwrite \"#{fetch(:stage)}\" files!"
+
       local_uploads = "/vagrant/web/wp-content/uploads"
       remote_uploads = "#{release_path}/web/wp-content/uploads"
       uploads_exist = false

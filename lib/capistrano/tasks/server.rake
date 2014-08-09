@@ -66,6 +66,8 @@ namespace :genesis do
 
   desc "Remove remote deployments"
   task :teardown do
+    invoke "genesis:confirm", "You are about to permanently remove everything within #{deploy_to}"
+
     on release_roles(:web) do
       execute :sudo, "rm -rf #{deploy_to}"
     end
