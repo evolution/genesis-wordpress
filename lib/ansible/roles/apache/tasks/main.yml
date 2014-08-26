@@ -10,9 +10,14 @@
   sudo:           yes
   notify:         restart apache
 
-- name:           Esnure Apache `Listen` is 80
+- name:           Ensure Apache `Listen` is 80
   lineinfile:     regexp='^Listen' line='Listen 80' dest=/etc/apache2/ports.conf backup=yes
   notify:         restart apache
+  sudo:           yes
+
+- name:           Ensure existing Varnish installs won't cause port conflict on boot
+  lineinfile:     regexp='^START=' line='START=no' dest=/etc/default/varnish backup=no
+  ignore_errors:  true
   sudo:           yes
 
 - name:           Change ownership of /var/www to deploy
