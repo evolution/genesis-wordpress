@@ -20,6 +20,10 @@
   ignore_errors:  true
   sudo:           yes
 
+- name:           Ensure pristine mpm_prefork directives
+  restore:        path=/etc/apache2/mods-available/mpm_prefork.conf which=oldest backup=no
+  sudo:           yes
+
 - name:           Change ownership of /var/www to deploy
   file:           path=/var/www state=directory owner=deploy group=deploy
   sudo:           yes
