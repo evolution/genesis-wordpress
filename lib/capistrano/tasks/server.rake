@@ -20,6 +20,11 @@ namespace :genesis do
     invoke "genesis:service", "restart"
   end
 
+  desc "Return provisioned genesis version"
+  task :version do
+    invoke "genesis:service", "version"
+  end
+
   namespace :logs do
     namespace :apache do
       task :tail, :action do |task, args|

@@ -64,6 +64,9 @@ case "$1" in
     status)
         status_services
         ;;
+    version)
+        log_success_msg "Genesis Wordpress" "<%= props.genesis %>"
+        ;;
     *)
         log_success_msg "Usage $0 {start|stop|restart|status}"
         exit 1
