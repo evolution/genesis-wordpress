@@ -1,0 +1,4 @@
+---
+- name:           Create custom apache prefork config
+  template:       src=prefork.conf dest=/etc/apache2/mods-available/mpm_prefork.conf backup=yes mode=0644
+  sudo:           yes

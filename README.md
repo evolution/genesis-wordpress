@@ -1,5 +1,9 @@
 # Genesis WordPress
 
+[![Build Status](https://travis-ci.org/genesis/wordpress.svg)](https://travis-ci.org/genesis/wordpress)
+[![Dependencies](https://david-dm.org/genesis/wordpress.svg)](https://david-dm.org/genesis/wordpress)
+[![devDependencies](https://david-dm.org/genesis/wordpress/dev-status.svg)](https://david-dm.org/genesis/wordpress#info=devDependencies&view=table)
+
 > Rapidly create, develop, & deploy WordPress across multiple environments.
 > ![Genesis WordPress Demo](demo.gif)
 

@@ -1,0 +1,53 @@
+# Sensitive files
+# (Remove these if you want keep credentials with the repo)
+id_rsa
+*.pem
+
+# Application files
+error_log
+
+# WordPress files
+**/wp-content/cache/**
+!**/wp-content/cache/.htaccess
+**/wp-content/upgrade
+**/wp-content/uploads
+
+# Misc
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+*.sql
+*.sql.gz
+
+# OS or Editor folders
+.DS_Store
+__MACOSX
+Thumbs.db
+.cache
+.project
+.settings
+.tmproj
+*.esproj
+nbproject
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+.komodotools
+
+# Folders to ignore
+.hg
+.svn
+.CVS
+.idea
+.vagrant
+_notes
+bower_components
+backups
+web/wp

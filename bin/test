@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+
+var glob  = require('glob');
+var Mocha = require('mocha');
+var path  = require('path');
+
+var mocha   = new Mocha();
+var testDir = path.join(__dirname, '..', 'test');
+
+glob.sync('**/*.js', {
+  cwd: testDir,
+  nosort: true,
+}).forEach(function(file) {
+  mocha.addFile(path.join(testDir, file));
+});
+
+mocha
+  .bail(true)
+  .reporter('spec')
+  .timeout(5000)
+  .ui('bdd')
+  .run(process.exit)
+;

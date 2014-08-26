@@ -1,0 +1,31 @@
+---
+- name:           Install PHP packages
+  apt:            pkg={{ item }}
+  with_items:     php_packages
+  sudo:           yes
+
+- name:           Install PECL packages
+  command:        pecl install {{ item if item is string else item.name + '-' + item.version }} creates=/etc/php5/conf.d/{{ item if item is string else item.name }}.ini
+  with_items:     pecl_packages
+  sudo:           yes
+
+- name:           Enable PECL packages
+  lineinfile:     line="extension={{ item if item is string else item.name }}.so"
+                  dest="/etc/php5/conf.d/{{ item if item is string else item.name }}.ini"
+                  create=yes
+  with_items:     pecl_packages
+  sudo:           yes
+
+- name:           Calculate PHP memory_limit
+  command:        echo "{{ 256 if ansible_memtotal_mb > 2048 else 128 }}"
+  register:       calc_php_memory_limit
+  ignore_errors:  true
+  when:           php_settings.memory_limit is undefined
+
+- name:           Update php.ini's date.timezone
+  lineinfile:     dest=/etc/php5/apache2/php.ini backup=yes regexp='date\.timezone' line='date.timezone = "America/Chicago"'
+  sudo:           yes
+
+- name:           Update php.ini's memory_limit
+  lineinfile:     dest=/etc/php5/apache2/php.ini backup=yes regexp='memory_limit' line='memory_limit = {{ calc_php_memory_limit.stdout if calc_php_memory_limit.stdout is defined else php_settings.memory_limit }}M'
+  sudo:           yes

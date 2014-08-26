@@ -1,6 +1,0 @@
-#!/usr/bin/env node
-
-var Generator = require('../support/mock-generator');
-var generator = new Generator();
-
-generator.run();

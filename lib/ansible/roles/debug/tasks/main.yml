@@ -1,0 +1,5 @@
+---
+- name:           Install debug packages
+  apt:            pkg={{ item }} state=present
+  with_items:     debug_packages
+  sudo:           yes

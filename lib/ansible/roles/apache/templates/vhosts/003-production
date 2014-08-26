@@ -1,0 +1,24 @@
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+
+    ServerName {{ domain }}
+
+    ServerAlias www.{{ domain }}
+    ServerAlias production.{{ domain }}
+
+    DocumentRoot /var/www/{{ domain }}/production/master/current/web
+    <Directory />
+        Options FollowSymLinks
+        AllowOverride None
+    </Directory>
+    <Directory /var/www/{{ domain }}/production/master/current/web/>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    LogLevel warn
+
+    ErrorLog ${APACHE_LOG_DIR}/production.{{ domain }}-error.log
+    CustomLog ${APACHE_LOG_DIR}/production.{{ domain }}-access.log combined
+</VirtualHost>

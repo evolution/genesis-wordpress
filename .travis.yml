@@ -3,18 +3,27 @@ node_js:
   - "0.10"
 addons:
   hosts:
-    - local.generatortest.com
+    - example.com
+    - local.example.com
 before_install:
   - rvm use 1.9.3
   - gem install bundler
-  - npm install -g bower
-before_script:
-  - echo "Running from ${PWD}"
   - echo "Install NPM dependencies"
+  - npm install -g bower
   - npm install
   - echo "Mock test project"
-  - "${PWD}/test/bin/mock"
-  - echo "Provision server"
-  - sudo "${PWD}/test/temp/bin/provision"
+  - $PWD/bin/mock
   - echo "Copy mock project to /vagrant for end-user tests"
-  - sudo cp -R "${PWD}/test/temp" /vagrant
+  - sudo cp -R $PWD/temp /vagrant
+  - echo "Symlinking local Genesis WordPress as dependency"
+  - sudo rm -rf /vagrant/bower_components/genesis-wordpress
+  - sudo cp -R $PWD /vagrant/bower_components/genesis-wordpress/
+  - echo "Provision server"
+  - sudo $PWD/temp/bin/provision -e stage=localhost
+  - curl -sS https://getcomposer.org/installer | php
+install:
+  - echo "Install Composer dependencies"
+  - php composer.phar install --dev
+script:
+  - ./vendor/bin/phpunit
+  - npm test

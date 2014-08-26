@@ -1,0 +1,3 @@
+# See man 5 aliases for format
+postmaster: deploy
+deploy: {{ mail.postmaster }}

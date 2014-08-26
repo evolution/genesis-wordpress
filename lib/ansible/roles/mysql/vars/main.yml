@@ -1,0 +1,6 @@
+---
+mysql_packages:
+  - libapache2-mod-auth-mysql
+  - mysql-server
+  - php5-mysql
+  - python-mysqldb

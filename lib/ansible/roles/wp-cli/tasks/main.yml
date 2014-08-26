@@ -1,0 +1,10 @@
+- name:       Download wp-cli
+  shell:      curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+
+- name:       Adjust permissions to `wp-cli.phar`
+  shell:      chmod +x wp-cli.phar
+
+- name:       Move `wp-cli.phar` to `/usr/local/bin/wp`
+  shell:      mv wp-cli.phar /usr/local/bin/wp
+  sudo:       true
+

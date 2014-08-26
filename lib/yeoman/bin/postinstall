@@ -1,0 +1,74 @@
+#!/usr/bin/env node
+
+var fs    = require('fs');
+var path  = require('path');
+var util  = require('util');
+
+var cwd   = process.cwd();
+var from  = path.join(cwd, 'bower_components', 'wordpress');
+var to    = path.join(cwd, 'web', 'wp');
+
+console.log('Genesis WordPress - Bower `postinstall` Script\n');
+
+// Ensure `bower_components/wordpress` has been installed
+if (!fs.existsSync(from)) {
+  throw new Error(util.format('WordPress has not been installed to `%s`', from));
+}
+
+var toThemeDir = path.join(cwd, 'web', 'wp-content', 'themes');
+
+if (!fs.existsSync(toThemeDir)) {
+  var parts           = path.relative(cwd, toThemeDir).split(path.sep);
+  var toThemePartDir  = cwd;
+
+  while (parts.length) {
+    toThemePartDir = path.join(toThemePartDir, parts.shift());
+
+    console.info('Creating `%s`...', toThemePartDir);
+    fs.mkdirSync(toThemePartDir);
+  }
+}
+
+var existingThemes = fs.readdirSync(toThemeDir).filter(function(node) {
+  return fs.lstatSync(path.join(toThemeDir, node)).isDirectory();
+});
+
+// If no themes exist, copy over default theme
+if (!existingThemes.length) {
+  var fromThemeDir  = path.join(from, 'wp-content', 'themes');
+  var fromTheme     = path.join(fromThemeDir, 'twentyfourteen');
+  var toTheme       = path.join(toThemeDir, 'twentyfourteen');
+
+  console.log('Moving theme `%s` to `%s`...', path.relative(cwd, fromTheme), path.relative(cwd, toTheme));
+  fs.renameSync(fromTheme, toTheme);
+}
+
+// Remove existing `web/wp` folder
+if (fs.existsSync(to)) {
+  console.info('Removing `%s`...', to);
+
+  var removeDir = function(dir) {
+    var nodes = fs.readdirSync(dir).map(function(node) {
+      return path.join(dir, node);
+    });
+
+    nodes.forEach(function(node) {
+      var stats = fs.lstatSync(node);
+
+      if (stats.isDirectory()) {
+        removeDir(node);
+      } else {
+        fs.unlinkSync(node);
+      }
+    });
+
+    fs.rmdirSync(dir);
+  };
+
+  removeDir(to);
+}
+
+console.info('Renaming `%s` to `%s`...', path.relative(cwd, from), path.relative(cwd, to));
+fs.renameSync(from, to);
+
+console.log('Done!');

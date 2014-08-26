@@ -1,0 +1,12 @@
+{
+    "name":         "CollegeDegrees/EDUDirect",
+    "description":  "EDUDirect",
+    "autoload": {
+        "psr-0": {
+            "Genesis": "lib/wordpress"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.1.*"
+    }
+}

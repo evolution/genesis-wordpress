@@ -1,0 +1,91 @@
+#!/usr/bin/env node
+
+var fs      = require('fs-extra');
+var exec    = require('child_process').exec;
+var helpers = require('yeoman-generator').test;
+var path    = require('path');
+
+var outputDir     = path.join(__dirname, '..', 'temp');
+var privatePath   = path.join(outputDir, '/lib/ansible/files/ssh/id_rsa');
+var privateKey    = fs.existsSync(privatePath) ? fs.readFileSync(privatePath) : null;
+var publicPath    = path.join(outputDir, '/lib/ansible/files/ssh/id_rsa.pub');
+var publicKey     = fs.existsSync(publicPath) ? fs.readFileSync(publicPath) : null;
+var certPath      = path.join(outputDir, '/lib/ansible/files/ssl/example.com.pem');
+var cert          = fs.existsSync(certPath) ? fs.readFileSync(certPath) : null;
+
+helpers.testDirectory(outputDir, function(err) {
+  if (err) {
+    throw err;
+  }
+
+  exec([
+    'git clone git@github.com:evolution/wordpress-example.git ' + outputDir,
+    'cd ' + outputDir,
+    'git rm -rf .',
+  ].join(' && '), function(err, stdout, stderr) {
+    var app = helpers.createGenerator('genesis-wordpress:app', [
+      [require('../lib/yeoman'), 'genesis-wordpress:app']
+    ]);
+
+    app.options['skip-install'] = true;
+    app.options['dev'] = true;
+
+    helpers.mockPrompt(app, {
+      name:         'Example.com',
+      domain:       'example.com',
+      ip:           '192.168.137.137',
+      DB_NAME:      'example_db',
+      DB_USER:      'example_user',
+      DB_PASSWORD:  'example',
+      DB_HOST:      '127.0.0.1',
+      prefix:       'wp_',
+      genesis:      '~1.0.0',
+    });
+
+    app.run(function() {
+      if (privateKey) {
+        fs.writeFileSync(privatePath, privateKey);
+      }
+
+      if (publicKey) {
+        fs.writeFileSync(publicPath, publicKey);
+      }
+
+      if (cert) {
+        fs.writeFileSync(certPath, cert);
+      }
+
+      fs.appendFileSync(outputDir + '/lib/capistrano/deploy.rb', [
+        '',
+        '# Added for testing purposes',
+        'set :repo_url,      "https://github.com/evolution/wordpress-example.git"',
+        '',
+      ].join('\n'));
+
+      var vagrantFile = fs.readFileSync(outputDir + '/Vagrantfile', 'utf8')
+        .replace(
+          new RegExp('(# Static IP)'),
+          [
+            '# Additional host names for testing',
+            '    box.hostmanager.aliases = ["example.com", "production.example.com", "www.example.com"]',
+            '',
+            '    $1',
+          ].join('\n')
+        )
+        .replace(
+          new RegExp('(# Remount)'),
+          [
+            '# Mount library for testing',
+            '    box.vm.synced_folder "../", "/wordpress", :nfs => true',
+            '',
+            '    $1'
+          ].join('\n')
+        )
+      ;
+
+      fs.writeFileSync(outputDir + '/Vagrantfile', vagrantFile);
+
+      exec('git add .', { cwd: outputDir });
+    });
+  });
+});

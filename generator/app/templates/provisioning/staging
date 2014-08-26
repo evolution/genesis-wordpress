@@ -1,3 +1,0 @@
-[webservers]
-
-staging.<%= props.domain %> ansible_ssh_user=deploy ansible_ssh_private_key_file=./files/ssh/id_rsa

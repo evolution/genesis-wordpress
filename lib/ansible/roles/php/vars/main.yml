@@ -1,0 +1,14 @@
+---
+pecl_packages:
+  - { name: 'scream', version: '0.1.0'}
+
+php_packages:
+  - libapache2-mod-php5
+  - php-pear
+  - php5
+  - php5-cli
+  - php5-common
+  - php5-curl
+  - php5-gd
+  - php5-mcrypt
+  - php5-dev
