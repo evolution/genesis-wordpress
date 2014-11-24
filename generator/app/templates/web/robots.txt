@@ -7,3 +7,5 @@ Disallow: /wp-content/cache
 Disallow: /trackback
 Disallow: /xmlrpc.php
 Disallow: ?wptheme=
+
+# Sitemap: http://www.example.com/sitemap.xml
