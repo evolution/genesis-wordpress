@@ -124,7 +124,7 @@
   # Rules to help reduce spam
   RewriteCond %{REQUEST_METHOD} POST
   RewriteCond %{REQUEST_URI} ^(.*)wp-comments-post\.php*
-  RewriteCond %{HTTP_REFERER} !^(.*)CHANGETHENAMEOFYOURWEBSITEHERE.com.*
+  RewriteCond %{HTTP_REFERER} !^(.*)<%= props.domain %>.*
   RewriteCond %{HTTP_REFERER} !^http://jetpack\.wordpress\.com/jetpack-comment/ [OR]
   RewriteCond %{HTTP_USER_AGENT} ^$
   RewriteRule ^(.*)$ - [F]
@@ -324,6 +324,7 @@ FileETag None
 
 
 # Existing (or new) WordPress rules should go after this line
+# Note: Any WP plugin caching code (like WPSuperCache) should be removed
 # ######################################################################
 
 <%= htaccessFile %>
