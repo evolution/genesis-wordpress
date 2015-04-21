@@ -39,7 +39,8 @@
   sudo:           yes
 
 - name:           Install LAMP stack
-  shell:          DEBIAN_FRONTEND=noninteractive tasksel install lamp-server
+  apt:            pkg={{item}}
+  with_items:     lamp_packages
   sudo:           yes
 
 - name:           Install PHP packages
