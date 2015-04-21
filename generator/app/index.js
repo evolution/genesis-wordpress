@@ -310,9 +310,12 @@ WordpressGenerator.prototype.writeWeb = function() {
     this.htaccessFile = '';
   }
 
-  this.template('web/htaccess',       path.join(this.props.web, '.htaccess'));
-  this.template('web/no_robots.txt',  path.join(this.props.web, 'no_robots.txt'));
-  this.template('web/robots.txt',     path.join(this.props.web, 'robots.txt'));
+  this.template('web/htaccess',                  path.join(this.props.web, '.htaccess'));
+  this.template('web/wp-content/htaccess',       path.join(this.props.web, 'wp-content/.htaccess'));
+  this.template('web/wp-includes/htaccess',      path.join(this.props.web, 'wp-includes/.htaccess'));
+  this.template('web/htaccess',                  path.join(this.props.web, '.htaccess'));
+  this.template('web/no_robots.txt',             path.join(this.props.web, 'no_robots.txt'));
+  this.template('web/robots.txt',                path.join(this.props.web, 'robots.txt'));
 };
 
 WordpressGenerator.prototype.fetchSalts = function() {

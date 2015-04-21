@@ -23,7 +23,7 @@ require_once(dirname(__FILE__) . '/../bower_components/genesis-wordpress/src/Gen
   .split('__GENERATED_SALTS_PLACEHOLDER__').join(props.salts)
 
   // Limit to 5 post revisions, and force direct filesystem IO
-  .replace("/* That's all,", "define('WP_POST_REVISIONS', 5);\n\ndefine('WP_AUTO_UPDATE_CORE', false);\n\ndefine('FS_METHOD', 'direct');\n\n/*That's all,")
+  .replace("/* That's all,", "define('WP_POST_REVISIONS', 5);\n\ndefine('WP_AUTO_UPDATE_CORE', false);\n\ndefine('FS_METHOD', 'direct');\n\ndefine('DISALLOW_FILE_EDIT', true);\n\n/*That's all,")
 %>
 if (WP_ENV !== 'www') {
   Genesis::rewriteUrls();
