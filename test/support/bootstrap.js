@@ -9,10 +9,17 @@ describe('Mock site', function() {
   it('may not be installed', function(done) {
     var browser = new Browser();
 
-    this.timeout(0);
+    this.timeout(10000);
 
     browser
       .visit('http://local.generatortest.com/wp-admin/install.php')
+      .then(function() {
+        if (browser.button('Continue')) {
+          browser.select('language', 'English (United States)');
+
+          return browser.pressButton('Continue');
+        }
+      })
       .then(function() {
         if (browser.button('Install WordPress')) {
           browser

@@ -77,9 +77,11 @@
   Order allow,deny
   Deny from all
 </files>
+SetEnvIf Host ^local\. allow_wp_install
 <files install.php>
-  Order allow,deny
+  Order deny,allow
   Deny from all
+  Allow from env=allow_wp_install
 </files>
 <files wp-config.php>
   Order allow,deny
