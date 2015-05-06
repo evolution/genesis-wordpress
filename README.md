@@ -299,6 +299,7 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 
 ## Changelog
 
+- v0.2.58 - Fixed Vagrant 1.7.0+ ssh key issue, and fixed unit tests
 - v0.2.57 - Fixed generator htaccess issue
 - v0.2.56 - Hardened WP Security ([#143](https://github.com/genesis/wordpress/issues/143)), fixed tasksel issue ([#144](https://github.com/genesis/wordpress/pull/144))
 - v0.2.55 - `genesis:provision` works despite `Net:SSH` failures ([#131](https://github.com/genesis/wordpress/pull/131))
