@@ -278,7 +278,7 @@ verify that the guest VM is setup with the proper public key, and that
 the private key path for Vagrant is setup properly as well.
 ```
 
-Then you're probably missing the [Vagrant Public](https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub) Key in your `authorized_keys`. To add it run:
+Then you're probably missing the [Vagrant Public](https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub) Key in your `authorized_keys`. To add it run:
 `curl https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub >> ~/.ssh/authorized_keys`
 
 ### Vagrant - Error While Executing `VBoxManage`
