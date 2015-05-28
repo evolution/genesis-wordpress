@@ -20,7 +20,8 @@ apt-get -qq -y update
 apt-get -qq -y install ansible
 
 # Permissions fix for Windows (genesis/wordpress#138)
-chmod -R 622 "$( dirname "$0" )/../provisioning"
+find -L "$( dirname "$0" )/../provisioning/" -type d -exec chmod 775 {} \; -exec chmod g+s {} \;
+find -L "$( dirname "$0" )/../provisioning/" -type f -exec chmod 622 {} \;
 
 # Run provisioning playbook
 (cd "$( dirname "$0" )/../provisioning" && ansible-playbook -i localhost $@ provision.yml)
