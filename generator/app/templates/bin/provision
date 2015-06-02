@@ -20,8 +20,9 @@ apt-get -qq -y update
 apt-get -qq -y install ansible
 
 # Permissions fix for Windows (genesis/wordpress#138)
-find -L "$( dirname "$0" )/../provisioning/" -type d -exec chmod 775 {} \; -exec chmod g+s {} \;
-find -L "$( dirname "$0" )/../provisioning/" -type f -exec chmod 622 {} \;
+INVENTORY_FILE=/tmp/ansible-inventory-localhost
+cp "$( dirname "$0" )/../provisioning/localhost" $INVENTORY_FILE
+chmod 622 $INVENTORY_FILE
 
 # Run provisioning playbook
-(cd "$( dirname "$0" )/../provisioning" && ansible-playbook -i localhost $@ provision.yml)
+(cd "$( dirname "$0" )/../provisioning" && ansible-playbook -i $INVENTORY_FILE $@ provision.yml)
