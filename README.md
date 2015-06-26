@@ -200,6 +200,7 @@ which you can see by running:
     cap genesis:up          # Uploads Vagrant database & local files into production
     cap genesis:up:db       # Uploads Vagrant database into remote
     cap genesis:up:files    # Uploads local project files to remote
+    cap genesis:mirror      # **DESTRUCTIVELY** overrides files on remote
     cap genesis:teardown    # Remove any existing remote deployment files; counterpart to cap's built-in deploy:setup
 
 Now run any one of those commands against an environemnt:
@@ -282,7 +283,7 @@ the private key path for Vagrant is setup properly as well.
 ```
 
 Then you're probably missing the [Vagrant Public](https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub) Key in your `authorized_keys`. To add it run:
-`curl https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub >> ~/.ssh/authorized_keys`
+`curl https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub >> ~/.ssh/authorized_keys`
 
 ### Vagrant - Error While Executing `VBoxManage`
 
