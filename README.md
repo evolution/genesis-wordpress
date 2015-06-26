@@ -131,6 +131,9 @@ Or, you can perform both actions together:
 Once a site is live, you *rarely* need to sync anything up to the remote server.  If anything,
 you usually sync changes *down*.
 
+In the rare case you need to _destructively_ sync files to the remote server (meaning, delete files on remote that don't exist locally), there is a special use command:
+
+    $ bundle exec cap production genesis:up:mirror
 
 ### From Remote to Local
 
@@ -299,6 +302,7 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 
 ## Changelog
 
+- v0.2.59 - Added `genesis:up:mirror` command ([#149](https://github.com/genesis/wordpress/pull/149))
 - v0.2.58 - Fixed Vagrant 1.7.0+ ssh key issue, and fixed unit tests
 - v0.2.57 - Fixed generator htaccess issue
 - v0.2.56 - Hardened WP Security ([#143](https://github.com/genesis/wordpress/issues/143)), fixed tasksel issue ([#144](https://github.com/genesis/wordpress/pull/144))
