@@ -153,7 +153,7 @@ namespace :genesis do
 
             find_servers_for_task(current_task).each do |current_server|
                 system "chmod 600 #{ssh_options[:keys][0]}" unless ssh_options.keys.empty?
-                system "rsync -e \"ssh -i #{ssh_options[:keys][0]}\" -avvru --delete --copy-links #{excludes} --progress #{'--dry-run' if dry_run} #{local_web}/ #{user}@#{current_server}:#{remote_web}/"
+                system "rsync -e \"ssh -i #{ssh_options[:keys][0]}\" -avvru --delete --keep-dirlinks #{excludes} --progress #{'--dry-run' if dry_run} #{local_web}/ #{user}@#{current_server}:#{remote_web}/"
             end
         end
 
