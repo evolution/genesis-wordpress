@@ -302,6 +302,7 @@ sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 
 ## Changelog
 
+- v0.2.60 - Fixed rsync copy-links/keep-dirlinks bug in `up:mirror` command
 - v0.2.59 - Added `genesis:up:mirror` command ([#149](https://github.com/genesis/wordpress/pull/149))
 - v0.2.58 - Fixed Vagrant 1.7.0+ ssh key issue, and fixed unit tests
 - v0.2.57 - Fixed generator htaccess issue
