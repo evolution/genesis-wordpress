@@ -22,7 +22,7 @@ Ensure you have the latest versions of [NodeJS][9] **v0.10**, [Vagrant v1.6.*](h
 
 ### Scaffolding & Development
 
-Install [Yeoman][2] **v1**, [Bower][6] **v1.2**, [Genesis WordPress Generator][1], & [Vagrant Host Manager][4]:
+Install [Yeoman][2] **v1**, [Bower][6] **v1.3.3+**, [Genesis WordPress Generator][1], & [Vagrant Host Manager][4]:
 
     $ npm install -g yo bower generator-genesis-wordpress
     $ vagrant plugin install vagrant-hostmanager
@@ -299,6 +299,24 @@ Command: ["hostonlyif", "create"]
 The you'll need to restart VirtualBox with:
 ```
 sudo /Library/StartupItems/VirtualBox/VirtualBox restart
+```
+
+### Bower - ENOENT or ENOEMPTY error during deploy
+
+If you're seeing this:
+
+```
+ ** [out :: production.yourwebsite.com] bower ENOTEMPTY     ENOTEMPTY, rename '/tmp/deploy/bower/jquery-14131-V6RuH0'
+ ** [out :: production.yourwebsite.com] 
+ ** [out :: production.yourwebsite.com] Stack trace:
+ ** [out :: production.yourwebsite.com] Error: ENOTEMPTY, rename '/tmp/deploy/bower/jquery-14131-V6RuH0'
+ ** [out :: production.yourwebsite.com] 
+```
+
+You've been bitten by [a known concurrency bug](https://github.com/bower/bower/issues/933), and need to update bower on your remote server to **1.3.3** or higher:
+
+```
+npm install -g bower
 ```
 
 ## Changelog
