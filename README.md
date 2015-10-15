@@ -1,3 +1,8 @@
+### !!! End Of Life Notice !!!
+> Aside from occasional bug fixes or security patches, Genesis is no longer actively supported.
+> 
+> Its successor, [Evolution](https://github.com/evolution/wordpress), has a similar feature set, as well as [a built-in importer](https://github.com/evolution/wordpress/blob/master/docs/TUTORIAL-IMPORT.md) for existing Wordpress projects.
+
 # Genesis WordPress
 
 > Rapidly create, develop, & deploy WordPress across multiple environments.
