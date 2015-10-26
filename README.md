@@ -324,6 +324,33 @@ You've been bitten by [a known concurrency bug](https://github.com/bower/bower/i
 npm install -g bower
 ```
 
+### Apt - Error While Executing `apt-get -f install`
+
+If you're seeing this:
+
+```
+ ** [out :: staging.yourwebsite.com] E: Unmet dependencies. Try 'apt-get -f install' with no packages (or specify a solution).
+ ** [out :: staging.yourwebsite.com] ERROR: hostname is not a legal parameter in an Ansible task or handler
+```
+
+You likely have a full `/boot` partition, which is preventing Ubuntu's package manager from functioning normally. To fix this, you'll need to remove outdated linux kernels -- **this must be done _on the remote server_**.
+
+You may [go through the steps manually](http://askubuntu.com/questions/345588/what-is-the-safest-way-to-clean-up-boot-partition#answer-430944), or use a python script that must be run with root or sudo permissions.
+
+```
+wget -O /tmp/purge-kernels.py https://raw.githubusercontent.com/EvanK/ubuntu-purge-kernels/master/purge-kernels.py
+sudo python /tmp/purge-kernels.py
+```
+
+Afterward, you should have `apt` and `dpkg` clean up after themselves, update the grub kernel list, and reboot the server:
+
+```
+sudo apt-get -f install
+sudo apt-get -f autoremove
+sudo update-grub
+sudo reboot now
+```
+
 ## Changelog
 
 - v0.2.60 - Fixed rsync copy-links/keep-dirlinks bug in `up:mirror` command
