@@ -122,6 +122,9 @@ namespace :genesis do
 
         desc "Uploads Vagrant database into remote"
         task :db, :roles => :db, :once => true do
+            find_and_execute_task "genesis:backup:db"
+            sleep(1)
+
             set :backup_dir,  "#{deploy_to}/backups"
             set :backup_name, DateTime.now.strftime("#{db_name}.%Y-%m-%d.%H%M%S.sql")
             set :backup_path, "#{backup_dir}/#{backup_name}"
