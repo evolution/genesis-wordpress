@@ -43,6 +43,17 @@
   with_items:     lamp_packages
   sudo:           yes
 
+- name:           Configure apache log rotation
+  copy:           src=logrotate-apache dest=/etc/logrotate.d/apache2 owner=root group=root mode=644
+  sudo:           yes
+
+- name:           Ensure logrotate runs hourly
+  command:        mv /etc/cron.daily/logrotate /etc/cron.hourly/logrotate
+  args:
+    creates:      /etc/cron.hourly/logrotate
+    removes:      /etc/cron.daily/logrotate
+  sudo:           yes
+
 - name:           Install PHP packages
   apt:            pkg={{item}}
   with_items:     php_packages
