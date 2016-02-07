@@ -86,6 +86,17 @@
   user:           name=www-data append=yes groups=deploy
   sudo:           yes
 
+- name:           Test for git protocol (git://) connectivity
+  command:        curl -v -m 10 http://github.com:9418/
+  register:       git_protocol_test
+  ignore_errors:  true
+
+- name:           Bypass git protocol if necessary
+  command:        git config --global url."https://".insteadOf git://
+  when:           "'connect() timed out' in git_protocol_test.stderr"
+  sudo:           yes
+  sudo_user:      deploy
+
 - name:           Calculate PHP memory_limit
   command:        echo "{{ 256 if ansible_memtotal_mb > 2048 else 128 }}"
   register:       calc_php_memory_limit
