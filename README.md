@@ -353,6 +353,7 @@ sudo reboot now
 
 ## Changelog
 
+- v0.2.63 - Added bypass for git port ([#154](https://github.com/genesis/wordpress/pull/154))
 - v0.2.62 - Improved apache log rotation ([#152](https://github.com/genesis/wordpress/pull/152))
 - v0.2.61 - Added db backup before syncing up to remote stages ([#151](https://github.com/genesis/wordpress/pull/151))
 - v0.2.60 - Fixed rsync copy-links/keep-dirlinks bug in `up:mirror` command
