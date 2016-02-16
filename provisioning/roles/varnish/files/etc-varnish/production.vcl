@@ -1,5 +1,6 @@
 # Default backend definition.  Set this to point to your content server.
 # all paths relative to varnish option vcl_dir
+import std;
 
 include "custom.backend.vcl";
 include "custom.acl.vcl";
@@ -211,6 +212,10 @@ sub vcl_fetch {
 
     # Parse ESI request and remove Surrogate-Control header
     if (beresp.http.Surrogate-Control ~ "ESI/1.0") {
+        # Honor max-age, if provided, from Surrogate-Control
+        if (beresp.http.Surrogate-Control ~ "max-age=\d+[smhdw]?") {
+            set beresp.ttl = std.duration(regsub(beresp.http.Surrogate-Control, "^.*?max-age=(\d+[smhdw]?).*?$", "\1"), beresp.ttl);
+        }
         unset beresp.http.Surrogate-Control;
         set beresp.do_esi = true;
     }
