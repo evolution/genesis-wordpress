@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "genesis-wordpress",
-  "version": "0.2.64",
+  "version": "0.2.65",
   "description": "Libraries for a multi-staged WordPress workflow with Vagrant",
   "main": "generator/app/index.js",
   "dependencies": {
@@ -22,11 +22,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/genesis/wordpress.git"
+    "url": "git://github.com/evolution/genesis-wordpress.git"
   },
   "author": "Eric Clemmons <eric@smarterspam.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/genesis/wordpress/issues"
+    "url": "https://github.com/evolution/genesis-wordpress/issues"
   }
 }

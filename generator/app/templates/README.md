@@ -5,4 +5,4 @@
 
 <%= readmeFile %>
 [<%= props.domain %>]: http://www.<%= props.domain %>/
-[genesis-wordpress]: https://github.com/genesis/wordpress/
+[genesis-wordpress]: https://github.com/evolution/genesis-wordpress/

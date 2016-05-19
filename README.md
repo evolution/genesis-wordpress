@@ -353,61 +353,62 @@ sudo reboot now
 
 ## Changelog
 
-- v0.2.64 - Added ESI cache ttl support ([#155](https://github.com/genesis/wordpress/pull/155))
-- v0.2.63 - Added bypass for git port ([#154](https://github.com/genesis/wordpress/pull/154))
-- v0.2.62 - Improved apache log rotation ([#152](https://github.com/genesis/wordpress/pull/152))
-- v0.2.61 - Added db backup before syncing up to remote stages ([#151](https://github.com/genesis/wordpress/pull/151))
+- v0.2.65 - Moved across organizations in github and updated urls
+- v0.2.64 - Added ESI cache ttl support ([#155](https://github.com/evolution/genesis-wordpress/pull/155))
+- v0.2.63 - Added bypass for git port ([#154](https://github.com/evolution/genesis-wordpress/pull/154))
+- v0.2.62 - Improved apache log rotation ([#152](https://github.com/evolution/genesis-wordpress/pull/152))
+- v0.2.61 - Added db backup before syncing up to remote stages ([#151](https://github.com/evolution/genesis-wordpress/pull/151))
 - v0.2.60 - Fixed rsync copy-links/keep-dirlinks bug in `up:mirror` command
-- v0.2.59 - Added `genesis:up:mirror` command ([#149](https://github.com/genesis/wordpress/pull/149))
+- v0.2.59 - Added `genesis:up:mirror` command ([#149](https://github.com/evolution/genesis-wordpress/pull/149))
 - v0.2.58 - Fixed Vagrant 1.7.0+ ssh key issue, and fixed unit tests
 - v0.2.57 - Fixed generator htaccess issue
-- v0.2.56 - Hardened WP Security ([#143](https://github.com/genesis/wordpress/issues/143)), fixed tasksel issue ([#144](https://github.com/genesis/wordpress/pull/144))
-- v0.2.55 - `genesis:provision` works despite `Net:SSH` failures ([#131](https://github.com/genesis/wordpress/pull/131))
-- v0.2.54 - Rewrite supports HTTPS ([#101](https://github.com/genesis/wordpress/issues/101))
-- v0.2.53 - Introduce `genesis:up:limited` for rsync'ing only the shared folders ([#80](https://github.com/genesis/wordpress/pull/80))
-- v0.2.52 - Sensible Apache2 defaults ([#116](https://github.com/genesis/wordpress/pull/116))
-- v0.2.51 - Add `Gemfile` to generator ([#126](https://github.com/genesis/wordpress/pull/126))
-- v0.2.50 - Fix duplication of `genesis:backup` and `genesis:down` ([122](https://github.com/genesis/wordpress/pull/122))
-- v0.2.49 - Fix variable sustitution in `provision.yml` [f334764](https://github.com/genesis/wordpress/commit/f334764ad5e36ef847fe6752fb43cc553b74fde4)
-- v0.2.48 - Fix for `$` in passwords ([113](https://github.com/genesis/wordpress/pull/113))
-- v0.2.47 - Automatically `cleanup` after `deploy` ([112](https://github.com/genesis/wordpress/pull/112))
-- v0.2.46 - Legacy variable substitution([109](https://github.com/genesis/wordpress/pull/109))
-- v0.2.45 - Add `genesis:backup:db` command ([120](https://github.com/genesis/wordpress/pull/120))
+- v0.2.56 - Hardened WP Security ([#143](https://github.com/evolution/genesis-wordpress/issues/143)), fixed tasksel issue ([#144](https://github.com/evolution/genesis-wordpress/pull/144))
+- v0.2.55 - `genesis:provision` works despite `Net:SSH` failures ([#131](https://github.com/evolution/genesis-wordpress/pull/131))
+- v0.2.54 - Rewrite supports HTTPS ([#101](https://github.com/evolution/genesis-wordpress/issues/101))
+- v0.2.53 - Introduce `genesis:up:limited` for rsync'ing only the shared folders ([#80](https://github.com/evolution/genesis-wordpress/pull/80))
+- v0.2.52 - Sensible Apache2 defaults ([#116](https://github.com/evolution/genesis-wordpress/pull/116))
+- v0.2.51 - Add `Gemfile` to generator ([#126](https://github.com/evolution/genesis-wordpress/pull/126))
+- v0.2.50 - Fix duplication of `genesis:backup` and `genesis:down` ([122](https://github.com/evolution/genesis-wordpress/pull/122))
+- v0.2.49 - Fix variable sustitution in `provision.yml` [f334764](https://github.com/evolution/genesis-wordpress/commit/f334764ad5e36ef847fe6752fb43cc553b74fde4)
+- v0.2.48 - Fix for `$` in passwords ([113](https://github.com/evolution/genesis-wordpress/pull/113))
+- v0.2.47 - Automatically `cleanup` after `deploy` ([112](https://github.com/evolution/genesis-wordpress/pull/112))
+- v0.2.46 - Legacy variable substitution([109](https://github.com/evolution/genesis-wordpress/pull/109))
+- v0.2.45 - Add `genesis:backup:db` command ([120](https://github.com/evolution/genesis-wordpress/pull/120))
 - v0.2.44 - Explicitly bypassing bower interactive prompts during deployment
 - v0.2.43 – Revert `5afaf80`, fixes v0.2.38
 - v0.2.42
     - `auto_correct` Vagrant SSH port
     - Default to latest WordPress
-    - Add tests ([#69](https://github.com/genesis/wordpress/pull/96))
-- v0.2.41 – Fix Varnish cookie bug ([#90](https://github.com/genesis/wordpress/pull/90))
-- v0.2.40 – Set hostname on each machine ([#45](https://github.com/genesis/wordpress/pull/45))
+    - Add tests ([#69](https://github.com/evolution/genesis-wordpress/pull/96))
+- v0.2.41 – Fix Varnish cookie bug ([#90](https://github.com/evolution/genesis-wordpress/pull/90))
+- v0.2.40 – Set hostname on each machine ([#45](https://github.com/evolution/genesis-wordpress/pull/45))
 - v0.2.39 – Revert v0.2.37 (aa9e83f)
-- v0.2.38 – Move events to after `deploy:update_code` ([#82](https://github.com/genesis/wordpress/pull/82))
-- v0.2.37 – Fix issues with Varnish ([#62](https://github.com/genesis/wordpress/pull/62):
+- v0.2.38 – Move events to after `deploy:update_code` ([#82](https://github.com/evolution/genesis-wordpress/pull/82))
+- v0.2.37 – Fix issues with Varnish ([#62](https://github.com/evolution/genesis-wordpress/pull/62):
     - Cleaned up cookie logic in `production.vcl` (see #28, and 3fd9d0c)
     - Fixed wp cookie check in `receive/wordpress.vcl` (see 9c2f358)
     - Changed varnish to file backend (see #53)
     - Removed cache bypassing for local env (see fa96873)
     - Removed caching of static files (see 99eb9ad)
     - Piping `wp-(login|admin)` instead of passing (see 89cb137)
-- v0.2.36 – Add `postfix` ([#72](https://github.com/genesis/wordpress/pull/72))
-- v0.2.35 – Add `genesis:teardown` ([#55](https://github.com/genesis/wordpress/pull/55)) & fix `date.timezone` ([#73](https://github.com/genesis/wordpress/pull/73))
-- v0.2.34 – Default to WordPress 3.7.1 ([#74](https://github.com/genesis/wordpress/pull/74))
-- v0.2.33 – Allow two-part TLDs ([#77](https://github.com/genesis/wordpress/issues/77https://github.com/genesis/wordpress/issues/77))
-- v0.2.32 – Fix issue with adding `deploy` user to `www-data` group ([#70](https://github.com/genesis/wordpress/pull/70))
-- v0.2.31 – Attempt to fix issues with `genesis:permissions` ([#54](https://github.com/genesis/wordpress/pull/54))
+- v0.2.36 – Add `postfix` ([#72](https://github.com/evolution/genesis-wordpress/pull/72))
+- v0.2.35 – Add `genesis:teardown` ([#55](https://github.com/evolution/genesis-wordpress/pull/55)) & fix `date.timezone` ([#73](https://github.com/evolution/genesis-wordpress/pull/73))
+- v0.2.34 – Default to WordPress 3.7.1 ([#74](https://github.com/evolution/genesis-wordpress/pull/74))
+- v0.2.33 – Allow two-part TLDs ([#77](https://github.com/evolution/genesis-wordpress/issues/77https://github.com/evolution/genesis-wordpress/issues/77))
+- v0.2.32 – Fix issue with adding `deploy` user to `www-data` group ([#70](https://github.com/evolution/genesis-wordpress/pull/70))
+- v0.2.31 – Attempt to fix issues with `genesis:permissions` ([#54](https://github.com/evolution/genesis-wordpress/pull/54))
 - v0.2.30
-    - Run `vagrant up` prior to `genesis:up:db` and `genesis:down:db` ([#59](https://github.com/genesis/wordpress/pull/59))
-    - Use VirtualBox's `natdnshostresolver1` to resolve DNS ([#65](https://github.com/genesis/wordpress/pull/65/files))
-    - [Ensure SSH port is not an octet](https://github.com/genesis/wordpress/pull/66)
-- v0.2.29 – [Apache + PHP performance tuning](https://github.com/genesis/wordpress/pull/64)
+    - Run `vagrant up` prior to `genesis:up:db` and `genesis:down:db` ([#59](https://github.com/evolution/genesis-wordpress/pull/59))
+    - Use VirtualBox's `natdnshostresolver1` to resolve DNS ([#65](https://github.com/evolution/genesis-wordpress/pull/65/files))
+    - [Ensure SSH port is not an octet](https://github.com/evolution/genesis-wordpress/pull/66)
+- v0.2.29 – [Apache + PHP performance tuning](https://github.com/evolution/genesis-wordpress/pull/64)
 - v0.2.28 – Update with last PRs from Genesis WordPress Generator
 - v0.2.27 – Awwww snap!! Making it so the [Genesis WordPress Generator](https://github.com/genesis/generator-wordpress) is always up-to-date!
-- v0.2.26 – Use `sudo` instead of `invoke_command` ([#41](https://github.com/genesis/wordpress/issues/41))
-- v0.2.25 – Directories are now `775` and owned by `deploy:www-data` ([#31](https://github.com/genesis/wordpress/issues/31))
+- v0.2.26 – Use `sudo` instead of `invoke_command` ([#41](https://github.com/evolution/genesis-wordpress/issues/41))
+- v0.2.25 – Directories are now `775` and owned by `deploy:www-data` ([#31](https://github.com/evolution/genesis-wordpress/issues/31))
 - v0.2.24 – Set Varnish & PHP to `512M`
 - v0.2.23 – Only bypass for logged in users, not logged out
-- v0.2.22 – Bypass cache for logged in users ([#19](https://github.com/genesis/wordpress/pull/19))
+- v0.2.22 – Bypass cache for logged in users ([#19](https://github.com/evolution/genesis-wordpress/pull/19))
 - v0.2.21 – Run genesis:permissions on server, not local!
 - v0.2.20 – Fix `genesis:permissions`
 - v0.2.19 – Fix permissions after `deploy` & `genesis:files:up`
@@ -456,7 +457,7 @@ sudo reboot now
 
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
 
-[0]: https://github.com/genesis/wordpress/
+[0]: https://github.com/evolution/genesis-wordpress/
 [1]: https://github.com/genesis/generator-wordpress/
 [2]: http://yeoman.io/
 [3]: http://www.vagrantup.com/

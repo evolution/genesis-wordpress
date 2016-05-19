@@ -3,7 +3,7 @@ namespace :genesis do
         desc "Runs project provisioning script on server"
         task :default do
             if exists?(:override_user)
-                logger.info "SSH workaround for https://github.com/genesis/wordpress/issues/131"
+                logger.info "SSH workaround for https://github.com/evolution/genesis-wordpress/issues/131"
                 orig_ev=$expect_verbose
                 $expect_verbose=true
                 find_servers_for_task(current_task).each do |current_server|

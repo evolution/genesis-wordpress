@@ -1,7 +1,7 @@
 {
   "name": "genesis-wordpress",
-  "version": "0.2.64",
-  "homepage": "https://github.com/genesis/wordpress",
+  "version": "0.2.65",
+  "homepage": "https://github.com/evolution/genesis-wordpress",
   "authors": [
     "Eric Clemmons <eric@smarterspam.com>"
   ],
