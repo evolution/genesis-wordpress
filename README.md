@@ -3,6 +3,11 @@
 > 
 > Its successor, [Evolution](https://github.com/evolution/wordpress), has a similar feature set, as well as [a built-in importer](https://github.com/evolution/wordpress/blob/master/docs/TUTORIAL-IMPORT.md) for existing Wordpress projects.
 
+### !!! Repository Move Notice !!!
+> This project was recently moved across organizations in github. In order to continue using it, you'll have to update the generator:
+>
+> `npm update generator-genesis-wordpress -g`
+
 # Genesis WordPress
 
 > Rapidly create, develop, & deploy WordPress across multiple environments.
