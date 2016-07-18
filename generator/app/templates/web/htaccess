@@ -126,7 +126,14 @@ SetEnvIf Host ^local\. allow_wp_install
   # Rules to help reduce spam
   RewriteCond %{REQUEST_METHOD} POST
   RewriteCond %{REQUEST_URI} ^(.*)wp-comments-post\.php*
-  RewriteCond %{HTTP_REFERER} !^(.*)<%= props.domain %>.*
+  RewriteCond %{HTTP_REFERER} !^(.*)<%
+if (props.aliases) {
+  %>(<%= props.domain %>|<%
+  %><%= props.aliases.split(/\s+/).join('|') %>)<%
+} else {
+  %><%= props.domain %><%
+}
+%>.*
   RewriteCond %{HTTP_REFERER} !^http://jetpack\.wordpress\.com/jetpack-comment/ [OR]
   RewriteCond %{HTTP_USER_AGENT} ^$
   RewriteRule ^(.*)$ - [F]

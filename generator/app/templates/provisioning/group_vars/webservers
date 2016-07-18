@@ -1,5 +1,7 @@
 ---
 domain:       <%= props.domain %>
+aliases:<% if (props.aliases) { props.aliases.split(/\s+/).forEach(function (alias) { %>
+  - <%= alias %><% }); } else { %>      []<% } %>
 mysql:
   name:       <%= props.DB_NAME %>
   user:       <%= props.DB_USER %>

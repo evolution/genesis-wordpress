@@ -4,6 +4,10 @@
     ServerName branch.staging.{{ domain }}
     ServerAlias *.staging.{{ domain }}
 
+{% for alias in aliases %}
+    ServerAlias branch.staging.{{ alias }} *.staging.{{ alias }}
+{% endfor %}
+
     VirtualDocumentRoot /var/www/{{ domain }}/%1/current/web
     <Directory />
         Options FollowSymLinks

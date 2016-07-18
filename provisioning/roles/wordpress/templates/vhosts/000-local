@@ -3,6 +3,10 @@
 
     ServerName local.{{ domain }}
 
+{% for alias in aliases %}
+    ServerAlias local.{{ alias }}
+{% endfor %}
+
     DocumentRoot /vagrant/web
     <Directory />
         Options FollowSymLinks

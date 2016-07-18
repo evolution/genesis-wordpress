@@ -84,6 +84,42 @@ WordpressGenerator.prototype.promptForDomain = function() {
   });
 };
 
+WordpressGenerator.prototype.promptForAliases = function() {
+  var existing = function() {
+    try {
+      var groupVars = this.readFileAsString(path.join(this.env.cwd, 'provisioning', 'group_vars', 'webservers'));
+
+      var matches = groupVars.match(/^aliases:(?:\s+-[ ]+\S+)+/m);
+
+      if (matches) {
+        aliases = matches[0].split(/\s+-[ ]+/);
+        aliases.shift();
+
+        return aliases.join(' ');
+      }
+    } catch(e) {};
+  }.bind(this);
+
+  this.prompts.push({
+    required: true,
+    type:     'text',
+    name:     'aliases',
+    message:  'Domain aliases, space delimited (e.g. mysite.net mysite.org)',
+    default:  function() {
+      return existing() || '';
+    }.bind(this),
+    validate: function(input) {
+      if (/^([\w-]+\.\w+(?:\.\w{2,3})?(?:[ ]+)?)+$/.test(input)) {
+        return true;
+      } else if (!input) {
+        return true;
+      }
+
+      return chalk.yellow(input) + ' does not match the example';
+    }
+  });
+};
+
 WordpressGenerator.prototype.promptForGenesis = function() {
   this.prompts.push({
     type:     'text',
