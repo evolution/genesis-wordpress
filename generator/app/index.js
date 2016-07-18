@@ -66,12 +66,26 @@ WordpressGenerator.prototype.promptForName = function() {
 };
 
 WordpressGenerator.prototype.promptForDomain = function() {
+  var existing = function() {
+    try {
+      var groupVars = this.readFileAsString(path.join(this.env.cwd, 'provisioning', 'group_vars', 'webservers'));
+
+      var matches = groupVars.match(/^domain:[\t ]*(\S+)\s/m);
+
+      if (matches) {
+        return matches[1];
+      }
+    } catch(e) {};
+  }.bind(this);
+
   this.prompts.push({
     required: true,
     type:     'text',
     name:     'domain',
     message:  'Domain name (e.g. mysite.com)',
-    default:  path.basename(this.env.cwd).toLowerCase(),
+    default:  function() {
+      return existing() || path.basename(this.env.cwd).toLowerCase();
+    }.bind(this),
     validate: function(input) {
       if (/^[\w-]+\.\w+(?:\.\w{2,3})?$/.test(input)) {
         return true;
@@ -92,7 +106,7 @@ WordpressGenerator.prototype.promptForAliases = function() {
       var matches = groupVars.match(/^aliases:(?:\s+-[ ]+\S+)+/m);
 
       if (matches) {
-        aliases = matches[0].split(/\s+-[ ]+/);
+        var aliases = matches[0].split(/\s+-[ ]+/);
         aliases.shift();
 
         return aliases.join(' ');
