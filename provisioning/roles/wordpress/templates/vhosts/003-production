@@ -7,6 +7,10 @@
     ServerAlias www.{{ domain }}
     ServerAlias *.{{ domain }}
 
+{% for alias in aliases %}
+    ServerAlias {{ alias }} production.{{ alias }} www.{{ alias }} *.{{ alias }}
+{% endfor %}
+
     DocumentRoot /var/www/{{ domain }}/master/current/web
     <Directory />
         Options FollowSymLinks

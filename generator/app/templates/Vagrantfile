@@ -18,7 +18,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.define :local do |box|
     box.vm.hostname = "local.<%= props.domain %>"
-
+<% if (props.aliases) { %>    box.hostmanager.aliases = %w(<%= props.aliases.split(/\s+/).map(function (alias) { return 'local.' + alias; }).join(' ') %>)
+<% } %>
     # Static IP for testing.
     box.vm.network :private_network, ip: "<%= props.ip %>"
     box.vm.network :forwarded_port, guest: 22, host: <%= props.ip.split('.').join('').split('0').join('').slice(-4) %>, auto_correct: true
