@@ -358,6 +358,7 @@ sudo reboot now
 
 ## Changelog
 
+- v0.2.66 - Added domain aliases ([#156](https://github.com/evolution/genesis-wordpress/pull/156))
 - v0.2.65 - Moved across organizations in github and updated urls
 - v0.2.64 - Added ESI cache ttl support ([#155](https://github.com/evolution/genesis-wordpress/pull/155))
 - v0.2.63 - Added bypass for git port ([#154](https://github.com/evolution/genesis-wordpress/pull/154))
