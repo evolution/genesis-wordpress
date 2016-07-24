@@ -1,0 +1,17 @@
+---
+- name:          Find pem cert, if one exists (should include key)
+  local_action:  shell ls -1 {{ inventory_dir }}/files/ssl/*.pem
+  ignore_errors: yes
+  register:      pound__cert_exists
+
+- name:          Set cert filename and path
+  set_fact:
+    pound__cert_name: "{{ pound__cert_exists.stdout_lines[0] | basename }}"
+    pound__cert_path: "{{ pound__cert_exists.stdout_lines[0] | dirname }}"
+  when:          pound__cert_exists.stdout != ""
+
+- debug:         var=pound__cert_name
+- debug:         var=pound__cert_path
+
+- include:       install.yml
+  when:          pound__cert_exists.stdout != ""
