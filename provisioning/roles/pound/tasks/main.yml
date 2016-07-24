@@ -15,3 +15,6 @@
 
 - include:       install.yml
   when:          pound__cert_exists.stdout != ""
+
+- include:       disable.yml
+  when:          pound__cert_exists.stdout == ""
