@@ -1,0 +1,6 @@
+---
+- name:          Disable pound
+  lineinfile:    regexp='^startup=1' line='startup=0' dest=/etc/default/pound
+  notify:        stop pound
+  ignore_errors: yes
+  sudo:          yes

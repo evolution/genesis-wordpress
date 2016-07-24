@@ -1,0 +1,32 @@
+# https://launchpad.net/~unleashedtech/+archive/ubuntu/pound-2.7
+- name:       Register pound 2.7 ppa
+  apt_repository: repo='ppa:unleashedtech/pound-2.7'
+  sudo:       true
+
+- name:       Install pound packages
+  apt:        pkg={{item}} state=latest update_cache=yes
+  with_items:
+    - ssl-cert
+    - pound
+  sudo:       true
+  sudo_user:  root
+
+- name:       Copy pound configuration file
+  template:   src=pound.cfg dest=/etc/pound/pound.cfg mode=0644
+  notify:     restart pound
+  sudo:       true
+
+- name:       Copy SSL certificate
+  copy:       src={{ pound__cert_path }}/{{ pound__cert_name }} dest=/etc/pound/genesis-{{ domain }}.pem mode=0644
+  notify:     restart pound
+  sudo:       true
+
+- name:       Enable pound
+  lineinfile: regexp='^startup=0' line='startup=1' dest=/etc/default/pound backup=yes
+  notify:     restart pound
+  sudo:       yes
+
+- name:       Configure HTTPS Forwarded Proto detection in Apache 2.2
+  copy:       content="SetEnvIf X-Forwarded-Proto ^https$ HTTPS=on\n" dest=/etc/apache2/conf.d/https-forwarded-proto.conf mode=0644
+  notify:     restart apache
+  sudo:       true

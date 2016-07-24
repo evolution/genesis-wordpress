@@ -22,7 +22,7 @@ class Genesis
         update_option('upload_path', null);
 
         $old_url = site_url();
-        $new_url = ($_SERVER['SERVER_PORT'] === '443' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
+        $new_url = ($_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 
         // Ensure internal WordPress functions map correctly to new url (but don't want to persist in the DB)
         add_filter('option_home',             function($value) use ($old_url, $new_url) { return str_replace($old_url, $new_url, $value); });

@@ -1,0 +1,8 @@
+---
+- name:     restart pound
+  service:  name=pound state=restarted
+  sudo:     true
+
+- name:     stop pound
+  service:  name=pound state=stopped
+  sudo:     true
