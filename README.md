@@ -311,6 +311,20 @@ The you'll need to restart VirtualBox with:
 sudo /Library/StartupItems/VirtualBox/VirtualBox restart
 ```
 
+### Vagrant - Error changing hostname
+
+If you're seeing this:
+```
+==> local: Setting hostname...
+Vagrant attempted to execute the capability 'change_host_name'
+on the detect guest OS 'linux', but the guest doesn't
+support that capability. This capability is required for your
+configuration of Vagrant. Please either reconfigure Vagrant to
+avoid this capability or fix the issue by creating the capability.
+```
+
+You've hit a [known issue](https://github.com/mitchellh/vagrant/issues/7625) with vagrant 1.8.5 (the latest version at the time of this writing). You will need to [patch vagrant as described here](http://stackoverflow.com/questions/38636023/vagrant-not-supported-the-capability-change-host-name#answer-38642003), or wait for the upcoming 1.8.6 release.
+
 ### Bower - ENOENT or ENOEMPTY error during deploy
 
 If you're seeing this:
