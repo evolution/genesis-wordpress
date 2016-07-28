@@ -1,4 +1,8 @@
 ---
+- set_fact:
+    aliases: []
+  when: aliases is not defined
+
 - name:           Determine optimal hostname
   command:        echo {{stage}}.{{domain}}
   register:       new_host
