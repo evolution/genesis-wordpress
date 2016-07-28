@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "genesis-wordpress",
-  "version": "0.2.67",
+  "version": "0.2.68",
   "description": "Libraries for a multi-staged WordPress workflow with Vagrant",
   "main": "generator/app/index.js",
   "dependencies": {

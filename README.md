@@ -372,6 +372,7 @@ sudo reboot now
 
 ## Changelog
 
+- v0.2.68 - Fixed bug regarding undefined `aliases` variable
 - v0.2.67 - Added rudimentary ssl reverse proxy support ([#157](https://github.com/evolution/genesis-wordpress/pull/157))
 - v0.2.66 - Added domain aliases ([#156](https://github.com/evolution/genesis-wordpress/pull/156))
 - v0.2.65 - Moved across organizations in github and updated urls
