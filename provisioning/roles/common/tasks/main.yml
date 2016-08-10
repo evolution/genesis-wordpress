@@ -3,6 +3,10 @@
     aliases: []
   when: aliases is not defined
 
+- name:           Test distro and version, as we only support specifically Ubuntu 12
+  fail:           msg="{{ansible_distribution}} {{ansible_distribution_version}} is not supported"
+  when:           ansible_distribution != "Ubuntu" or ansible_distribution_major_version != "12"
+
 - name:           Determine optimal hostname
   command:        echo {{stage}}.{{domain}}
   register:       new_host
