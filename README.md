@@ -372,6 +372,7 @@ sudo reboot now
 
 ## Changelog
 
+- v0.3.1 - Fixed php warning from HTTPS check in Genesis.php ([#159](https://github.com/evolution/genesis-wordpress/pull/159))
 - v0.3.0 - Added distro & version check within provisioning ([#158](https://github.com/evolution/genesis-wordpress/pull/158))
 - v0.2.68 - Fixed bug regarding undefined `aliases` variable
 - v0.2.67 - Added rudimentary ssl reverse proxy support ([#157](https://github.com/evolution/genesis-wordpress/pull/157))
