@@ -127,8 +127,8 @@
   lineinfile:     dest=/etc/php5/apache2/php.ini backup=yes regexp='date\.timezone' line='date.timezone = "America/Chicago"'
   sudo:           yes
 
-- name:           Update my.conf's bind-address
-  lineinfile:     dest=/etc/mysql/my.cnf backup=yes regexp=^bind-address line='bind-address = 0.0.0.0'
+- name:           Tweak my.cnf
+  replace:        dest=/etc/mysql/my.cnf backup=yes regexp="^bind-address(.+)(\ninnodb_file_per_table.+)?" replace="bind-address = 0.0.0.0\ninnodb_file_per_table = 1"
   sudo:           yes
 
 - name:           Generate /etc/aliases
