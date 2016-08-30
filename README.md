@@ -370,6 +370,39 @@ sudo update-grub
 sudo reboot now
 ```
 
+### MySQL - Abnormal disk space usage by InnoDB
+
+Due to a [known issue for MySQL 5.5 or below](https://github.com/evolution/genesis-wordpress/issues/160), the innodb storage engine will consume but never release disk space by default:
+
+```
+deploy@production:~$ sudo ls -alh /var/lib/mysql/ib{data1,_logfile0,_logfile1}
+-rw-rw----  1 mysql mysql 1.6G Aug 29 12:50 ibdata1
+-rw-rw----  1 mysql mysql 5.0M Aug 29 12:50 ib_logfile0
+-rw-rw----  1 mysql mysql 5.0M Aug 29 12:44 ib_logfile1
+```
+
+This issue is resolved with a change to `my.cnf` (in the provisioning provided by genesis v0.3.2), and the following steps:
+
+
+1. sync down a copy of your target database (	`production` in this example:
+  * `bundle exec cap production genesis:down:db`
+
+2. reprovision target stage, to update `my.cnf` (with genesis v0.3.2 or higher):
+  * `bundle exec cap production genesis:provision`
+
+3. ssh in: `bundle exec cap production genesis:ssh`
+  * stop mysql service: `sudo service mysql stop`
+  * remove innodb files: `sudo rm /var/lib/mysql/ib{data1,_logfile0,_logfile1}`
+  * restart mysql service: `sudo service mysql start`
+
+4. reprovision a second time, to recreate wordpress db and user:
+  * `bundle exec cap production genesis:provision`
+
+5. sync up your db copy:
+  * `bundle exec cap production genesis:down:up`
+
+You _may_ also need to restart services afterward: `bundle exec cap production genesis:restart`
+
 ## Changelog
 
 - v0.3.1 - Fixed php warning from HTTPS check in Genesis.php ([#159](https://github.com/evolution/genesis-wordpress/pull/159))
