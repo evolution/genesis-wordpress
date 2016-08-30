@@ -405,6 +405,7 @@ You _may_ also need to restart services afterward: `bundle exec cap production g
 
 ## Changelog
 
+- v0.3.2 - Fixed mysql innodb disk space issues ([#160](https://github.com/evolution/genesis-wordpress/pull/160))
 - v0.3.1 - Fixed php warning from HTTPS check in Genesis.php ([#159](https://github.com/evolution/genesis-wordpress/pull/159))
 - v0.3.0 - Added distro & version check within provisioning ([#158](https://github.com/evolution/genesis-wordpress/pull/158))
 - v0.2.68 - Fixed bug regarding undefined `aliases` variable
