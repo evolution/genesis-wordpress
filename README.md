@@ -399,7 +399,7 @@ This issue is resolved with a change to `my.cnf` (in the provisioning provided b
   * `bundle exec cap production genesis:provision`
 
 5. sync up your db copy:
-  * `bundle exec cap production genesis:down:up`
+  * `bundle exec cap production genesis:up:db`
 
 You _may_ also need to restart services afterward: `bundle exec cap production genesis:restart`
 
