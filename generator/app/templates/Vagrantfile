@@ -34,7 +34,7 @@ Vagrant.configure("2") do |config|
 
     # Provision local.<%= props.domain %>
     box.vm.provision :shell do |shell|
-      shell.inline = "/vagrant/bin/provision"
+      shell.inline = "/vagrant/bin/provision -e stage=local"
     end
   end
 
