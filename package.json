@@ -8,7 +8,7 @@
     "chalk": "~0.3.0",
     "fs-extra": "~0.8.1",
     "github-latest": "~0.1.2",
-    "request": "~2.27.0",
+    "request": "~2.74.0",
     "ssh-keygen": "~0.2.1",
     "yeoman-generator": "~0.14.0-rc.1"
   },
