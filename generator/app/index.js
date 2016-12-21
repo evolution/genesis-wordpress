@@ -180,6 +180,34 @@ WordpressGenerator.prototype.promptForWordPress = function() {
   }.bind(this));
 };
 
+WordpressGenerator.prototype.promptForMultisite = function() {
+  var existing = function(web) {
+    try {
+      var file    = this.readFileAsString(path.join(web, 'wp-config.php'));
+      var multisite = file.match(/WP_ALLOW_MULTISITE[' "]*?,[ ]*(\w+)/i);
+
+      if (multisite.length) {
+        return multisite[1];
+      }
+    } catch(e) {}
+  }.bind(this);
+
+
+  this.prompts.push({
+    type:     'text',
+    name:     'multisite',
+    message:  'WordPress multisite',
+    default:  function(answers) {
+      return existing(answers.web) || false;
+    }
+  });
+
+    done();
+  }.bind(this));
+
+
+};
+
 WordpressGenerator.prototype.promptForTablePrefix = function() {
   var existing = function(web) {
     try {
