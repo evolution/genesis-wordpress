@@ -2,6 +2,8 @@
 php_packages:
   - php5-curl
   - php5-gd
+  - php5-dev
+  - php-pear
 
 apache_modules:
   - expires
