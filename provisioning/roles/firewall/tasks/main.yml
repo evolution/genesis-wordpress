@@ -1,0 +1,31 @@
+---
+- name:           Install fail2ban
+  apt:            pkg=fail2ban update_cache=yes
+  sudo:           yes
+
+- name:           Create iptables config directory
+  file:           path=/etc/iptables state=directory
+  sudo:           yes
+
+- name:           Install fail2ban + iptables-persistent configs
+  copy:           src=${item} dest=/etc/${item} mode=0644
+  with_items:
+    - fail2ban/filter.d/apache-wordpress.local
+    - default/iptables-persistent.conf
+    - iptables/rules
+    - iptables/ipv6_rules
+  sudo:           true
+
+- name:           Configure fail2ban jail
+  template:       src=fail2ban/jail.local dest=/etc/fail2ban/jail.local mode=0644
+  sudo:           true
+
+- name:           Install iptables-persistent init.d script
+  copy:           src=init.d/iptables-persistent dest=/etc/init.d/iptables-persistent mode=0755
+  sudo:           true
+
+- name:           Register iptables-persistent init.d script
+  command:        update-rc.d iptables-persistent defaults
+  sudo:           true
+  notify:
+    - restart iptables

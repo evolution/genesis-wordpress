@@ -1,0 +1,76 @@
+## Overrides of distribution-provided fail2ban jail.conf
+
+# Global definition of options, can be overridden in each jail afterwards.
+[DEFAULT]
+
+{% if fail2ban is defined and fail2ban.whitelist is defined %}
+# Can be space separated IP addresses, CIDR masks or DNS hosts
+ignoreip = 127.0.0.0/8 {{ fail2ban.whitelist | join(' ') }}
+
+{% endif %}
+{% if fail2ban is defined and fail2ban.ban_time is defined %}
+# Global default ban time (in seconds)
+bantime  = {{fail2ban.ban_time}}
+
+{% endif %}
+{% if fail2ban is defined and fail2ban.notification_email is defined %}
+# Destination email for interpolations in jail.{conf,local}
+destemail = {{fail2ban.notification_email}}
+
+{% endif %}
+# Default banning action
+banaction = iptables-multiport
+
+# Default action (e.g. action_ for ban only, action_mw for ban + email, action_mwl for ban + email w relevant log entries)
+{% if fail2ban is defined and fail2ban.notify_on_ban is defined and fail2ban.notify_on_ban %}
+action = %(action_mwl)s
+{% else %}
+action = %(action_)s
+{% endif %}
+
+# Ignore all hostnames (rather than ips) in log files and optionally warn administrator that hostnames are being logged
+# yes   (default behavior)
+# warn  (uses but warns upon each dns lookup)
+# no    (no DNS lookup, no warnings, INFO-LEVEL log messages when rDNS was necessary and entry was ignored because of that)
+use_dns = no
+
+
+[ssh]
+
+enabled  = true
+port     = ssh
+filter   = sshd
+logpath  = /var/log/auth.log
+maxretry = 6
+
+[ssh-ddos]
+
+enabled  = true
+port     = ssh
+filter   = sshd-ddos
+logpath  = /var/log/auth.log
+maxretry = 6
+
+[apache]
+
+enabled  = true
+port     = http,https
+filter   = apache-auth
+logpath  = /var/log/apache*/*error.log
+maxretry = 6
+
+[apache-overflows]
+
+enabled  = true
+port     = http,https
+filter   = apache-overflows
+logpath  = /var/log/apache*/*error.log
+maxretry = 2
+
+[apache-wordpress]
+
+enabled  = true
+port     = http,https
+filter   = apache-wordpress
+logpath  = /var/log/apache*/*error.log
+maxretry = 3

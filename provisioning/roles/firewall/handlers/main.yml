@@ -1,0 +1,4 @@
+---
+- name:     restart iptables
+  command:  /etc/init.d/iptables-persistent restart
+  sudo:     true
